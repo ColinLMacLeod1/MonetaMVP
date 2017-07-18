@@ -3,7 +3,6 @@ const cors = require('cors')
 const axios = require('axios')
 const app = express()
 const bodyParser = require('body-parser')
-const birds = require('./modular')
 const mongoose = require('mongoose')
 const assert = require('assert')
 const User = require('../models/users')
@@ -23,7 +22,12 @@ mongoose.connection.once('open',function(){
 }).on('error',function(error){
 	console.log('Connection error',error);
 });
-
+mongoose.connection.collections.users.drop(function(){
+  console.log('users droppped');
+});
+mongoose.connection.collections.meetings.drop(function(){
+  console.log('meetings droppped');
+});
 app.post('/save', function(req,res) {
 	console.log(req.body);
 	var meeting = new Meeting({
