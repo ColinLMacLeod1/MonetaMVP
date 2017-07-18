@@ -1,7 +1,7 @@
 {
-  "name": "proofofconcept",
+  "name": "MonetaMVP",
   "version": "0.0.1",
-  "description": "QICSI Proof of Concept",
+  "description": "Moneta MVP",
   "main": "webpack.config.js",
   "dependencies": {
     "axios": "^0.16.2",
@@ -43,12 +43,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ColinLMacLeod1/PoC.git"
+    "url": "git+https://github.com/ColinLMacLeod1/MonetaMVP.git"
   },
   "author": "Colin MacLeod, Andrew Litt",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ColinLMacLeod1/PoC/issues"
+    "url": "https://github.com/ColinLMacLeod1/MonetaMVP/issues"
   },
-  "homepage": "https://github.com/ColinLMacLeod1/PoC#readme"
+  "homepage": "https://github.com/ColinLMacLeod1/MonetaMVP#readme"
 }
