@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import TimePicker from 'material-ui/TimePicker';
 
-const MeetingForm = ({onSubmit, onChange, errors, user}) => (
+const MeetingForm = ({onSubmit, onChange, errors}) => (
   <Card className="meeting">
     <CardTitle title="New Meeting" />
     <div>
