@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const Header = () => (
-		<div className="header" style={{width:'100vw'}}>
+		<div className="header" style={{width:'100vw',display:'inline-block'}}>
 			<center>
 				<h4><Link to="/">Home</Link></h4>
 				<h4><Link to="/about">About</Link></h4>
