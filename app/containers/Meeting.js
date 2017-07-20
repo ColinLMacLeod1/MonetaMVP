@@ -2,7 +2,7 @@ import React from 'react';
 import _, { clone,merge } from 'lodash';
 import axios from 'axios';
 import MeetingForm from '../components/MeetingForm.js'
-
+import Dictation from '../components/Dictation.js'
 export default class Meeting extends React.Component {
   constructor(props) {
 		super(props);
@@ -30,7 +30,8 @@ export default class Meeting extends React.Component {
 				"Also a test"
 			],
 			actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
-			decisions: ["Decision Test"]
+			decisions: ["Decision Test"],
+      pane: 0
 		}
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
@@ -48,14 +49,23 @@ export default class Meeting extends React.Component {
   }
   onSubmit(event){
     console.log(this.state)
+    this.setState({
+      pane: 1
+    })
   }
   render() {
-  		return (
+      switch (this.state.pane) {
+      case 0:
+        return (
   					<MeetingForm
               onSubmit={this.onSubmit}
               onChange={this.onChange}
               errors={this.errors}
-  					/>
-  			)
+  					/>);
+      case 1:
+        return (
+            <Dictation
+            />);
   	}
   }
+}
