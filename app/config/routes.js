@@ -15,7 +15,7 @@ var routes = (
 		<Router>
 			<div>
 				<Route path="/" component={Header} />
-				<Route path="/" component={Meeting} />
+				<Route path="/meeting" component={Meeting} />
 	    </div>
 		</Router>
 	</MuiThemeProvider>

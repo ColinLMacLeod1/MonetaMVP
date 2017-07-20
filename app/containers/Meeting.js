@@ -15,8 +15,8 @@ export default class Meeting extends React.Component {
 			value:'lkjhkljh',
 			title: "Finalize Sgt.Peppers Lyrics",
 			type: "Songwriting Meeting",
-			date: {},
-			location:"Place",
+			date: new Date(),
+			location:"Abbey Road",
 			groups: ["tech", "Sales"],
 			chair: "Litt",
 			members: [
@@ -54,6 +54,12 @@ export default class Meeting extends React.Component {
     })
   }
   render() {
+      var data={
+        title: this.state.title,
+        type: this.state.type,
+        date: this.state.date,
+        location: this.state.location
+      }
       switch (this.state.pane) {
       case 0:
         return (
@@ -65,6 +71,7 @@ export default class Meeting extends React.Component {
       case 1:
         return (
             <Dictation
+              data={data}
             />);
   	}
   }
