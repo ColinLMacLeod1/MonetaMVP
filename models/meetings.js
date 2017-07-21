@@ -11,7 +11,8 @@ const MeetingSchema = new Schema({
   members: Array,
   minutes: Array,
   actions: Array,
-  decisions:Array
+  decisions:Array,
+  username: String
 });
 
 const Meeting = mongoose.model('meeting', MeetingSchema);

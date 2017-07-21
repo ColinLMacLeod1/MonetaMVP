@@ -9,6 +9,7 @@ import Header from '../components/Header.js';
 import Meeting from '../containers/Meeting.js'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MeetingForm from '../components/MeetingForm';
+import Repo from '../containers/Repo';
 
 var routes = (
 	<MuiThemeProvider>
@@ -16,6 +17,7 @@ var routes = (
 			<div>
 				<Route path="/" component={Header} />
 				<Route path="/meeting" component={Meeting} />
+				<Route path="/repo" component={Repo} />
 	    </div>
 		</Router>
 	</MuiThemeProvider>
