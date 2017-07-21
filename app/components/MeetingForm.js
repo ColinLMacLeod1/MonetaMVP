@@ -5,7 +5,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import TimePicker from 'material-ui/TimePicker';
 import Divider from 'material-ui/Divider';
-const MeetingForm = ({onSubmit, onChange, errors}) => (
+import Chip from 'material-ui/Chip'
+import {List, ListItem }from 'material-ui/List'
+
+const MeetingForm = ({ onChange, onDelete, onAdd, members, toDictation, errors}) => (
   <Card className="meeting">
     <CardTitle title="New Meeting" />
       <TextField
@@ -36,8 +39,22 @@ const MeetingForm = ({onSubmit, onChange, errors}) => (
         underlineShow={false}
         onChange={onChange}
       /><Divider />
-      <RaisedButton label="Next" primary={true} onClick={onSubmit}/>
+      <TextField
+        className="field-line"
+        floatingLabelText="Add Members"
+        name="members"
+        onChange={onChange}
+      />
+      <RaisedButton label="Add Member" secondary={true} onClick={onAdd}/>
+      {members.map((member,index) =>
+        <Chip key={index} onRequestDelete={() => onDelete(index)} >
+          {member}
+        </Chip>
+      )}
+      <br/><br/>
+      <RaisedButton label="Next" primary={true} onClick={toDictation}/>
   </Card>
 );
+
 
 export default MeetingForm;
