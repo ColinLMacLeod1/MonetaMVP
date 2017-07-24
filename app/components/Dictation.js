@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
 
-const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data}) => (
+const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data, toFile}) => (
 		<Card className="dictation">
 			<h1>{data.title}</h1>
 			<h2>{data.type}</h2>
@@ -38,7 +38,7 @@ const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data}) => (
 					<CardTitle title="General Notes"/>
 					<List>
 						{data.minutes.map((item,index) =>
-							<ListItem primaryText={item}/>
+							<ListItem key={index} primaryText={item}/>
 						)}
 					</List>
 					<TextField
@@ -52,7 +52,7 @@ const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data}) => (
 			</div>
 			<div className="navButtons">
 				<FlatButton label="Previous" primary={true} onClick={toMeta}/>
-				<FlatButton label="Finish" primary={true}/>
+				<FlatButton label="Finish" primary={true} onClick={toFile}/>
 			</div>
 		</Card>
 	)

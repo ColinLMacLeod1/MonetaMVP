@@ -37,6 +37,7 @@ export default class Meeting extends React.Component {
     this.onChange = this.onChange.bind(this)
     this.toDictation = this.toDictation.bind(this)
     this.toMeta = this.toMeta.bind(this)
+    this.toFile = this.toFile.bind(this)
 	}
   onChange(event, newValue, chips){
     console.log(newValue)
@@ -67,6 +68,11 @@ export default class Meeting extends React.Component {
       pane: 0
     })
   }
+  toFile(){
+    this.setState({
+      pane: 2
+    })
+  }
   render() {
       var data={
         title: this.state.title,
@@ -95,11 +101,13 @@ export default class Meeting extends React.Component {
             <Dictation
               data={data}
               toMeta={this.toMeta}
+              toFile={this.toFile}
             />);
       case 2:
         return (
             <FileDisplay
               data={data}
+
             />);
   	}
   }
