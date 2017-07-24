@@ -11,6 +11,7 @@ import SearchRes from '../components/SearchRes'
 import CircularProgress from 'material-ui/CircularProgress'
 import Edit from '../components/Edit'
 import Repository from './Repository'
+import FileDisplay from '../components/FileDisplay.js'
 
 var sampleResults = {
   title: "Finalize Sgt.Peppers Lyrics",
@@ -25,7 +26,7 @@ var sampleResults = {
       "George",
       "Ringo"
     ],
-  username: 'colinlmacleod1'
+  username: 'colinlmacleod1',
 }
 
 
@@ -147,7 +148,7 @@ export default class SearchC extends React.Component {
         break;
       case 'edit':
         page = (<div>
-                <Repository />
+                <FileDisplay data={this.state.meetingRes}  />
                 </div>
               );
         break;
