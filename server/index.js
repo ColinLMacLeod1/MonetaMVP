@@ -87,17 +87,17 @@ app.post('/search',function(req,res){
 	console.log(req.body)
 	if(req.body.searchType === 'title'){
 		console.log('Title search')
-		Meeting.find({title: {$regex:req.body.search, $options: "i"}, username:req.body.username}).then(function(result){
+		Meeting.find({ title: {$regex:req.body.search, $options: "i"}}).then(function(result){
 			res.send(JSON.stringify(result))
 		})
 	} else if(req.body.searchType === 'members') {
 		console.log('Member search')
-		Meeting.find({members: {$in:[req.body.search]}, username:req.body.username}).then(function(result){
+		Meeting.find({members: {$in:[req.body.search]}}).then(function(result){
 			res.send(JSON.stringify(result))
 		})
 	}	else if (req.body.searchType === 'date'){
 		console.log('Date search')
-		Meeting.find({title: {$regex:req.body.search, $options: "i"}, username:req.body.username}).then(function(result){
+		Meeting.find({date: {$gt:req.body.lower, $lt: req.body.upper}, username:req.body.username}).then(function(result){
 			res.send(JSON.stringify(result))
 		})
 	} else {

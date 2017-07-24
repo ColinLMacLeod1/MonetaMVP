@@ -51,7 +51,7 @@ saveFile() {
       minutes: self.state.minutes,
       actions: self.state.actions,
       decisions: self.state.decisions,
-      username:'colinlmacleod1'
+      username: 'colinlmacleod1'
     }
     )
     .then(function(res) {

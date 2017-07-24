@@ -9,7 +9,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import RaisedButton from 'material-ui/RaisedButton'
 import SearchRes from '../components/SearchRes'
 import CircularProgress from 'material-ui/CircularProgress';
-
+import Edit from '../components/Edit'
 
 var sampleResults = {
   title: "Finalize Sgt.Peppers Lyrics",
@@ -23,7 +23,8 @@ var sampleResults = {
       "John",
       "George",
       "Ringo"
-    ]
+    ],
+  username: 'colinlmacleod1'
 }
 
 
@@ -35,13 +36,15 @@ export default class Meeting extends React.Component {
 			search: '',
       searchType: 'title',
       results: [],
-      progress: ''
+      progress: '',
+      meetingRes: null
 		}
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.onTabChange = this.onTabChange.bind(this)
     this.search = this.search.bind(this)
-
+    this.selectResult = this.selectResult.bind(this)
+    this.setResult = this.setResult.bind(this)
 	}
   handleChange(e){
     this.setState({
@@ -58,6 +61,18 @@ export default class Meeting extends React.Component {
     this.setState({
       searchType: value
     });
+
+  }
+  selectResult(rank) {
+    console.log(rank)
+    this.setState({
+      meetingRes:this.state.results[rank]
+    });
+
+
+  }
+  setResult(rank){
+
   }
   search() {
     console.log('search')
@@ -97,27 +112,41 @@ export default class Meeting extends React.Component {
 
   }
   render() {
-    var displayResults = null;
-    switch(this.state.progress) {
+
+
+    var page = null;
+    var selector = '';
+    if(this.state.meetingRes){
+      console.log('Edit')
+      selector = 'edit';
+    } else {
+      selector = this.state.progress;
+    }
+    console.log(this.state.progress)
+    console.log(this.state.meetingRes)
+    switch(selector) {
       case 'loading':
-        displayResults = (<center>
+        page = (<center>
           <CircularProgress style={{marginTop:'2vh'}} size={60} thickness={7} />
         </center>);
         break;
       case 'done':
-        displayResults = this.state.results.map((result) =>
-          <SearchRes results={result} key={Math.random()*10000000} />
+        page = this.state.results.map((result,rank) =>
+          <SearchRes results={result} key={Math.random()*10000000} selectResult={()=>this.selectResult(rank)} />
         );
         break;
       case 'noResult':
-        displayResults = (<Card style={{width:'80vw', margin:'2vh 10vw 0vh 10vw'}}>
+        page = (<Card style={{width:'80vw', margin:'2vh 10vw 0vh 10vw'}}>
           <CardHeader
             title={'No Results to Show'}
           />
-        </Card>)
+        </Card>);
+        break;
+      case 'edit':
+        page = <SearchRes results={this.state.meetingRes} selectResult={()=>this.selectResult(rank)} />;
         break;
       default:
-          displayResults = null;
+          page = null;
     }
 
   	return (
@@ -152,6 +181,7 @@ export default class Meeting extends React.Component {
               fullWidth={true}
               value = {this.state.search}
               onChange = {this.handleChange}
+              onKeyPress={this.handleKeyPress}
             />
             </Tab>
             <Tab label="Date" value="date">
@@ -163,11 +193,12 @@ export default class Meeting extends React.Component {
               fullWidth={true}
               value = {this.state.search}
               onChange = {this.handleChange}
+              onKeyPress={this.handleKeyPress}
             />
             </Tab>
           </Tabs>
         </Card>
-        {displayResults}
+        {page}
       </div>
     )
   }
