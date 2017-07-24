@@ -8,8 +8,9 @@ import TextField from 'material-ui/TextField'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import SearchRes from '../components/SearchRes'
-import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from 'material-ui/CircularProgress'
 import Edit from '../components/Edit'
+import Repository from './Repository'
 
 var sampleResults = {
   title: "Finalize Sgt.Peppers Lyrics",
@@ -111,6 +112,8 @@ export default class SearchC extends React.Component {
       console.log('Searched')
 
   }
+  //<SearchRes results={this.state.meetingRes} selectResult={()=>this.selectResult(rank)} />
+
   render() {
 
 
@@ -143,7 +146,10 @@ export default class SearchC extends React.Component {
         </Card>);
         break;
       case 'edit':
-        page = <SearchRes results={this.state.meetingRes} selectResult={()=>this.selectResult(rank)} />;
+        page = (<div>
+                <Repository />
+                </div>
+              );
         break;
       default:
           page = null;
