@@ -11,7 +11,7 @@ const SearchRes = (props) => (
         title={props.results.title}
         subtitle={props.results.date}
       />
-      <FlatButton label="Select" fullWidth={true} />
+      <FlatButton label="Select" fullWidth={true} onClick={()=>props.selectResult(props.rank)}/>
     </Card>
   </div>
 
