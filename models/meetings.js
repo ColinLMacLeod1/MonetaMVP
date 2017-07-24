@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const MeetingSchema = new Schema({
   title: String,
   type: String,
-  date: String,
+  date: Date,
   location:String,
   groups: Array,
   chair: String,

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+var DATES = new Date();
 
 export default class CreateDB extends React.Component {
 
@@ -15,7 +16,7 @@ export default class CreateDB extends React.Component {
 			value:'lkjhkljh',
 			title: "Finalize Sgt.Peppers Lyrics",
 			type: "Songwriting Meeting",
-			date: "Wednesday, June 28th",
+			date: new Date,
 			location:"Place",
 			groups: ["tech", "Sales"],
 			chair: "Litt",
@@ -36,14 +37,16 @@ export default class CreateDB extends React.Component {
   }
 
 
+
 saveFile() {
   console.log('Saving')
   const self = this;
+	console.log(DATES)
   axios.post('http://localhost:4200/save',
     {
       title: self.state.title,
       type: self.state.type,
-      date: self.state.date,
+      date: DATES,
       location:self.state.location,
       groups: self.state.groups,
       chair: self.state.chair,
@@ -57,6 +60,7 @@ saveFile() {
     .then(function(res) {
       console.log(res.data)
       console.log('Saved')
+			console.log(new Date(res.data.date))
     })
     .catch(function(error) {
       console.log(error)
