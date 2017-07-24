@@ -34,41 +34,27 @@ export default class Meeting extends React.Component {
       pane: 0
 		}
     this.onChange = this.onChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-    this.onDelete = this.onDelete.bind(this)
     this.toDictation = this.toDictation.bind(this)
     this.toMeta = this.toMeta.bind(this)
 	}
-  onChange(event,newValue){
+  onChange(event, newValue, chips){
     console.log(newValue)
-    if(typeof(newValue)==='object'){
+    if(newValue === null){
+      console.log('Called!')
+      this.setState({
+        members: chips
+      })
+    }
+    else if(typeof(newValue)==='object'){
       this.setState({
         date: newValue
       })
     }
     else{
-      if(event.target.name==="members"){
-
-      }
-      else{
         this.setState({
           [event.target.name]: newValue
         })
-      }
     }
-  }
-  onSubmit(event){
-    console.log(event)
-    this.setState({
-      pane: 1
-    })
-  }
-  onDelete(index){
-    console.log(index)
-    this.setState({
-    	members: this.state.members.filter(function (event, i) { return i !== index; })
-    });
-    console.log(this.state.members)
   }
   toDictation(){
     this.setState({
@@ -95,9 +81,10 @@ export default class Meeting extends React.Component {
               onSubmit={this.onSubmit}
               onChange={this.onChange}
               onDelete={this.onDelete}
+              memberChange={this.memberChange}
               toDictation={this.toDictation}
               errors={this.errors}
-              members={this.state.members}
+              data={data}
   					/>);
       case 1:
         return (
