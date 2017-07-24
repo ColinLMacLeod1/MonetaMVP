@@ -7,13 +7,14 @@ import TimePicker from 'material-ui/TimePicker';
 import Divider from 'material-ui/Divider';
 import Chip from 'material-ui/Chip'
 import ChipInput from 'material-ui-chip-input'
-import {List, ListItem }from 'material-ui/List'
+
 
 const MeetingForm = ({ onChange, data, toDictation, errors}) => (
   <Card className="meeting">
     <CardTitle title="New Meeting" />
       <TextField
         className="field-line"
+        value={data.title}
         floatingLabelText="Title"
         name="title"
         underlineShow={false}
@@ -21,6 +22,7 @@ const MeetingForm = ({ onChange, data, toDictation, errors}) => (
       /><Divider />
       <TextField
         className="field-line"
+        value={data.type}
         floatingLabelText="Meeting Type"
         name="type"
         underlineShow={false}
@@ -28,6 +30,7 @@ const MeetingForm = ({ onChange, data, toDictation, errors}) => (
       /><Divider />
       <TextField
         className="field-line"
+        value={data.location}
         floatingLabelText="Location"
         name="location"
         underlineShow={false}
@@ -35,6 +38,7 @@ const MeetingForm = ({ onChange, data, toDictation, errors}) => (
       /><Divider />
       <TimePicker
         className="field-line"
+        value={data.date}
         hintText="Time"
         minutesStep={5}
         underlineShow={false}

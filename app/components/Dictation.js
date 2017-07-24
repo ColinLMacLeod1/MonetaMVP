@@ -2,8 +2,10 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import TextField from 'material-ui/TextField';
 import {Card, CardTitle} from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton'
-import FlatButton from 'material-ui/FlatButton'
+import {List, ListItem} from 'material-ui/List';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+
 
 const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data}) => (
 		<Card className="dictation">
@@ -34,6 +36,11 @@ const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data}) => (
 				</Card>
 				<Card className="section">
 					<CardTitle title="General Notes"/>
+					<List>
+						{data.minutes.map((item,index) =>
+							<ListItem primaryText={item}/>
+						)}
+					</List>
 					<TextField
 		        className="field-line"
 		        floatingLabelText="Notes"

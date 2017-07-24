@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 
-export default class VoiceRecC extends React.Component {
+export default class CreateDB extends React.Component {
 
 	constructor(props) {
 		super(props);

@@ -3,6 +3,7 @@ import _, { clone,merge } from 'lodash';
 import axios from 'axios';
 import MeetingForm from '../components/MeetingForm.js'
 import Dictation from '../components/Dictation.js'
+import FileDisplay from '../components/FileDisplay.js'
 export default class Meeting extends React.Component {
   constructor(props) {
 		super(props);
@@ -72,7 +73,10 @@ export default class Meeting extends React.Component {
         type: this.state.type,
         date: this.state.date,
         location: this.state.location,
-        members: this.state.members
+        members: this.state.members,
+        minutes: this.state.minutes,
+        actions: this.state.actions,
+        decisions: this.state.decisions
       }
       switch (this.state.pane) {
       case 0:
@@ -91,6 +95,11 @@ export default class Meeting extends React.Component {
             <Dictation
               data={data}
               toMeta={this.toMeta}
+            />);
+      case 2:
+        return (
+            <FileDisplay
+              data={data}
             />);
   	}
   }

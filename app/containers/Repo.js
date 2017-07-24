@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchC from './SearchC'
 
-export default class Meeting extends React.Component {
+export default class Repo extends React.Component {
   constructor(props) {
 		super(props);
 		this.state = {
