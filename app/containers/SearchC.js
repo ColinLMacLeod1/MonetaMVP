@@ -148,9 +148,9 @@ export default class SearchC extends React.Component {
         break;
       case 'edit':
         page = (<div>
-                <FileDisplay data={this.state.meetingRes}  />
-                </div>
-              );
+                  <SearchRes results={this.state.meetingRes} selectResult={()=>this.selectResult(rank)} />
+                  <Repository meetingRes={this.state.meetingRes} />
+                </div>);
         break;
       default:
           page = null;
