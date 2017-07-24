@@ -12,6 +12,7 @@ import MeetingForm from '../components/MeetingForm';
 import Repo from '../containers/Repo';
 import Repository from '../containers/Repository'
 import CreateDB from '../containers/CreateDB';
+import Login from '../containers/Login'
 
 var routes = (
 	<MuiThemeProvider>
@@ -22,6 +23,7 @@ var routes = (
 				<Route path="/repo" component={Repo} />
 				<Route path="/popDB" component={CreateDB} />
 				<Route path="/repository" component={Repository} />
+				<Route path="/login" component={Login} />
 	    </div>
 		</Router>
 	</MuiThemeProvider>
