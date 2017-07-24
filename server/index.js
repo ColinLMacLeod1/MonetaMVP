@@ -29,6 +29,25 @@ mongoose.connection.collections.users.drop(function(){
 mongoose.connection.collections.meetings.drop(function(){
   console.log('meetings droppped');
 });
+// Adding test users
+var user1 = new User({
+	username: 'colin',
+	password: 'macleod'
+});
+user1.save().then(function(){
+	if(user1.isNew === false){
+		console.log(user1);
+	};
+});
+var user2 = new User({
+	username:'andrew',
+	password: 'litt'
+});
+user2.save().then(function(){
+	if(user2.isNew === false){
+		console.log(user2);
+	};
+});
 
 //Save meeting
 app.post('/save', function(req,res) {

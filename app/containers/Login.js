@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import LoginForm from '../components/LoginForm.js';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 
 export default class Login extends React.Component {
@@ -22,6 +24,25 @@ export default class Login extends React.Component {
     event.preventDefault();
     console.log('email:', this.state.user.email);
     console.log('password:', this.state.user.password);
+    const self = this;
+		axios.post('http://localhost:4200/login',
+			{
+				username: self.state.user.email,
+				password: self.state.user.password
+			}
+			)
+			.then(function(res) {
+				console.log(res.data)
+				if(res.data != 'User not found'){
+					console.log('Login Successful')
+          self.props.history.push('/home')
+				}
+
+			})
+			.catch(function(error) {
+				console.log(error)
+			})
+
   }
 
   changeUser(event) {

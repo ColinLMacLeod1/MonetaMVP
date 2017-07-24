@@ -9,21 +9,23 @@ import Header from '../components/Header.js';
 import Meeting from '../containers/Meeting.js'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MeetingForm from '../components/MeetingForm';
-import Repo from '../containers/Repo';
+import RepoUser from '../containers/RepoUser';
 import Repository from '../containers/Repository'
 import CreateDB from '../containers/CreateDB';
-import Login from '../containers/Login'
+import Login from '../containers/Login';
+import HomeUser from '../containers/HomeUser'
 
 var routes = (
 	<MuiThemeProvider>
 		<Router>
 			<div>
 				<Route path="/" component={Header} />
+				<Route path="/home" component={HomeUser} />
 				<Route path="/meeting" component={Meeting} />
-				<Route path="/repo" component={Repo} />
+				<Route path="/repo" component={RepoUser} />
 				<Route path="/popDB" component={CreateDB} />
 				<Route path="/repository" component={Repository} />
-				<Route path="/login" component={Login} />
+				<Route path="/login" component={Login} history={history} />
 	    </div>
 		</Router>
 	</MuiThemeProvider>
