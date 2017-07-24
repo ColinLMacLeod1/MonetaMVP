@@ -3,7 +3,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const Home = ({data}) => (
+const Help = ({data}) => (
   <div style={{display:'flex'}}>
     <Card style={{width:'30vw', margin:'10vh 5vw 0vh 15vw', height:'30vw'}}>
       <CardHeader
@@ -29,4 +29,4 @@ const Home = ({data}) => (
     </Card>
   </div>
 )
-export default Home
+export default Help

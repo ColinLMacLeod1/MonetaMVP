@@ -13,19 +13,19 @@ import RepoUser from '../containers/RepoUser';
 import Repository from '../containers/Repository'
 import CreateDB from '../containers/CreateDB';
 import Login from '../containers/Login';
-import HomeUser from '../containers/HomeUser'
+import Home from '../containers/Home'
 
 var routes = (
 	<MuiThemeProvider>
 		<Router>
 			<div>
 				<Route path="/" component={Header} />
-				<Route path="/home" component={HomeUser} />
+				<Route  exact path="/" component={Login} history={history} />
+				<Route path="/home" component={Home} />
 				<Route path="/meeting" component={Meeting} />
 				<Route path="/repo" component={RepoUser} />
 				<Route path="/popDB" component={CreateDB} />
 				<Route path="/repository" component={Repository} />
-				<Route path="/login" component={Login} history={history} />
 	    </div>
 		</Router>
 	</MuiThemeProvider>

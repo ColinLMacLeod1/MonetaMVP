@@ -1,10 +1,10 @@
 import React from 'react';
-import Home from '../components/Home'
+import Help from '../components/Help'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import RepoUser from '../containers/RepoUser'
 import Meeting from '../containers/Meeting'
 
-export default class HomeUser extends React.Component {
+export default class Home extends React.Component {
   constructor(props) {
 		super(props);
 		this.state = {
@@ -20,8 +20,8 @@ export default class HomeUser extends React.Component {
         <Tab label="Repository">
           <RepoUser />
         </Tab>
-        <Tab label="Home">
-          <Home />
+        <Tab label="Help">
+          <Help />
         </Tab>
       </Tabs>
     )
