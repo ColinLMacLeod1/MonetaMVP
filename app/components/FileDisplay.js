@@ -1,8 +1,9 @@
 import React from 'react';
 import {Card, CardTitle} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
+import FlatButton from 'material-ui/FlatButton';
 
-const FileDisplay = ({data}) => (
+const FileDisplay = ({data,toDictation,save,toEmail,toPDF}) => (
   <Card className="dictation">
     <h1>{data.title}</h1>
     <h2>{data.type}</h2>
@@ -33,6 +34,12 @@ const FileDisplay = ({data}) => (
           )}
         </List>
       </Card>
+    </div>
+    <div className="navButtons">
+      <FlatButton label="Edit" primary={true} onClick={toDictation}/>
+      <FlatButton label="Email" primary={true} onClick={toEmail}/>
+      <FlatButton label="Print PDF" primary={true} onClick={toPDF}/>
+      <FlatButton label="Save" primary={true} onClick={save}/>
     </div>
   </Card>
 )

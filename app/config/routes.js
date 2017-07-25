@@ -9,7 +9,7 @@ import Header from '../components/Header.js';
 import Meeting from '../containers/Meeting.js'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MeetingForm from '../components/MeetingForm';
-import RepoUser from '../containers/RepoUser';
+import SearchC from '../containers/SearchC';
 import Repository from '../containers/Repository'
 import CreateDB from '../containers/CreateDB';
 import Login from '../containers/Login';
@@ -23,7 +23,7 @@ var routes = (
 				<Route  exact path="/" component={Login} history={history} />
 				<Route path="/home" component={Home} />
 				<Route path="/meeting" component={Meeting} />
-				<Route path="/repo" component={RepoUser} />
+				<Route path="/repo" component={SearchC} />
 				<Route path="/popDB" component={CreateDB} />
 				<Route path="/repository" component={Repository} />
 	    </div>

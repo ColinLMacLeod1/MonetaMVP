@@ -1,7 +1,7 @@
 import React from 'react';
 import Help from '../components/Help'
 import {Tabs, Tab} from 'material-ui/Tabs'
-import RepoUser from '../containers/RepoUser'
+import SearchC from '../containers/SearchC'
 import Meeting from '../containers/Meeting'
 
 export default class Home extends React.Component {
@@ -18,7 +18,7 @@ export default class Home extends React.Component {
           <Meeting />
         </Tab>
         <Tab label="Repository">
-          <RepoUser />
+          <SearchC />
         </Tab>
         <Tab label="Help">
           <Help />

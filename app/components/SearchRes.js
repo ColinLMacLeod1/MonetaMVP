@@ -9,7 +9,7 @@ const SearchRes = (props) => (
     <Card style={{width:'80vw', margin:'2vh 10vw 0vh 10vw'}}>
       <CardHeader
         title={props.results.title}
-        subtitle={props.results.date}
+        subtitle={(new Date(props.results.date)).toDateString()}
       />
       <FlatButton label="Select" fullWidth={true} onClick={()=>props.selectResult(props.rank)}/>
     </Card>
