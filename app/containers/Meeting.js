@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import MeetingForm from '../components/MeetingForm.js'
 import Dictation from '../components/Dictation.js'
-import FileDisplay from '../components/FileDisplay.js'
+import FileReview from '../components/FileReview.js'
+
 export default class Meeting extends React.Component {
   constructor(props) {
 		super(props);
@@ -28,7 +29,8 @@ export default class Meeting extends React.Component {
 			actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
 			decisions: ["Decision Test"],
       pane: 0,
-      username: this.props.username
+      username: this.props.username,
+      saved:false
 		}
     this.onChange = this.onChange.bind(this)
     this.toDictation = this.toDictation.bind(this)
@@ -38,6 +40,7 @@ export default class Meeting extends React.Component {
     this.toEmail = this.toEmail.bind(this)
     this.toPDF = this.toPDF.bind(this)
     this.createEmail = this.createEmail.bind(this)
+    this.handleRequestClose = this.handleRequestClose.bind(this)
 	}
   onChange(event, newValue, chips){
     console.log(newValue)
@@ -93,6 +96,9 @@ export default class Meeting extends React.Component {
 			)
 			.then(function(res) {
 				console.log(res.data)
+        self.setState({
+          saved:true
+        })
 				console.log('Saved')
 			})
 			.catch(function(error) {
@@ -147,6 +153,11 @@ export default class Meeting extends React.Component {
   toPDF(){
     console.log('to PDF')
   }
+  handleRequestClose(){
+    this.setState({
+      saved: false
+    });
+  };
   render() {
       var data={
         title: this.state.title,
@@ -179,12 +190,14 @@ export default class Meeting extends React.Component {
             />);
       case 2:
         return (
-            <FileDisplay
+            <FileReview
               data={data}
               toDictation={this.toDictation}
               save={this.save}
               toPDF={this.toPDF}
               toEmail={this.toEmail}
+              saved={this.state.saved}
+              handleRequestClose={this.handleRequestClose}
             />);
   	}
   }

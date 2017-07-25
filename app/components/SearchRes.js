@@ -14,8 +14,6 @@ const SearchRes = (props) => (
       <FlatButton label="Select" fullWidth={true} onClick={()=>props.selectResult(props.rank)}/>
     </Card>
   </div>
-
-
 );
 
 export default SearchRes;

@@ -2,8 +2,9 @@ import React from 'react';
 import {Card, CardTitle} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
+import Snackbar from 'material-ui/Snackbar';
 
-const FileDisplay = ({data,toDictation,save,toEmail,toPDF}) => (
+const FileDisplay = ({data,toDictation,save,toEmail,toPDF,saved,handleRequestClose}) => (
   <Card className="dictation">
     <h1>{data.title}</h1>
     <h2>{data.type}</h2>
@@ -36,9 +37,17 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF}) => (
       </Card>
     </div>
     <div className="navButtons">
+      <FlatButton label="Edit" primary={true} onClick={toDictation}/>
       <FlatButton label="Email" primary={true} onClick={toEmail}/>
       <FlatButton label="Print PDF" primary={true} onClick={toPDF}/>
+      <FlatButton label="Save" primary={true} onClick={save}/>
     </div>
+    <Snackbar
+          open={saved}
+          message="Saved"
+          autoHideDuration={4000}
+          onRequestClose={handleRequestClose}
+        />
   </Card>
 )
 export default FileDisplay

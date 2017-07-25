@@ -9,9 +9,8 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import RaisedButton from 'material-ui/RaisedButton'
 import SearchRes from '../components/SearchRes'
 import CircularProgress from 'material-ui/CircularProgress'
-import Edit from '../components/Edit'
 import Repository from './Repository'
-import FileDisplay from '../components/FileDisplay.js'
+
 
 var sampleResults = {
   title: "Finalize Sgt.Peppers Lyrics",
