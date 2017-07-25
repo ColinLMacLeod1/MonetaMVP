@@ -45,8 +45,39 @@ export default class SearchC extends React.Component {
     this.onTabChange = this.onTabChange.bind(this)
     this.search = this.search.bind(this)
     this.selectResult = this.selectResult.bind(this)
-    this.setResult = this.setResult.bind(this)
 	}
+  componentDidMount(){
+    const self = this;
+      self.setState({
+        progress: 'loading'
+      });
+  		axios.post('http://localhost:4200/search',
+  			{
+  				search:'',
+          searchType:'title',
+          username:this.state.username
+  			}
+  			)
+  			.then(function(res) {
+  				console.log(res.data)
+          if(res.data.length==0){
+            self.setState({
+              progress:'noResult',
+              meetingRes:null
+            })
+          } else{
+            self.setState({
+              results:res.data,
+              progress:'edit'
+            });
+            self.selectResult(0);
+          }
+  				console.log('Search Loaded')
+  			})
+  			.catch(function(error) {
+  				console.log(error)
+  			})
+  }
   handleChange(e){
     this.setState({
       search: e.target.value
@@ -69,11 +100,6 @@ export default class SearchC extends React.Component {
     this.setState({
       meetingRes:this.state.results[rank]
     });
-
-
-  }
-  setResult(rank){
-
   }
   search() {
     console.log('search')
@@ -108,52 +134,23 @@ export default class SearchC extends React.Component {
   		this.setState({
   			search: ''
   		});
-
       console.log('Searched')
-
   }
-  //<SearchRes results={this.state.meetingRes} selectResult={()=>this.selectResult(rank)} />
 
   render() {
 
 
     var page = null;
-    var selector = '';
-    if(this.state.meetingRes){
-      console.log('Edit')
-      selector = 'edit';
-    } else {
-      selector = this.state.progress;
-    }
-    console.log(this.state.progress)
-    console.log(this.state.meetingRes)
-    switch(selector) {
-      case 'loading':
-        page = (<center>
-          <CircularProgress style={{marginTop:'2vh'}} size={60} thickness={7} />
-        </center>);
-        break;
-      case 'done':
-        page = this.state.results.map((result,rank) =>
-          <SearchRes results={result} key={Math.random()*10000000} selectResult={()=>this.selectResult(rank)} />
-        );
-        break;
-      case 'noResult':
-        page = (<Card style={{width:'80vw', margin:'2vh 10vw 0vh 10vw'}}>
-          <CardHeader
-            title={'No Results to Show'}
-          />
-        </Card>);
-        break;
-      case 'edit':
+    if(this.state.meetingRes && this.state.results !== []){
         page = (<div>
-                  <SearchRes results={this.state.meetingRes} selectResult={()=>this.selectResult(rank)} />
-                  <Repository meetingRes={this.state.meetingRes} />
+                  <Repository
+                    meetingRes={this.state.meetingRes}
+                    results={this.state.results}
+                    selectResult={this.selectResult} />
                 </div>);
-        break;
-      default:
-          page = null;
-    }
+      } else {
+        page = <CircularProgress size={60} thickness={7} />
+      }
 
   	return (
       <div>

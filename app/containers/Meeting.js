@@ -3,6 +3,7 @@ import axios from 'axios';
 import MeetingForm from '../components/MeetingForm.js'
 import Dictation from '../components/Dictation.js'
 import FileReview from '../components/FileReview.js'
+import Snackbar from 'material-ui/Snackbar'
 
 export default class Meeting extends React.Component {
   constructor(props) {
@@ -41,6 +42,8 @@ export default class Meeting extends React.Component {
     this.toPDF = this.toPDF.bind(this)
     this.createEmail = this.createEmail.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
+    this.newMeeting = this.newMeeting.bind(this)
+    console.log(this.state.username)
 	}
   onChange(event, newValue, chips){
     console.log(newValue)
@@ -104,6 +107,7 @@ export default class Meeting extends React.Component {
 			.catch(function(error) {
 				console.log(error)
 			})
+
   }
   createEmail() {
 	// Making all of the values variables
@@ -157,7 +161,25 @@ export default class Meeting extends React.Component {
     this.setState({
       saved: false
     });
-  };
+  }
+  newMeeting(){
+    this.setState({
+			title: "",
+			type: "",
+			date: new Date(),
+			location:"",
+			groups: [],
+			chair: "",
+			members: [],
+			minutes: [
+				"Minute test",
+				"Also a test"
+			],
+			actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
+			decisions: ["Decision Test"],
+      pane: 0
+    });
+  }
   render() {
       var data={
         title: this.state.title,
@@ -171,7 +193,7 @@ export default class Meeting extends React.Component {
       }
       switch (this.state.pane) {
       case 0:
-        return (
+        return (<div>
   					<MeetingForm
               onSubmit={this.onSubmit}
               onChange={this.onChange}
@@ -180,16 +202,26 @@ export default class Meeting extends React.Component {
               toDictation={this.toDictation}
               errors={this.errors}
               data={data}
-  					/>);
+  					/><Snackbar
+                  open={this.state.saved}
+                  message="Saved"
+                  autoHideDuration={4000}
+                  onRequestClose={this.handleRequestClose}
+                /></div>);
       case 1:
-        return (
+        return (<div>
             <Dictation
               data={data}
               toMeta={this.toMeta}
               toFile={this.toFile}
-            />);
+            /><Snackbar
+                  open={this.state.saved}
+                  message="Saved"
+                  autoHideDuration={4000}
+                  onRequestClose={this.handleRequestClose}
+                /></div>);
       case 2:
-        return (
+        return (<div>
             <FileReview
               data={data}
               toDictation={this.toDictation}
@@ -198,7 +230,13 @@ export default class Meeting extends React.Component {
               toEmail={this.toEmail}
               saved={this.state.saved}
               handleRequestClose={this.handleRequestClose}
-            />);
+              newMeeting={this.newMeeting}
+            /><Snackbar
+                  open={this.state.saved}
+                  message="Saved"
+                  autoHideDuration={4000}
+                  onRequestClose={this.handleRequestClose}
+                /></div>);
   	}
   }
 }

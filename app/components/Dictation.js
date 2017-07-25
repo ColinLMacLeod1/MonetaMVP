@@ -16,6 +16,11 @@ const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data, toFil
 			<div className="sections">
 				<Card className="section">
 					<CardTitle title="Decisions"/>
+					<List>
+						{data.decisions.map((item,index) =>
+							<ListItem key={index} primaryText={item}/>
+						)}
+					</List>
 					<TextField
 		        className="field-line"
 		        floatingLabelText="Decision"
@@ -26,6 +31,11 @@ const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data, toFil
 				</Card>
 				<Card className="section">
 					<CardTitle title="Action"/>
+					<List>
+						{data.actions.map((item,index) =>
+							<ListItem key={index} primaryText={item.phrase}/>
+						)}
+					</List>
 					<TextField
 		        className="field-line"
 		        floatingLabelText="Action Item"

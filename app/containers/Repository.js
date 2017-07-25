@@ -49,14 +49,17 @@ export default class Repository extends React.Component {
     return(
       <div className="repository">
         <List className="meetingList">
-          <ListItem primaryText={'This is an Item'}/>
-          <ListItem primaryText={'This is an Item'}/>
-          <ListItem primaryText={'This is an Item'}/>
-          <ListItem primaryText={'This is an Item'}/>
+        {this.props.results.map((result,index) =>
+          <ListItem
+            primaryText={result.title}
+            secondaryText={(new Date(result.date)).toDateString()}
+            onClick={()=>this.props.selectResult(index)}
+            key={index}/>
+        )}
         </List>
         <div className="displayContainer">
           <FileDisplay
-            data={data}
+            data={this.props.meetingRes}
           />
         </div>
       </div>

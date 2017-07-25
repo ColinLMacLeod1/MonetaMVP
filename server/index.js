@@ -62,7 +62,8 @@ app.post('/save', function(req,res) {
 		members: req.body.members,
 		minutes: req.body.minutes,
 		actions: req.body.actions,
-		decisions: req.body.decisions
+		decisions: req.body.decisions,
+		username: req.body.username
 	});
 	meeting.save().then(function(){
 		if(meeting.isNew === false){

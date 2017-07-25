@@ -8,17 +8,17 @@ export default class Home extends React.Component {
   constructor(props) {
 		super(props);
 		this.state = {
-      username: 'colinlmacleod1'
+      username: "colinlmacleod1"
 		}
 	}
   render() {
     return (
       <Tabs>
         <Tab label="Meeting">
-          <Meeting />
+          <Meeting username={this.state.username} />
         </Tab>
         <Tab label="Repository">
-          <SearchC />
+          <SearchC username={this.state.username}/>
         </Tab>
         <Tab label="Help">
           <Help />

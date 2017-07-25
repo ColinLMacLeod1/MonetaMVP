@@ -7,7 +7,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF}) => (
   <Card className="dictation">
     <h1>{data.title}</h1>
     <h2>{data.type}</h2>
-    <h2>{data.location + ' on '+ data.date.toDateString()}</h2>
+    <h2>{data.location + ' on '+ (new Date(data.date)).toDateString()}</h2>
     <h2>{data.members}</h2>
     <div className="sections">
       <Card className="section">
@@ -38,6 +38,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF}) => (
     <div className="navButtons">
       <FlatButton label="Email" primary={true} onClick={toEmail}/>
       <FlatButton label="Print PDF" primary={true} onClick={toPDF}/>
+      <FlatButton label="Delete" secondary={true}/>
     </div>
   </Card>
 )
