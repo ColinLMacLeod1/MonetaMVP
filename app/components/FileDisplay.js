@@ -3,12 +3,12 @@ import {Card, CardTitle} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 
-const FileDisplay = ({data,toDictation,save,toEmail,toPDF}) => (
+const FileDisplay = ({data,toDictation,save,toEmail,toPDF,deleteMeeting}) => (
   <Card className="dictation">
     <h1>{data.title}</h1>
     <h2>{data.type}</h2>
     <h2>{data.location + ' on '+ (new Date(data.date)).toDateString()}</h2>
-    <h2>{data.members}</h2>
+    <h2>{data.members.toString()}</h2>
     <div className="sections">
       <Card className="section">
         <CardTitle title="Decisions"/>
@@ -38,7 +38,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF}) => (
     <div className="navButtons">
       <FlatButton label="Email" primary={true} onClick={toEmail}/>
       <FlatButton label="Print PDF" primary={true} onClick={toPDF}/>
-      <FlatButton label="Delete" secondary={true}/>
+      <FlatButton label="Delete" secondary={true} onClick={deleteMeeting}/>
     </div>
   </Card>
 )

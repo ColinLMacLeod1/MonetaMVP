@@ -232,7 +232,6 @@ export default class Meeting extends React.Component {
               save={this.save}
               toPDF={this.toPDF}
               toEmail={this.toEmail}
-              saved={this.state.saved}
               handleRequestClose={this.handleRequestClose}
               newMeeting={this.newMeeting}
             /><Snackbar
@@ -244,8 +243,7 @@ export default class Meeting extends React.Component {
               <Snackbar
                     open={this.state.email}
                     message="Preparing Your Email!"
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
+                    autoHideDuration={2000}
                   /></div>);
   	}
   }

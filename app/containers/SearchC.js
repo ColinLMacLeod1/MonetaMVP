@@ -51,6 +51,7 @@ export default class SearchC extends React.Component {
     this.selectResult = this.selectResult.bind(this)
     this.minDateChange = this.minDateChange.bind(this)
     this.maxDateChange = this.maxDateChange.bind(this)
+    this.deleteMeeting = this.deleteMeeting.bind(this)
 	}
   componentDidMount(){
     const self = this;
@@ -119,6 +120,17 @@ export default class SearchC extends React.Component {
       maxDate: date
     })
   }
+  deleteMeeting() {
+    const self = this;
+    axios.post('http://localhost:4200/delete',
+      {
+        id:self.state.meetingRes._id
+      }).then(function(res){
+        console.log(res)
+      }).catch(function(err){
+        console.log(err)
+      })
+  }
   search() {
     console.log('search')
     const self = this;
@@ -129,9 +141,9 @@ export default class SearchC extends React.Component {
     var maxDate = ((this.state.maxDate) ? new Date(this.state.maxDate).getTime() : 2147483647000);
   		axios.post('http://localhost:4200/search',
   			{
-  				search:this.state.search,
-          searchType:this.state.searchType,
-          username:this.state.username,
+  				search:self.state.search,
+          searchType:self.state.searchType,
+          username:self.state.username,
           minDate:minDate,
           maxDate:maxDate
   			}
@@ -148,6 +160,7 @@ export default class SearchC extends React.Component {
               results:res.data,
               progress:'done'
             });
+            self.selectResult(0)
           }
   				console.log('Search Complete')
   			})
@@ -163,15 +176,7 @@ export default class SearchC extends React.Component {
   render() {
 
 
-    var page = null;
-    if(this.state.meetingRes && this.state.results !== []){
-        page = (<div>
-                  <Repository
-                    meetingRes={this.state.meetingRes}
-                    results={this.state.results}
-                    selectResult={this.selectResult} />
-                </div>);
-      }
+
 
   	return (
       <div>
@@ -233,7 +238,11 @@ export default class SearchC extends React.Component {
             </Tab>
           </Tabs>
         </Card>
-        {page}
+        <Repository
+          meetingRes={this.state.meetingRes}
+          results={this.state.results}
+          selectResult={this.selectResult}
+          deleteMeeting={this.deleteMeeting} />
       </div>
     )
   }

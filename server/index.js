@@ -22,6 +22,7 @@ mongoose.connection.once('open',function(){
 }).on('error',function(error){
 	console.log('Connection error',error);
 });
+
 //Clearing DB on start up
 mongoose.connection.collections.users.drop(function(){
   console.log('users droppped');
@@ -29,6 +30,7 @@ mongoose.connection.collections.users.drop(function(){
 mongoose.connection.collections.meetings.drop(function(){
   console.log('meetings droppped');
 });
+
 // Adding test users
 var user1 = new User({
 	username: 'colin',
@@ -74,6 +76,7 @@ app.post('/save', function(req,res) {
 	});
 	res.send(JSON.stringify(meeting));
 })
+
 // User Login
 app.post('/login',function(req,res){
 	console.log('Login')
@@ -88,6 +91,7 @@ app.post('/login',function(req,res){
 		console.log('Error', error);
 	});
 })
+
 //User Sign Up
 app.post('/signup',function(req,res){
 	console.log('Sign Up')
@@ -102,6 +106,7 @@ app.post('/signup',function(req,res){
 	});
 	res.send(JSON.stringify(user));
 })
+
 // Repo Search
 app.post('/search',function(req,res){
 	console.log(req.body)
@@ -122,6 +127,24 @@ app.post('/search',function(req,res){
 		res.send("Search didn't work");
 	}
 })
+
+//Delete Meeting
+app.post('/delete',function(req,res){
+	console.log('Deleting')
+	console.log(req.body)
+	Meeting.remove({_id:req.body.id}).then(function(){
+		Meeting.findOne({_id:req.body.id}).then(function(result){
+			console.log(result)
+			if(!result){
+				res.send('Deleted')
+			} else {
+				res.send('Delete Unsuccessful')
+			}
+		})
+
+	});
+})
+
 // Server Port
 app.listen(4200,function() {
 	console.log('App listening on port 4200')
