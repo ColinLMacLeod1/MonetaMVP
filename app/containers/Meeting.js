@@ -31,7 +31,8 @@ export default class Meeting extends React.Component {
 			decisions: ["Decision Test"],
       pane: 0,
       username: this.props.username,
-      saved:false
+      saved:false,
+      email:false
 		}
     this.onChange = this.onChange.bind(this)
     this.toDictation = this.toDictation.bind(this)
@@ -86,7 +87,7 @@ export default class Meeting extends React.Component {
 			{
 				title: self.state.title,
 				type: self.state.type,
-				date: self.state.date,
+				date: self.state.date.getTime(),
 				location:self.state.location,
 				groups: self.state.groups,
 				chair: self.state.chair,
@@ -150,6 +151,9 @@ export default class Meeting extends React.Component {
 	return  mailURI  + "?body=" + body ;
 	}
   toEmail(){
+    this.setState({
+      email:true
+    })
     var test = this.createEmail();
 		location.href = test;
 		console.log(test)
@@ -236,7 +240,13 @@ export default class Meeting extends React.Component {
                   message="Saved"
                   autoHideDuration={4000}
                   onRequestClose={this.handleRequestClose}
-                /></div>);
+                />
+              <Snackbar
+                    open={this.state.email}
+                    message="Preparing Your Email!"
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
+                  /></div>);
   	}
   }
 }

@@ -7,7 +7,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,saved,handleRequestClo
   <Card className="dictation">
     <h1>{data.title}</h1>
     <h2>{data.type}</h2>
-    <h2>{data.location + ' on '+ data.date.toDateString()}</h2>
+    <h2>{data.location + ' on '+ (new Date(data.date)).toDateString()}</h2>
     <h2>{data.members}</h2>
     <div className="sections">
       <Card className="section">

@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import SearchRes from '../components/SearchRes'
 import CircularProgress from 'material-ui/CircularProgress'
 import Repository from './Repository'
+import DatePicker from 'material-ui/DatePicker'
 
 
 var sampleResults = {
@@ -25,7 +26,8 @@ var sampleResults = {
       "George",
       "Ringo"
     ],
-  username: 'colinlmacleod1',
+  username: 'colinlmacleod1'
+
 }
 
 
@@ -38,13 +40,17 @@ export default class SearchC extends React.Component {
       searchType: 'title',
       results: [],
       progress: '',
-      meetingRes: null
+      meetingRes: null,
+      minDate: null,
+      maxDate: null
 		}
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.onTabChange = this.onTabChange.bind(this)
     this.search = this.search.bind(this)
     this.selectResult = this.selectResult.bind(this)
+    this.minDateChange = this.minDateChange.bind(this)
+    this.maxDateChange = this.maxDateChange.bind(this)
 	}
   componentDidMount(){
     const self = this;
@@ -55,7 +61,9 @@ export default class SearchC extends React.Component {
   			{
   				search:'',
           searchType:'title',
-          username:this.state.username
+          username:this.state.username,
+          minDate:0,
+          maxDate:2147483647000
   			}
   			)
   			.then(function(res) {
@@ -101,24 +109,39 @@ export default class SearchC extends React.Component {
       meetingRes:this.state.results[rank]
     });
   }
+  minDateChange(e,date) {
+    this.setState({
+      minDate: date
+    })
+  }
+  maxDateChange(e,date) {
+    this.setState({
+      maxDate: date
+    })
+  }
   search() {
     console.log('search')
     const self = this;
       self.setState({
         progress: 'loading'
       });
+    var minDate = ((this.state.minDate) ? new Date(this.state.minDate).getTime() : 0);
+    var maxDate = ((this.state.maxDate) ? new Date(this.state.maxDate).getTime() : 2147483647000);
   		axios.post('http://localhost:4200/search',
   			{
   				search:this.state.search,
           searchType:this.state.searchType,
-          username:this.state.username
+          username:this.state.username,
+          minDate:minDate,
+          maxDate:maxDate
   			}
   			)
   			.then(function(res) {
   				console.log(res.data)
           if(res.data.length==0){
             self.setState({
-              progress:'noResult'
+              progress:'noResult',
+              results:[{title:'No Results', date:(new Date()).toDateString()}]
             })
           } else{
             self.setState({
@@ -148,13 +171,11 @@ export default class SearchC extends React.Component {
                     results={this.state.results}
                     selectResult={this.selectResult} />
                 </div>);
-      } else {
-        page = <CircularProgress size={60} thickness={7} />
       }
 
   	return (
       <div>
-        <Card style={{width:'80vw', margin:'2vh 10vw 0vh 10vw'}}>
+        <Card className="searchC">
         <CardHeader
           title="Search"
           subtitle=""
@@ -164,6 +185,18 @@ export default class SearchC extends React.Component {
             onChange={this.onTabChange}
             >
             <Tab label="Title" value="title">
+              <div className="dateDiv">
+                <DatePicker
+                  hintText="After this date"
+                  value={this.state.minDate}
+                  onChange={this.minDateChange}
+                />
+                <DatePicker
+                  hintText="Before this date"
+                  value={this.state.maxDate}
+                  onChange={this.maxDateChange}
+                />
+              </div>
               <TextField
                 className="field-line"
                 floatingLabelText="Title Search"
@@ -176,22 +209,21 @@ export default class SearchC extends React.Component {
               />
             </Tab>
             <Tab label="Members" value="members">
+            <div className="dateDiv">
+              <DatePicker
+                hintText="After this date"
+                value={this.state.minDate}
+                onChange={this.minDateChange}
+              />
+              <DatePicker
+                hintText="Before this date"
+                value={this.state.maxDate}
+                onChange={this.maxDateChange}
+              />
+            </div>
             <TextField
-              className="field-line"
               floatingLabelText="Member Search"
-              name="titleSearch"
-              underlineShow={true}
-              fullWidth={true}
-              value = {this.state.search}
-              onChange = {this.handleChange}
-              onKeyPress={this.handleKeyPress}
-            />
-            </Tab>
-            <Tab label="Date" value="date">
-            <TextField
-              className="field-line"
-              floatingLabelText="Date Search"
-              name="titleSearch"
+              name="memberSearch"
               underlineShow={true}
               fullWidth={true}
               value = {this.state.search}
