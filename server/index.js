@@ -161,8 +161,20 @@ app.post('/feedback',function(req,res){
 			console.log('Feedback Saved');
 		};
 	});
-	res.send(JSON.stringify(feedback));
+	res.send(JSON.stringify('Feedback Saved'));
 })
+
+//Get Feedback
+app.get('/feedback',function(req,res){
+	console.log('Getting Feedback')
+	Feedback.find({}).then(function(result){
+		res.send(JSON.stringify(result))
+		console.log('Feedback')
+	}).catch(err){
+		console.log(err)
+	}
+})
+
 
 // Server Port
 app.listen(4200,function() {
