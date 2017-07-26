@@ -5,9 +5,9 @@ import {Card, CardTitle} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import InputField from './InputField.js'
 
-
-const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data, toFile}) => (
+const Dictation = ({onSubmit, onChange, itemChange, addItem, buttonPress, errors, toMeta, data, toFile}) => (
 		<Card className="dictation">
 			<h1>{data.title}</h1>
 			<h2>{data.type}</h2>
@@ -18,7 +18,13 @@ const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data, toFil
 					<CardTitle title="Decisions"/>
 					<List>
 						{data.decisions.map((item,index) =>
-							<ListItem key={index} primaryText={item}/>
+							<TextField
+								key={index}
+				        className="field-line"
+				        name="decisions"
+								defaultValue={item}
+								onChange={(event,newValue) => itemChange(newValue,index,'decisions')}
+				      />
 						)}
 					</List>
 					<TextField
@@ -26,6 +32,12 @@ const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data, toFil
 		        floatingLabelText="Decision"
 		        name="decisions"
 		        onChange={onChange}
+						onKeyPress={(ev,value) => {
+							if (ev.key === 'Enter') {
+								console.log(value)
+								ev.preventDefault();
+							}
+						}}
 		      />
 					<RaisedButton label="Add Decision" secondary={true}/>
 				</Card>
@@ -33,7 +45,13 @@ const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data, toFil
 					<CardTitle title="Action"/>
 					<List>
 						{data.actions.map((item,index) =>
-							<ListItem key={index} primaryText={item.phrase}/>
+							<TextField
+								key={index}
+				        className="field-line"
+				        name="decisions"
+								defaultValue={item.phrase}
+								onChange={(event,newValue) => itemChange(newValue,index,'actions')}
+				      />
 						)}
 					</List>
 					<TextField
@@ -48,7 +66,13 @@ const Dictation = ({onSubmit, onChange, buttonPress, errors, toMeta, data, toFil
 					<CardTitle title="General Notes"/>
 					<List>
 						{data.minutes.map((item,index) =>
-							<ListItem key={index} primaryText={item}/>
+							<TextField
+								key={index}
+				        className="field-line"
+				        name="decisions"
+								defaultValue={item}
+								onChange={(event,newValue) => itemChange(newValue,index,'minutes')}
+				      />
 						)}
 					</List>
 					<TextField
