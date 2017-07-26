@@ -44,6 +44,7 @@ export default class Meeting extends React.Component {
     this.createEmail = this.createEmail.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
     this.newMeeting = this.newMeeting.bind(this)
+    this.itemChange = this.itemChange.bind(this)
     console.log(this.state.username)
 	}
   onChange(event, newValue, chips){
@@ -184,6 +185,25 @@ export default class Meeting extends React.Component {
       pane: 0
     });
   }
+  itemChange(item, index, src){
+    var newArray
+    if(src==='decisions'){
+      newArray = this.state.decisions
+      newArray[index] = item
+    }
+    else if(src==='minutes'){
+      newArray = this.state.minutes
+      newArray[index] = item
+    }
+    else if(src==='actions'){
+      newArray = this.state.actions
+      newArray[index].phrase = item
+    }
+    this.setState({
+      [src]: newArray
+    })
+    console.log(this.state)
+  }
   render() {
       var data={
         title: this.state.title,
@@ -218,6 +238,7 @@ export default class Meeting extends React.Component {
               data={data}
               toMeta={this.toMeta}
               toFile={this.toFile}
+              itemChange={this.itemChange}
             /><Snackbar
                   open={this.state.saved}
                   message="Saved"
