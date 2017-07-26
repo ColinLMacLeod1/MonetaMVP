@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import InputField from './InputField.js'
 
-const Dictation = ({onSubmit, onChange, itemChange, addItem, buttonPress, errors, toMeta, data, toFile}) => (
+const Dictation = ({onSubmit, onChange, itemChange, itemDelete, buttonPress, errors, toMeta, data, toFile}) => (
 		<Card className="dictation">
 			<h1>{data.title}</h1>
 			<h2>{data.type}</h2>
@@ -18,13 +18,15 @@ const Dictation = ({onSubmit, onChange, itemChange, addItem, buttonPress, errors
 					<CardTitle title="Decisions"/>
 					<List>
 						{data.decisions.map((item,index) =>
-							<TextField
-								key={index}
-				        className="field-line"
-				        name="decisions"
-								defaultValue={item}
-								onChange={(event,newValue) => itemChange(newValue,index,'decisions')}
-				      />
+							<div key={index} className="listItem">
+								<TextField
+					        className="field-line"
+					        name="decisions"
+									value={item}
+									onChange={(event,newValue) => itemChange(newValue,index,'decisions')}
+					      />
+								<p onClick={(e)=> itemDelete(item, index, e,'decisions')}>(-)</p>
+							</div>
 						)}
 					</List>
 					<TextField
@@ -45,13 +47,15 @@ const Dictation = ({onSubmit, onChange, itemChange, addItem, buttonPress, errors
 					<CardTitle title="Action"/>
 					<List>
 						{data.actions.map((item,index) =>
-							<TextField
-								key={index}
-				        className="field-line"
-				        name="decisions"
-								defaultValue={item.phrase}
-								onChange={(event,newValue) => itemChange(newValue,index,'actions')}
-				      />
+							<div key={index} className="listItem">
+								<TextField
+					        className="field-line"
+					        name="actions"
+									value={item}
+									onChange={(event,newValue) => itemChange(newValue,index,'decisions')}
+					      />
+								<p onClick={(e)=> itemDelete(item, index, e,'action')}>(-)</p>
+							</div>
 						)}
 					</List>
 					<TextField
@@ -66,13 +70,15 @@ const Dictation = ({onSubmit, onChange, itemChange, addItem, buttonPress, errors
 					<CardTitle title="General Notes"/>
 					<List>
 						{data.minutes.map((item,index) =>
-							<TextField
-								key={index}
-				        className="field-line"
-				        name="decisions"
-								defaultValue={item}
-								onChange={(event,newValue) => itemChange(newValue,index,'minutes')}
-				      />
+							<div key={index} className="listItem">
+								<TextField
+					        className="field-line"
+					        name="minutes"
+									value={item}
+									onChange={(event,newValue) => itemChange(newValue,index,'decisions')}
+					      />
+								<p onClick={(e)=> itemDelete(item, index, e,'minutes')}>(-)</p>
+							</div>
 						)}
 					</List>
 					<TextField

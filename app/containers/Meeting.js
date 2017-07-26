@@ -25,10 +25,11 @@ export default class Meeting extends React.Component {
 				],
 			minutes: [
 				"Minute test",
-				"Also a test"
+				"Also a test",
+        "Still Testing"
 			],
 			actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
-			decisions: ["Decision Test"],
+			decisions: ["Decision Test","Another one"],
       pane: 0,
       username: this.props.username,
       saved:false,
@@ -45,6 +46,7 @@ export default class Meeting extends React.Component {
     this.handleRequestClose = this.handleRequestClose.bind(this)
     this.newMeeting = this.newMeeting.bind(this)
     this.itemChange = this.itemChange.bind(this)
+    this.itemDelete = this.itemDelete.bind(this)
     console.log(this.state.username)
 	}
   onChange(event, newValue, chips){
@@ -204,6 +206,20 @@ export default class Meeting extends React.Component {
     })
     console.log(this.state)
   }
+  itemDelete(item, index, event, src){
+    console.log(index)
+    var newArray=[]
+    if(src==='decisions')
+      newArray = this.state.decisions
+    else if(src==='minutes')
+      newArray = this.state.minutes
+    else if(src==='actions')
+      newArray = this.state.actions
+    newArray.splice(index,1)
+		this.setState({
+    	[src]: newArray
+    });
+	}
   render() {
       var data={
         title: this.state.title,
@@ -239,6 +255,7 @@ export default class Meeting extends React.Component {
               toMeta={this.toMeta}
               toFile={this.toFile}
               itemChange={this.itemChange}
+              itemDelete={this.itemDelete}
             /><Snackbar
                   open={this.state.saved}
                   message="Saved"
