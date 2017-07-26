@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const assert = require('assert')
 const User = require('../models/users')
 const Meeting = require('../models/meetings')
+const Feedback = require('../models/feedback')
 
 
 app.use(cors())
@@ -143,6 +144,24 @@ app.post('/delete',function(req,res){
 		})
 
 	});
+})
+
+//Save Feedback
+app.post('/feedback',function(req,res){
+	console.log('Sending Feedback')
+	var feedback = new Feedback({
+		username: req.body.username,
+		date: req.body.date,
+		issue: req.body.issue,
+		suggestion: req.body.suggestion,
+		likes: req.body.likes
+	});
+	feedback.save().then(function(){
+		if(feedback.isNew === false){
+			console.log('Feedback Saved');
+		};
+	});
+	res.send(JSON.stringify(feedback));
 })
 
 // Server Port
