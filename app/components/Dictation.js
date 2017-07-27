@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import InputField from './InputField.js'
 
-const Dictation = ({onSubmit, onChange, itemChange, itemDelete, buttonPress, errors, toMeta, data, toFile}) => (
+const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonPress, errors, toMeta, data, toFile}) => (
 		<Card className="dictation">
 			<h1>{data.title}</h1>
 			<h2>{data.type}</h2>
@@ -29,19 +29,10 @@ const Dictation = ({onSubmit, onChange, itemChange, itemDelete, buttonPress, err
 							</div>
 						)}
 					</List>
-					<TextField
-		        className="field-line"
-		        floatingLabelText="Decision"
-		        name="decisions"
-		        onChange={onChange}
-						onKeyPress={(ev,value) => {
-							if (ev.key === 'Enter') {
-								console.log(value)
-								ev.preventDefault();
-							}
-						}}
-		      />
-					<RaisedButton label="Add Decision" secondary={true}/>
+					<InputField
+						title='decisions'
+						submitData={(item,src) => itemAdd(item,src)}
+					/>
 				</Card>
 				<Card className="section">
 					<CardTitle title="Action"/>
@@ -58,13 +49,10 @@ const Dictation = ({onSubmit, onChange, itemChange, itemDelete, buttonPress, err
 							</div>
 						)}
 					</List>
-					<TextField
-		        className="field-line"
-		        floatingLabelText="Action Item"
-		        name="actions"
-		        onChange={onChange}
-		      />
-					<RaisedButton label="Add" secondary={true}/>
+					<InputField
+						title='actions'
+						submitData={(item,src) => itemAdd(item,src)}
+					/>
 				</Card>
 				<Card className="section">
 					<CardTitle title="General Notes"/>
@@ -81,13 +69,10 @@ const Dictation = ({onSubmit, onChange, itemChange, itemDelete, buttonPress, err
 							</div>
 						)}
 					</List>
-					<TextField
-		        className="field-line"
-		        floatingLabelText="Notes"
-		        name="notes"
-		        onChange={onChange}
-		      />
-					<RaisedButton label="Add" secondary={true}/>
+					<InputField
+						title='minutes'
+						submitData={(item,src) => itemAdd(item,src)}
+					/>
 				</Card>
 			</div>
 			<div className="navButtons">

@@ -45,8 +45,10 @@ export default class Meeting extends React.Component {
     this.createEmail = this.createEmail.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
     this.newMeeting = this.newMeeting.bind(this)
+    this.itemAdd = this.itemAdd.bind(this)
     this.itemChange = this.itemChange.bind(this)
     this.itemDelete = this.itemDelete.bind(this)
+
     console.log(this.state.username)
 	}
   onChange(event, newValue, chips){
@@ -187,6 +189,22 @@ export default class Meeting extends React.Component {
       pane: 0
     });
   }
+  itemAdd(item, src){
+    var newArray
+    if(src==='decisions'){
+      newArray = this.state.decisions
+    }
+    else if(src==='minutes'){
+      newArray = this.state.minutes
+    }
+    else if(src==='actions'){
+      newArray = this.state.actions
+    }
+    newArray.push(item)
+    this.setState({
+      [src]: newArray
+    })
+  }
   itemChange(item, index, src){
     var newArray
     if(src==='decisions'){
@@ -204,10 +222,8 @@ export default class Meeting extends React.Component {
     this.setState({
       [src]: newArray
     })
-    console.log(this.state)
   }
   itemDelete(item, index, event, src){
-    console.log(index)
     var newArray=[]
     if(src==='decisions')
       newArray = this.state.decisions
@@ -254,6 +270,7 @@ export default class Meeting extends React.Component {
               data={data}
               toMeta={this.toMeta}
               toFile={this.toFile}
+              itemAdd={this.itemAdd}
               itemChange={this.itemChange}
               itemDelete={this.itemDelete}
             /><Snackbar
