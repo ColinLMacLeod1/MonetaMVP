@@ -135,8 +135,8 @@ app.post('/delete',function(req,res){
 	console.log(req.body)
 	Meeting.remove({_id:req.body.id}).then(function(){
 		Meeting.findOne({_id:req.body.id}).then(function(result){
-			console.log(result)
 			if(!result){
+				console.log('Deleted')
 				res.send('Deleted')
 			} else {
 				res.send('Delete Unsuccessful')
@@ -170,9 +170,9 @@ app.get('/feedback',function(req,res){
 	Feedback.find({}).then(function(result){
 		res.send(JSON.stringify(result))
 		console.log('Feedback')
-	}).catch(err){
+	}).catch(function(err){
 		console.log(err)
-	}
+	})
 })
 
 
