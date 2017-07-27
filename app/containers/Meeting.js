@@ -193,14 +193,18 @@ export default class Meeting extends React.Component {
     var newArray
     if(src==='decisions'){
       newArray = this.state.decisions
+      newArray.push(item)
     }
     else if(src==='minutes'){
       newArray = this.state.minutes
+      newArray.push(item)
     }
     else if(src==='actions'){
       newArray = this.state.actions
+      var newItem = {phrase:item}
+      newArray.push(newItem)
     }
-    newArray.push(item)
+
     this.setState({
       [src]: newArray
     })

@@ -42,10 +42,10 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 								<TextField
 					        className="field-line"
 					        name="actions"
-									value={item}
+									value={item.phrase}
 									onChange={(event,newValue) => itemChange(newValue,index,'decisions')}
 					      />
-								<p onClick={(e)=> itemDelete(item, index, e,'action')}>(-)</p>
+								<p onClick={(e)=> itemDelete(item, index, e,'actions')}>(-)</p>
 							</div>
 						)}
 					</List>
