@@ -16,11 +16,11 @@ export default class Login extends React.Component {
       }
     };
 
-    this.processForm = this.processForm.bind(this);
+    this.processLoginForm = this.processLoginForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
   }
 
-  processForm(event) {
+  processLoginForm(event) {
     event.preventDefault();
     console.log('email:', this.state.user.email);
     console.log('password:', this.state.user.password);
@@ -58,7 +58,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <LoginForm
-        onSubmit={this.processForm}
+        onSubmit={this.processLoginForm}
         onChange={this.changeUser}
         errors={this.state.errors}
         user={this.state.user}

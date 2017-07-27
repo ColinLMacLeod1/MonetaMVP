@@ -8,7 +8,10 @@ const assert = require('assert')
 const User = require('../models/users')
 const Meeting = require('../models/meetings')
 const Feedback = require('../models/feedback')
+const bcrypt = require('bcrypt');
 
+
+const saltRounds = 10;
 
 app.use(cors())
 app.use(bodyParser.json())
