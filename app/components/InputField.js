@@ -9,25 +9,31 @@ export default class Meeting extends React.Component {
       text:''
     }
     this.textChange = this.textChange.bind(this)
+    this.capitalize = this.capitalize.bind(this)
   }
   textChange(event, newValue){
     this.setState({
       text: newValue
     })
-    console.log(this.state.text)
+  }
+  capitalize(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
   render() {
     return(
       <TextField
         className="field-line"
+        floatingLabelText={this.capitalize(this.props.title)}
         value={this.state.text}
-        floatingLabelText="Decision"
         name={this.props.title}
-        onChange={(event,newValue)=>this.textChange(event,newValue)}
+        onChange={(event,newValue) => this.textChange(event,newValue)}
         onKeyPress={(ev) => {
           if (ev.key === 'Enter') {
             ev.preventDefault();
-            this.props.submit(this.state.text,this.props.title)
+            this.props.submitData(this.state.text,this.props.title)
+            this.setState({
+              text:''
+            })
           }
         }}
       />
