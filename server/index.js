@@ -93,7 +93,9 @@ app.post('/save', function(req,res) {
 // User Login
 app.post('/login',function(req,response){
 	console.log('Login')
+
 	User.findOne({username:req.body.username}).then(function(result){
+		console.log(result)
 		if(result){
 			bcrypt.compare(req.body.password, result.password).then(function(res){
 				console.log(res)

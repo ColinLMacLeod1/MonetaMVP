@@ -201,7 +201,7 @@ export default class Meeting extends React.Component {
     }
     else if(src==='actions'){
       newArray = this.state.actions
-      var newItem = {phrase:item}
+      var newItem = {phrase:item,assigned:'',date:''}
       newArray.push(newItem)
     }
 

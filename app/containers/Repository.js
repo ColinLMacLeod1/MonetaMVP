@@ -43,12 +43,12 @@ export default class Repository extends React.Component {
   createEmail() {
   // Making all of the values variables
   var mailURI = "mailto:";
-  var title = "%0A" +  this.state.title;
-  var type = "%0A" +this.state.type;
-  var date = "%0A" +this.state.date;
-  var location = "%0A" +this.state.location + "%0A";
+  var title = "%0A" +  this.props.meetingRes.title;
+  var type = "%0A" +this.props.meetingRes.type;
+  var date = "%0A" +this.props.meetingRes.date;
+  var location = "%0A" +this.props.meetingRes.location + "%0A";
   var groups = "%0AGroups:%0A"
-  var chair= "%0AChair: " +this.state.chair;
+  var chair= "%0AChair: " +this.props.meetingRes.chair;
   var members= "%0AMembers:%0A";
   var minutes= "%0AMinutes:%0A";
   var actions= "%0AActions:%0A";
@@ -56,24 +56,24 @@ export default class Repository extends React.Component {
   var message = "%0A%0A%0AThis message was sent to you by Monetta, meeting minutes for the 21st century";
   var body = "";
   // Making arrays into legit strings
-  for(var i=0;i<this.state.groups.length;i++) {
-    groups = groups + this.state.groups[i] + "%0A";
+  for(var i=0;i<this.props.meetingRes.groups.length;i++) {
+    groups = groups + this.props.meetingRes.groups[i] + "%0A";
   }
   console.log(groups)
-  for(var i=0;i<this.state.members.length;i++) {
-    members = members + this.state.members[i] + "%0A";
+  for(var i=0;i<this.props.meetingRes.members.length;i++) {
+    members = members + this.props.meetingRes.members[i] + "%0A";
   }
   console.log(members)
-  for(var i=0;i<this.state.minutes.length;i++) {
-    minutes = minutes + this.state.minutes[i] + "%0A";
+  for(var i=0;i<this.props.meetingRes.minutes.length;i++) {
+    minutes = minutes + this.props.meetingRes.minutes[i] + "%0A";
   }
   console.log(minutes)
-  for(var i=0;i<this.state.actions.length;i++) {
-    actions = actions + this.state.actions[i].phrase + " Assigned to: " + this.state.actions[i].assigned.toString() + " Due " + this.state.actions[i].date + "%0A";
+  for(var i=0;i<this.props.meetingRes.actions.length;i++) {
+    actions = actions + this.props.meetingRes.actions[i].phrase + " Assigned to: " + this.props.meetingRes.actions[i].assigned.toString() + " Due " + this.props.meetingRes.actions[i].date + "%0A";
   }
   console.log(actions)
-  for(var i=0;i<this.state.decisions.length;i++) {
-    decisions = decisions + this.state.decisions[i] + "%0A";
+  for(var i=0;i<this.props.meetingRes.meetingRes.decisions.length;i++) {
+    decisions = decisions + this.props.meetingRes.decisions[i] + "%0A";
   }
   console.log(decisions)
 
