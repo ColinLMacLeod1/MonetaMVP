@@ -43,7 +43,7 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 					        className="field-line"
 					        name="actions"
 									value={item.phrase}
-									onChange={(event,newValue) => itemChange(newValue,index,'decisions')}
+									onChange={(event,newValue) => itemChange(newValue,index,'actions')}
 					      />
 								<p onClick={(e)=> itemDelete(item, index, e,'actions')}>(-)</p>
 							</div>
