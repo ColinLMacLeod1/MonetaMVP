@@ -35,7 +35,7 @@ export default class Login extends React.Component {
 				console.log(res.data)
 				if(res.data != 'User not found'){
 					console.log('Login Successful')
-          this.props.login(this.state.email)
+          //this.props.login(this.state.email)
           self.props.history.push('/home')
 				}
 

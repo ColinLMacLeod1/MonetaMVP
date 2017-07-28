@@ -61,7 +61,37 @@ bcrypt.hash('litt', saltRounds).then(function(hash){
 		};
 	});
 })
-
+for(i=0;i<6;i++){
+	var meeting = new Meeting({
+		title: "Finalize Sgt.Peppers Lyrics",
+		type: "Songwriting Meeting",
+		date: (new Date()).getTime(),
+		location:"Abbey Road",
+		groups: ["tech", "Sales"],
+		chair: "Litt",
+		members: [
+				"Paul",
+				"John",
+				"George",
+				"Ringo"
+			],
+		minutes:  [
+			"Minute test",
+			"Also a test",
+			"Still Testing"
+		],
+		actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
+		decisions: ["Decision Test","Another one"],
+		username: "colinlmacleod1"
+	});
+	meeting.save().then(function(){
+		if(meeting.isNew === false){
+			console.log('Meeting Saved');
+		};
+	}).catch(function(err){
+		console.log(err)
+	});
+}
 
 
 //Save meeting
