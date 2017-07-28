@@ -83,24 +83,24 @@ export default class Repository extends React.Component {
     var message = "%0A%0A%0AThis message was sent to you by Monetta, meeting minutes for the 21st century";
     var body = "";
     // Making arrays into legit strings
-    for(var i=0;i<this.props.meetingRes.groups.length;i++) {
+    for(var i=0;i<this.state.meetingRes.groups.length;i++) {
       groups = groups + this.props.meetingRes.groups[i] + "%0A";
     }
     console.log(groups)
-    for(var i=0;i<this.props.meetingRes.members.length;i++) {
-      members = members + this.props.meetingRes.members[i] + "%0A";
+    for(var i=0;i<this.state.meetingRes.members.length;i++) {
+      members = members + this.state.meetingRes.members[i] + "%0A";
     }
     console.log(members)
-    for(var i=0;i<this.props.meetingRes.minutes.length;i++) {
-      minutes = minutes + this.props.meetingRes.minutes[i] + "%0A";
+    for(var i=0;i<this.state.meetingRes.minutes.length;i++) {
+      minutes = minutes + this.state.meetingRes.minutes[i] + "%0A";
     }
     console.log(minutes)
-    for(var i=0;i<this.props.meetingRes.actions.length;i++) {
-      actions = actions + this.props.meetingRes.actions[i].phrase + " Assigned to: " + this.props.meetingRes.actions[i].assigned.toString() + " Due " + this.props.meetingRes.actions[i].date + "%0A";
+    for(var i=0;i<this.state.meetingRes.actions.length;i++) {
+      actions = actions + this.state.meetingRes.actions[i].phrase + " Assigned to: " + this.props.meetingRes.actions[i].assigned.toString() + " Due " + this.props.meetingRes.actions[i].date + "%0A";
     }
     console.log(actions)
-    for(var i=0;i<this.props.meetingRes.meetingRes.decisions.length;i++) {
-      decisions = decisions + this.props.meetingRes.decisions[i] + "%0A";
+    for(var i=0;i<this.state.meetingRes.decisions.length;i++) {
+      decisions = decisions + this.state.meetingRes.decisions[i] + "%0A";
     }
     console.log(decisions)
 
@@ -137,6 +137,7 @@ export default class Repository extends React.Component {
           if(res.data.length==0){
             self.setState({
               progress:'noResult',
+              results: [],
               meetingRes:null
             })
           } else{
@@ -164,7 +165,8 @@ export default class Repository extends React.Component {
       this.search();
     }
   }
-  onTabChange(value) {
+  onTabChange(e,value) {
+    console.log(value)
     this.setState({
       searchType: value
     });
@@ -202,7 +204,9 @@ export default class Repository extends React.Component {
     console.log('search')
     const self = this;
       self.setState({
-        progress: 'loading'
+        progress: 'loading',
+        meetingRes: null,
+        results: []
       });
     var minDate = ((this.state.minDate) ? new Date(this.state.minDate).getTime() : 0);
     var maxDate = ((this.state.maxDate) ? new Date(this.state.maxDate).getTime() : 2147483647000);
@@ -220,14 +224,13 @@ export default class Repository extends React.Component {
           if(res.data.length==0){
             self.setState({
               progress:'noResult',
-              results:[{title:'No Results', date:(new Date()).toDateString()}]
+              results:[]
             })
           } else{
             self.setState({
               results:res.data,
               progress:'done'
             });
-            self.selectResult(0)
           }
   				console.log('Search Complete')
   			})
@@ -253,10 +256,14 @@ export default class Repository extends React.Component {
 
     let sidebar = null;
     let container = null;
-
-    if(this.state.results !== []){
-      sidebar = (
+    let searchTitle = null;
+    //Define SIDEBAR CONTENT
+    if(this.state.results !== [] && Array.isArray(this.state.results))
+      {console.log('PRINTING RESULTS')
+      console.log(this.state.meetingRes)
+        sidebar = (
         <List className="meetingList">
+
           {this.state.results.map((result,index) =>
             <ListItem
               primaryText={result.title}
@@ -265,9 +272,8 @@ export default class Repository extends React.Component {
               key={index}/>
           )}
         </List>
-      )
-    }
-    else{
+      )}
+    else
       sidebar = (
         <List className="meetingList">
             <ListItem
@@ -276,8 +282,11 @@ export default class Repository extends React.Component {
             />
         </List>
       )
-    }
-    if(this.state.meetingRes != null){
+    //Define CONTIAINER CONTENT
+    var Undefined
+    if(this.state.meetingRes != null && this.state.meetingRes != Undefined)
+      {console.log('PRINTING Selection')
+      console.log(this.state.meetingRes)
       container = (
         <FileDisplay
         data={this.state.meetingRes}
@@ -285,68 +294,57 @@ export default class Repository extends React.Component {
         toPDF={this.toPDF}
         deleteMeeting={this.deleteMeeting}
         />
-      );
-    }
-    else{
-      container= (<p>Nothing Selected.</p>)
-    }
+      );}
+    else
+      container= (<h5>Nothing Selected.</h5>)
+    //Define search title
+    if(this.state.searchType == 'title')
+      searchTitle = 'Title Search'
+    else
+      searchTitle = 'Member Search'
+
     return(
       <div>
-        <Card className="searchC">
-          <Tabs
-            value={this.state.searchType}
-            onChange={this.onTabChange}
-            >
-            <Tab label="Title" value="title">
-              <div className="dateDiv">
-                <DatePicker
-                  hintText="After this date"
-                  value={this.state.minDate}
-                  onChange={this.minDateChange}
-                />
-                <DatePicker
-                  hintText="Before this date"
-                  value={this.state.maxDate}
-                  onChange={this.maxDateChange}
-                />
-              </div>
-              <TextField
-                className="field-line"
-                floatingLabelText="Title Search"
-                name="titleSearch"
-                underlineShow={true}
-                fullWidth={true}
-                value = {this.state.search}
-                onChange = {this.handleChange}
-                onKeyPress={this.handleKeyPress}
+        <Card className='searchC'>
+          <div className='searchCriteria'>
+            <RadioButtonGroup name="searchType" defaultSelected="title" onChange={this.onTabChange}>
+              <RadioButton
+                value="title"
+                label="Title"
               />
-            </Tab>
-            <Tab label="Members" value="members">
+              <RadioButton
+                value="member"
+                label="Member"
+              />
+            </RadioButtonGroup>
             <div className="dateDiv">
               <DatePicker
                 hintText="After this date"
                 value={this.state.minDate}
                 onChange={this.minDateChange}
               />
+              <p>to</p>
               <DatePicker
                 hintText="Before this date"
                 value={this.state.maxDate}
                 onChange={this.maxDateChange}
               />
             </div>
-            <TextField
-              floatingLabelText="Member Search"
-              name="memberSearch"
-              underlineShow={true}
-              fullWidth={true}
-              value = {this.state.search}
-              onChange = {this.handleChange}
-              onKeyPress={this.handleKeyPress}
-            />
-            </Tab>
-          </Tabs>
+          </div>
+          <TextField
+            floatingLabelText={searchTitle}
+            name="titleSearch"
+            underlineShow={true}
+            fullWidth={true}
+            value = {this.state.search}
+            onChange = {this.handleChange}
+            onKeyPress={(e) => {
+              if(e.key==='Enter'){
+                this.search();
+              }
+            }}
+          />
         </Card>
-
         <div className="repository">
           {sidebar}
           {container}
