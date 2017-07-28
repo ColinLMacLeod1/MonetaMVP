@@ -168,7 +168,8 @@ export default class Meeting extends React.Component {
   }
   handleRequestClose(){
     this.setState({
-      saved: false
+      saved: false,
+      email:false
     });
   }
   newMeeting(){
@@ -204,7 +205,6 @@ export default class Meeting extends React.Component {
       var newItem = {phrase:item,assigned:'',date:''}
       newArray.push(newItem)
     }
-
     this.setState({
       [src]: newArray
     })
@@ -303,7 +303,9 @@ export default class Meeting extends React.Component {
                     open={this.state.email}
                     message="Preparing Your Email!"
                     autoHideDuration={2000}
+                    onRequestClose={this.handleRequestClose}
                   /></div>);
+
   	}
   }
 }

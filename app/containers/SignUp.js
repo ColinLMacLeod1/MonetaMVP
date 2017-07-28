@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import LoginForm from '../components/LoginForm.js';
+import SignUpForm from '../components/SignUpForm.js';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
 
-export default class Login extends React.Component {
+export default class SignUp extends React.Component {
 
   constructor(props) {
     super(props);

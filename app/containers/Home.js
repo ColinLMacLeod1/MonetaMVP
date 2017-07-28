@@ -8,9 +8,29 @@ export default class Home extends React.Component {
   constructor(props) {
 		super(props);
 		this.state = {
-      username: "colinlmacleod1"
+      username: "colinlmacleod1",
+      page:'login'
 		}
+    this.toSignUp = this.toSignUp.bind(this)
+
 	}
+  toSignUp(){
+    this.setState({
+      page:'signup'
+    })
+  }
+  login(user){
+    this.setState({
+      page:'App',
+      username:user
+    })
+  }
+  logout(){
+    this.setState({
+      username:null,
+      page:'login'
+    })
+  }
   render() {
     return (
       <Tabs>
