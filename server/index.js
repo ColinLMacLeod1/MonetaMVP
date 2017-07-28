@@ -36,24 +36,33 @@ mongoose.connection.collections.meetings.drop(function(){
 });
 
 // Adding test users
-var user1 = new User({
-	username: 'colin',
-	password: 'macleod'
-});
-user1.save().then(function(){
-	if(user1.isNew === false){
-		console.log(user1);
-	};
-});
-var user2 = new User({
-	username:'andrew',
-	password: 'litt'
-});
-user2.save().then(function(){
-	if(user2.isNew === false){
-		console.log(user2);
-	};
-});
+bcrypt.hash('macleod', saltRounds).then(function(hash){
+	var user1 = new User({
+		username: 'colin',
+		password: hash
+	});
+	console.log(user1)
+	user1.save().then(function(){
+		if(user1.isNew === false){
+			console.log('Sign Up Successful');
+		};
+	});
+})
+
+bcrypt.hash('litt', saltRounds).then(function(hash){
+	var user2 = new User({
+		username: 'andrew',
+		password: hash
+	});
+	console.log(user2)
+	user2.save().then(function(){
+		if(user2.isNew === false){
+			console.log('Sign Up Successful');
+		};
+	});
+})
+
+
 
 //Save meeting
 app.post('/save', function(req,res) {
@@ -82,13 +91,18 @@ app.post('/save', function(req,res) {
 })
 
 // User Login
-app.post('/login',function(req,res){
+app.post('/login',function(req,response){
 	console.log('Login')
-	User.findOne({username:req.body.username, password:req.body.password}).then(function(result){
+
+	User.findOne({username:req.body.username}).then(function(result){
+		console.log(result)
 		if(result){
-			res.send(JSON.stringify(result));
+			bcrypt.compare(req.body.password, result.password).then(function(res){
+				console.log(res)
+				response.send(JSON.stringify(res));
+			})
 		} else {
-			res.send('User not found');
+			response.send('User not found');
 			console.log('User not found');
 		}
 	}).catch(function(error){
@@ -99,16 +113,19 @@ app.post('/login',function(req,res){
 //User Sign Up
 app.post('/signup',function(req,res){
 	console.log('Sign Up')
-	var user = new User({
-		username: req.body.username,
-		password: req.body.password
-	});
-	user.save().then(function(){
-		if(user.isNew === false){
-			console.log('Sign Up Successful');
-		};
-	});
-	res.send(JSON.stringify(user));
+	bcrypt.hash(req.body.password, saltRounds).then(function(hash){
+		const hashPass = hash;
+		var user = new User({
+			username: req.body.username,
+			password: hash
+		});
+		user.save().then(function(){
+			if(user.isNew === false){
+				console.log('Sign Up Successful');
+			};
+		});
+	})
+	res.send(JSON.stringify(user.username));
 })
 
 // Repo Search
