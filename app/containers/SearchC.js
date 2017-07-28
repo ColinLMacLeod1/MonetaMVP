@@ -26,7 +26,6 @@ var sampleResults = {
       "Ringo"
     ],
   username: 'colinlmacleod1'
-
 }
 
 
@@ -51,8 +50,13 @@ export default class SearchC extends React.Component {
     this.minDateChange = this.minDateChange.bind(this)
     this.maxDateChange = this.maxDateChange.bind(this)
     this.deleteMeeting = this.deleteMeeting.bind(this)
+    this.loadAll = this.loadAll.bind(this)
 	}
   componentDidMount(){
+    this.loadAll()
+  }
+
+  loadAll(){
     const self = this;
       self.setState({
         progress: 'loading'
@@ -129,6 +133,7 @@ export default class SearchC extends React.Component {
       }).catch(function(err){
         console.log(err)
       })
+    this.loadAll()
   }
   search() {
     console.log('search')
@@ -180,10 +185,6 @@ export default class SearchC extends React.Component {
   	return (
       <div>
         <Card className="searchC">
-        <CardHeader
-          title="Search"
-          subtitle=""
-        />
           <Tabs
             value={this.state.searchType}
             onChange={this.onTabChange}

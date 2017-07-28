@@ -3,7 +3,7 @@ import Help from '../components/Help'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import SearchC from '../containers/SearchC'
 import Meeting from '../containers/Meeting'
-
+import Repository from '../containers/Repository'
 export default class Home extends React.Component {
   constructor(props) {
 		super(props);
@@ -38,7 +38,7 @@ export default class Home extends React.Component {
           <Meeting username={this.state.username} />
         </Tab>
         <Tab label="Repository">
-          <SearchC username={this.state.username}/>
+          <Repository username={this.state.username}/>
         </Tab>
         <Tab label="Help">
           <Help />
