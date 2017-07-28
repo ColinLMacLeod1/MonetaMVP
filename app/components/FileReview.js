@@ -2,13 +2,25 @@ import React from 'react';
 import {Card, CardTitle} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const FileDisplay = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, newMeeting}) => (
   <Card className="dictation">
-    <h1>{data.title}</h1>
-    <h2>{data.type}</h2>
-    <h2>{data.location + ' on '+ (new Date(data.date)).toDateString()}</h2>
-    <h2>{data.members.toString()}</h2>
+    <div className="head">
+      <div style={{marginRight:'50px'}}>
+        <h1>{data.title}</h1>
+        <h2>{data.type}</h2>
+        <h2>{data.location + ' on '+ data.date}</h2>
+      </div>
+      <div>
+        <h2>Members Present:</h2>
+        <ul>
+          {data.members.map((member,index) =>
+            <li key={index}>{member}</li>
+          )}
+        </ul>
+      </div>
+    </div>
     <div className="sections">
       <Card className="section">
         <CardTitle title="Decisions"/>
@@ -36,10 +48,10 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, ne
       </Card>
     </div>
     <div className="navButtons">
-      <FlatButton label="Edit" primary={true} onClick={toDictation}/>
+      <RaisedButton label="Edit" primary={true} onClick={toDictation}/>
       <FlatButton label="Email" primary={true} onClick={toEmail}/>
       <FlatButton label="Print PDF" primary={true} onClick={toPDF}/>
-      <FlatButton label="Save" primary={true} onClick={save}/>
+      <RaisedButton label="Save" primary={true} onClick={save}/>
     </div>
     <FlatButton label="New Meeting"  fullWidth={true} onClick={newMeeting}/>
   </Card>
