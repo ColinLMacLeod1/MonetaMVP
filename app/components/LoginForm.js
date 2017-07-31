@@ -3,9 +3,10 @@ import Link from 'react-router';
 import Card from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 
 
-const LoginForm = ({onSubmit, onChange, errors, user}) => (
+const LoginForm = ({onSubmit, onChange, errors, user, toSignUp}) => (
   <Card className="loginForm">
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Login</h2>
@@ -35,7 +36,7 @@ const LoginForm = ({onSubmit, onChange, errors, user}) => (
 
       <div className="button-line">
         <RaisedButton type="submit" label="Log in" primary />
-        <a href="/signup">Create new account</a>
+        <FlatButton label="Create New Account" onClick={toSignUp} primary={true} />
       </div>
     </form>
   </Card>

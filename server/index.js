@@ -145,26 +145,32 @@ app.post('/login',function(req,response){
 
 //User Sign Up
 app.post('/signup',function(req,res){
-	console.log('Sign Up')
-	bcrypt.hash(req.body.password, saltRounds).then(function(hash){
-		const hashPass = hash;
-		var user = new User({
-			username: req.body.username,
-			password: hash
-		});
-		user.save().then(function(){
-			if(user.isNew === false){
-				console.log('Sign Up Successful');
-				res.send(JSON.stringify(user.username))
-			} else {
-				res.send('Sign Up Unsuccessful')
-			}
-		}).catch(function(err){
-				console.log(err);
-				res.send('Sign Up Unsuccessful')
-		})
+	console.log('Sign Up Attempt')
+	User.findOne({username:req.body.username}).then(function(result){
+		if(!result) {
+			bcrypt.hash(req.body.password, saltRounds).then(function(hash){
+				const hashPass = hash;
+				var user = new User({
+					username: req.body.username,
+					password: hash
+				});
+				user.save().then(function(){
+					if(user.isNew === false){
+						console.log('Sign Up Successful');
+						res.send(JSON.stringify(user.username))
+					} else {
+						res.send('Sign Up Unsuccessful')
+					}
+				}).catch(function(err){
+						console.log(err);
+						res.send('Sign Up Unsuccessful')
+				})
+			})
+		} else {
+			console.log('User Exists')
+			res.send('User Exists')
+		}
 	})
-	;
 })
 
 // Repo Search

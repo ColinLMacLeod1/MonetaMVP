@@ -33,11 +33,37 @@ export default class SignUp extends React.Component {
 			)
 			.then(function(res) {
 				console.log(res.data)
-				if(res.data != 'Sign Up Unsuccessful'){
+        if(res.data != 'User Exists'){
+          var errors = self.state.errors;
+          errors.email = "";
+          self.setState({
+              errors:errors
+          })
+        }
+        if(res.data != 'Sign Up Unsuccessful'){
+          var errors = self.state.errors;
+          errors.password = "";
+          self.setState({
+              errors:errors
+          })
+        }
+				if(res.data != 'Sign Up Unsuccessful' && res.data != 'User Exists'){
 					console.log('Sign Up Successful')
-          this.props.login(this.state.email)
+          self.props.login(self.state.email)
           //self.props.history.push('/home')
-				}
+				} else if(res.data == 'User Exists') {
+          var errors = self.state.errors;
+          errors.email = "User Already Exists";
+          self.setState({
+              errors:errors
+          })
+        } else if(res.data == 'Sign Up Unsuccessful'){
+            var errors = self.state.errors;
+            errors.password = "Account didn't save properly";
+            self.setState({
+                errors:errors
+            })
+        }
 
 			})
 			.catch(function(error) {
@@ -63,6 +89,7 @@ export default class SignUp extends React.Component {
         onChange={this.changeUser}
         errors={this.state.errors}
         user={this.state.user}
+        toLogin={this.props.toLogin}
       />
     );
   }
