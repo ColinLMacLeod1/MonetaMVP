@@ -6,9 +6,9 @@ import TextField from 'material-ui/TextField';
 
 
 const SignUpForm = ({onSubmit, onChange, errors, user}) => (
-  <Card className="loginForm" style={{width:'80vw', margin:'2vh 10vw 0vh 10vw'}}>
+  <Card className="loginForm" >
     <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Login</h2>
+      <h2 className="card-heading">Create Account</h2>
 
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
@@ -34,7 +34,7 @@ const SignUpForm = ({onSubmit, onChange, errors, user}) => (
       </div>
 
       <div className="button-line">
-        <RaisedButton type="submit" label="Log in" primary />
+        <RaisedButton type="submit" label="Sign Up" primary />
       </div>
     </form>
   </Card>

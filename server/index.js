@@ -122,14 +122,17 @@ app.post('/save', function(req,res) {
 
 // User Login
 app.post('/login',function(req,response){
-	console.log('Login')
-
+	console.log('Login Attempt')
 	User.findOne({username:req.body.username}).then(function(result){
-		console.log(result)
 		if(result){
 			bcrypt.compare(req.body.password, result.password).then(function(res){
-				console.log(res)
-				response.send(JSON.stringify(res));
+				if(res) {
+					console.log(req.body.username, 'is now Logged In')
+					response.send(req.body.username)
+				} else {
+					console.log('User Exists')
+					response.send(JSON.stringify('User Exists'));
+				}
 			})
 		} else {
 			response.send('User not found');
@@ -152,10 +155,16 @@ app.post('/signup',function(req,res){
 		user.save().then(function(){
 			if(user.isNew === false){
 				console.log('Sign Up Successful');
-			};
-		});
+				res.send(JSON.stringify(user.username))
+			} else {
+				res.send('Sign Up Unsuccessful')
+			}
+		}).catch(function(err){
+				console.log(err);
+				res.send('Sign Up Unsuccessful')
+		})
 	})
-	res.send(JSON.stringify(user.username));
+	;
 })
 
 // Repo Search

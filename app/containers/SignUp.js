@@ -16,16 +16,16 @@ export default class SignUp extends React.Component {
       }
     };
 
-    this.processLoginForm = this.processLoginForm.bind(this);
+    this.processSignUpForm = this.processSignUpForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
   }
 
-  processLoginForm(event) {
+  processSignUpForm(event) {
     event.preventDefault();
     console.log('email:', this.state.user.email);
     console.log('password:', this.state.user.password);
     const self = this;
-		axios.post('http://localhost:4200/login',
+		axios.post('http://localhost:4200/signup',
 			{
 				username: self.state.user.email,
 				password: self.state.user.password
@@ -33,9 +33,9 @@ export default class SignUp extends React.Component {
 			)
 			.then(function(res) {
 				console.log(res.data)
-				if(res.data != 'User not found'){
-					console.log('Login Successful')
-          this.props.login(this.state.email)
+				if(res.data != 'Sign Up Unsuccessful'){
+					console.log('Sign Up Successful')
+        //  this.props.login(this.state.email)
           self.props.history.push('/home')
 				}
 
@@ -58,8 +58,8 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <LoginForm
-        onSubmit={this.processLoginForm}
+      <SignUpForm
+        onSubmit={this.processSignUpForm}
         onChange={this.changeUser}
         errors={this.state.errors}
         user={this.state.user}
