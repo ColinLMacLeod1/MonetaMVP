@@ -169,7 +169,7 @@ app.post('/search',function(req,res){
 								}).then(function(result){
 			res.send(JSON.stringify(result))
 		})
-	} else if(req.body.searchType === 'members') {
+	} else if(req.body.searchType === 'member') {
 		console.log('Member search')
 		Meeting.find({members: {$in:[req.body.search]}, username:req.body.username}).then(function(result){
 			res.send(JSON.stringify(result))
