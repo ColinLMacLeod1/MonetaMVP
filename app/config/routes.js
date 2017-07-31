@@ -15,6 +15,7 @@ import CreateDB from '../containers/CreateDB';
 import Login from '../containers/Login';
 import Home from '../containers/Home';
 import SignUp from '../containers/SignUp';
+import App from '../containers/App';
 
 var routes = (
 	<MuiThemeProvider>
@@ -22,6 +23,7 @@ var routes = (
 			<div>
 				<Route path="/" component={Header} />
 				<Route  exact path="/" component={Login} history={history} />
+				<Route path="/full" component={App} />
 				<Route path="/home" component={Home} />
 				<Route path="/meeting" component={Meeting} />
 				<Route path="/repo" component={SearchC} />

@@ -35,8 +35,8 @@ export default class SignUp extends React.Component {
 				console.log(res.data)
 				if(res.data != 'Sign Up Unsuccessful'){
 					console.log('Sign Up Successful')
-        //  this.props.login(this.state.email)
-          self.props.history.push('/home')
+          this.props.login(this.state.email)
+          //self.props.history.push('/home')
 				}
 
 			})

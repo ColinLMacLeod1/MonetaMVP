@@ -35,6 +35,7 @@ const LoginForm = ({onSubmit, onChange, errors, user}) => (
 
       <div className="button-line">
         <RaisedButton type="submit" label="Log in" primary />
+        <a href="/signup">Create new account</a>
       </div>
     </form>
   </Card>

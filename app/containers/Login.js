@@ -35,9 +35,21 @@ export default class Login extends React.Component {
 				console.log(res.data)
 				if(res.data != 'User not found' && res.data != 'User Exists'){
 					console.log('Login Successful')
-          //this.props.login(this.state.email)
-          self.props.history.push('/home')
-				}
+          self.props.login(self.state.email)
+          //self.props.history.push('/home')
+				} else if(res.data == 'User not found') {
+          var errors = self.state.errors;
+          errors.email = "User not found";
+          self.setState({
+              errors:errors
+          })
+        } else if(res.data == 'User Exists'){
+            var errors = self.state.errors;
+            errors.password = "Password does not match";
+            self.setState({
+                errors:errors
+            })
+        }
 
 			})
 			.catch(function(error) {

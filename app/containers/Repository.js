@@ -19,7 +19,7 @@ export default class Repository extends React.Component {
 		this.state = {
       username: this.props.username,
 			search: '',
-      searchType: '',
+      searchType: 'title',
       results: [],
       progress: '',
       meetingRes: null,
