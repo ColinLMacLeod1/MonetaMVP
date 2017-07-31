@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField';
 
 
 const LoginForm = ({onSubmit, onChange, errors, user}) => (
-  <Card className="loginForm" style={{width:'80vw', margin:'2vh 10vw 0vh 10vw'}}>
+  <Card className="loginForm">
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Login</h2>
 

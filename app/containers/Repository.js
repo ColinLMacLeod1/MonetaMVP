@@ -66,6 +66,16 @@ export default class Repository extends React.Component {
   }
   componentDidMount(){
     this.loadAll()
+    this.state = this.state || {};
+    this.state.isPrinting = false;
+
+    // Run a media query through the matchMedia API
+    const query = window.matchMedia('print')
+    const queryListener = function(m) {
+      this.setState({isPrinting: m.matches});
+    }.bind(this)
+
+    query.addListener(queryListener);
   }
   createEmail() {
     // Making all of the values variables
@@ -117,6 +127,14 @@ export default class Repository extends React.Component {
   }
   toPDF(){
     console.log('to PDF')
+    var content = document.getElementById("printable");
+    var pri = document.getElementById("ifmcontentstoprint").contentWindow;
+    pri.document.open();
+    pri.document.write(content.innerHTML);
+    pri.document.close();
+    pri.focus();
+    pri.print();
+    console.log('printed')
   }
   loadAll(){
     const self = this;
@@ -198,6 +216,9 @@ export default class Repository extends React.Component {
       }).catch(function(err){
         console.log(err)
       })
+    this.setState({
+      meetingRes: null
+    })
     this.loadAll()
   }
   search() {
@@ -346,6 +367,7 @@ export default class Repository extends React.Component {
           />
         </Card>
         <div className="repository">
+
           {sidebar}
           {container}
         </div>

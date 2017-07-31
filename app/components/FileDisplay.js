@@ -4,7 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 
 const FileDisplay = ({data,toDictation,save,toEmail,toPDF,deleteMeeting}) => (
-  <Card className="dictation">
+  <Card className="dictation" id="printable">
     <div className="head">
       <div style={{marginRight:'50px'}}>
         <h1>{data.title}</h1>
