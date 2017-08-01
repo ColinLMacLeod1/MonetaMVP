@@ -12,7 +12,8 @@ export default class SignUp extends React.Component {
       errors: {},
       user: {
         email: '',
-        password: ''
+        password: '',
+        code: ''
       }
     };
 
@@ -22,13 +23,13 @@ export default class SignUp extends React.Component {
 
   processSignUpForm(event) {
     event.preventDefault();
-    console.log('email:', this.state.user.email);
-    console.log('password:', this.state.user.password);
+    console.log(this.state.user);
     const self = this;
 		axios.post('http://localhost:4200/signup',
 			{
 				username: self.state.user.email,
-				password: self.state.user.password
+				password: self.state.user.password,
+        code: self.state.user.code
 			}
 			)
 			.then(function(res) {
@@ -47,7 +48,7 @@ export default class SignUp extends React.Component {
               errors:errors
           })
         }
-				if(res.data != 'Sign Up Unsuccessful' && res.data != 'User Exists'){
+				if(res.data != 'Sign Up Unsuccessful' && res.data != 'User Exists' && res.data !="Code Already Used" && res.data !="Code Doesn't Exist"){
 					console.log('Sign Up Successful')
           self.props.login(self.state.email)
           //self.props.history.push('/home')
@@ -57,7 +58,19 @@ export default class SignUp extends React.Component {
           self.setState({
               errors:errors
           })
-        } else if(res.data == 'Sign Up Unsuccessful'){
+        } else if(res.data == "Code Already Used"){
+          var errors = self.state.errors;
+          errors.code = "Code Already Used";
+          self.setState({
+              errors:errors
+          })
+        } else if(res.data == "Code Doesn't Exist"){
+          var errors = self.state.errors;
+          errors.code = "Code Doesn't Exist";
+          self.setState({
+              errors:errors
+          })
+        } else {
             var errors = self.state.errors;
             errors.password = "Account didn't save properly";
             self.setState({

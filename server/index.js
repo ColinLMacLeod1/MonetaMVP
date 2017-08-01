@@ -8,10 +8,12 @@ const assert = require('assert')
 const User = require('../models/users')
 const Meeting = require('../models/meetings')
 const Feedback = require('../models/feedback')
+const Code = require('../models/codes')
 const bcrypt = require('bcrypt');
 
 
 const saltRounds = 10;
+const codes = ['1234','5678'];
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -33,6 +35,20 @@ mongoose.connection.collections.users.drop(function(){
 });
 mongoose.connection.collections.meetings.drop(function(){
   console.log('meetings droppped');
+});
+
+//Adding Sign Up Codes
+codes.map((code) => {
+	var newCode = new Code({
+		code: code,
+		used: false
+	});
+	console.log(newCode)
+	newCode.save().then(function(){
+		if(newCode.isNew === false){
+			console.log('Code Added');
+		};
+	});
 });
 
 // Adding test users
@@ -61,7 +77,7 @@ bcrypt.hash('litt', saltRounds).then(function(hash){
 		};
 	});
 })
-for(i=0;i<6;i++){
+for(i=0;i<4;i++){
 	var meeting = new Meeting({
 		title: "Finalize Sgt.Peppers Lyrics",
 		type: "Songwriting Meeting",
@@ -146,30 +162,49 @@ app.post('/login',function(req,response){
 //User Sign Up
 app.post('/signup',function(req,res){
 	console.log('Sign Up Attempt')
-	User.findOne({username:req.body.username}).then(function(result){
-		if(!result) {
-			bcrypt.hash(req.body.password, saltRounds).then(function(hash){
-				const hashPass = hash;
-				var user = new User({
-					username: req.body.username,
-					password: hash
-				});
-				user.save().then(function(){
-					if(user.isNew === false){
-						console.log('Sign Up Successful');
-						res.send(JSON.stringify(user.username))
+	Code.findOne({code:req.body.code}).then(function(codeResult){
+		if(codeResult){
+			if(!codeResult.used){
+				User.findOne({username:req.body.username}).then(function(result){
+					if(!result) {
+						bcrypt.hash(req.body.password, saltRounds).then(function(hash){
+							const hashPass = hash;
+							var user = new User({
+								username: req.body.username,
+								password: hash
+							});
+							user.save().then(function(){
+								if(user.isNew === false){
+									console.log('Sign Up Successful');
+									//Update the Code to be used
+									Code.update({ _id:codeResult._id }, { used: true }, function (err, raw) {
+									  if (err) return handleError(err);
+									  console.log('The raw response from Mongo was ', raw);
+									});
+									res.send(JSON.stringify(user.username))
+								} else {
+									res.send('Sign Up Unsuccessful')
+								}
+							}).catch(function(err){
+									console.log(err);
+									res.send('Sign Up Unsuccessful')
+							})
+						})
 					} else {
-						res.send('Sign Up Unsuccessful')
+						console.log('User Exists')
+						res.send('User Exists')
 					}
-				}).catch(function(err){
-						console.log(err);
-						res.send('Sign Up Unsuccessful')
 				})
-			})
-		} else {
-			console.log('User Exists')
-			res.send('User Exists')
+			} else{
+				console.log("Code Already Used")
+				res.send("Code Already Used")
+			}
+		} else{
+			console.log("Code Doesn't Exist")
+			res.send("Code Doesn't Exist")
 		}
+	}).catch(function(err){
+		console.log(err)
 	})
 })
 

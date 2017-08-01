@@ -34,6 +34,16 @@ const SignUpForm = ({onSubmit, onChange, errors, user, toLogin}) => (
         />
       </div>
 
+      <div className="field-line">
+        <TextField
+          floatingLabelText="Sign Up Code"
+          name="code"
+          onChange={onChange}
+          errorText={errors.code}
+          value={user.code}
+        />
+      </div>
+
       <div className="button-line">
         <RaisedButton type="submit" label="Sign Up" primary />
         <FlatButton label="I Have an Account" onClick={toLogin} primary={true} />

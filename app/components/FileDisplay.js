@@ -9,7 +9,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,deleteMeeting}) => (
       <div style={{marginRight:'50px'}}>
         <h1>{data.title}</h1>
         <h2>{data.type}</h2>
-        <h2>{data.location + ' on '+ data.date}</h2>
+        <h2>{data.location + ' on '+ (new Date(data.date)).toDateString()}</h2>
       </div>
       <div>
         <h2>Members Present:</h2>

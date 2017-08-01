@@ -80,12 +80,12 @@ export default class Repository extends React.Component {
   createEmail() {
     // Making all of the values variables
     var mailURI = "mailto:";
-    var title = "%0A" +  this.props.meetingRes.title;
-    var type = "%0A" +this.props.meetingRes.type;
-    var date = "%0A" +this.props.meetingRes.date;
-    var location = "%0A" +this.props.meetingRes.location + "%0A";
+    var title = "%0A" +  this.state.meetingRes.title;
+    var type = "%0A" +this.state.meetingRes.type;
+    var date = "%0A" +(new Date(this.state.meetingRes.date)).toDateString();
+    var location = "%0A" +this.state.meetingRes.location + "%0A";
     var groups = "%0AGroups:%0A"
-    var chair= "%0AChair: " +this.props.meetingRes.chair;
+    var chair= "%0AChair: " +this.state.meetingRes.chair;
     var members= "%0AMembers:%0A";
     var minutes= "%0AMinutes:%0A";
     var actions= "%0AActions:%0A";
@@ -94,7 +94,7 @@ export default class Repository extends React.Component {
     var body = "";
     // Making arrays into legit strings
     for(var i=0;i<this.state.meetingRes.groups.length;i++) {
-      groups = groups + this.props.meetingRes.groups[i] + "%0A";
+      groups = groups + this.state.meetingRes.groups[i] + "%0A";
     }
     console.log(groups)
     for(var i=0;i<this.state.meetingRes.members.length;i++) {
@@ -106,7 +106,7 @@ export default class Repository extends React.Component {
     }
     console.log(minutes)
     for(var i=0;i<this.state.meetingRes.actions.length;i++) {
-      actions = actions + this.state.meetingRes.actions[i].phrase + " Assigned to: " + this.props.meetingRes.actions[i].assigned.toString() + " Due " + this.props.meetingRes.actions[i].date + "%0A";
+      actions = actions + this.state.meetingRes.actions[i].phrase + " Assigned to: " + this.state.meetingRes.actions[i].assigned.toString() + " Due " + this.state.meetingRes.actions[i].date + "%0A";
     }
     console.log(actions)
     for(var i=0;i<this.state.meetingRes.decisions.length;i++) {
