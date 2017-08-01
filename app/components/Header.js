@@ -63,7 +63,7 @@ export default class Header extends React.Component {
   };
 	likesChange(event){
     this.setState({
-      suggestion: event.target.value,
+      likes: event.target.value,
     });
   };
 

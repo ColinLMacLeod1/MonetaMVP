@@ -49,7 +49,7 @@ export default class Login extends React.Component {
         }
 				if(res.data != 'User not found' && res.data != 'User Exists'){
 					console.log('Login Successful')
-          self.props.login(self.state.email)
+          self.props.login(self.state.user.email)
           //self.props.history.push('/home')
 				} else if(res.data == 'User not found') {
           var errors = self.state.errors;

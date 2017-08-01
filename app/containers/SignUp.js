@@ -50,7 +50,7 @@ export default class SignUp extends React.Component {
         }
 				if(res.data != 'Sign Up Unsuccessful' && res.data != 'User Exists' && res.data !="Code Already Used" && res.data !="Code Doesn't Exist"){
 					console.log('Sign Up Successful')
-          self.props.login(self.state.email)
+          self.props.login(self.state.user.email)
           //self.props.history.push('/home')
 				} else if(res.data == 'User Exists') {
           var errors = self.state.errors;

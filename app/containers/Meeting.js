@@ -88,6 +88,7 @@ export default class Meeting extends React.Component {
   save(){
     console.log('Saving')
     const self = this;
+    console.log(self.state.username)
 		axios.post('http://localhost:4200/save',
 			{
 				title: self.state.title,

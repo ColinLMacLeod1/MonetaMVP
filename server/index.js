@@ -36,6 +36,9 @@ mongoose.connection.collections.users.drop(function(){
 mongoose.connection.collections.meetings.drop(function(){
   console.log('meetings droppped');
 });
+mongoose.connection.collections.codes.drop(function(){
+  console.log('codes droppped');
+});
 
 //Adding Sign Up Codes
 codes.map((code) => {

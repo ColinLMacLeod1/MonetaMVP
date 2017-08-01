@@ -14,7 +14,7 @@ export default class App extends React.Component {
   constructor(props) {
 		super(props);
 		this.state = {
-      username: "colinlmacleod1",
+      username: "Not logged in",
       page:'login'
 		}
     this.toSignUp = this.toSignUp.bind(this)
