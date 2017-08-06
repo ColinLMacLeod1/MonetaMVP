@@ -7,6 +7,7 @@ import Repository from '../containers/Repository'
 import Login from './Login'
 import SignUp from './SignUp'
 import Header from '../components/Header'
+import Feedback from '../components/Feedback'
 
 
 
@@ -47,22 +48,34 @@ export default class App extends React.Component {
     })
   }
   render() {
+    let feedbackTab = null;
+    if(this.state.username == 'colin'){
+      console.log('colin signed in')
+      feedbackTab = (
+        <Tab label='Feedback'>
+          <Feedback />
+        </Tab>
+      )
+    }
     switch(this.state.page) {
       case 'login':
         return (
           <div>
+            <Header username={this.state.username} />
             <Login login={this.login} toSignUp={this.toSignUp}/>
           </div>
         );
       case 'signup':
         return (
           <div>
+            <Header username={this.state.username} />
             <SignUp login={this.login} toLogin={this.toLogin}/>
           </div>
         );
       case 'app':
         return (
           <div>
+            <Header username={this.state.username} />
             <Tabs>
               <Tab label="Meeting">
                 <Meeting username={this.state.username} />
@@ -73,6 +86,7 @@ export default class App extends React.Component {
               <Tab label="Help">
                 <Help />
               </Tab>
+              {feedbackTab}
             </Tabs>
           </div>
         );

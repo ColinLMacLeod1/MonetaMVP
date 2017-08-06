@@ -16,7 +16,6 @@
     "mocha": "^3.4.2",
     "moment": "^2.18.1",
     "mongoose": "^4.11.1",
-    "path": "^0.12.7",
     "react": "^15.6.1",
     "react-datetime": "^2.8.10",
     "react-dom": "^15.6.1",
@@ -26,6 +25,8 @@
     "react-tap-event-plugin": "^2.0.1",
     "react-time": "^4.3.0",
     "react-voice-components": "^1.0.0",
+    "watson-developer-cloud": "^2.37.0",
+    "watson-speech": "^0.33.1",
     "webpack": "^3.0.0"
   },
   "devDependencies": {

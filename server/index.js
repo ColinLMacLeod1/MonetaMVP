@@ -9,7 +9,8 @@ const User = require('../models/users')
 const Meeting = require('../models/meetings')
 const Feedback = require('../models/feedback')
 const Code = require('../models/codes')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
+const watson = require('watson-developer-cloud')
 
 
 const saltRounds = 10;
@@ -39,6 +40,7 @@ mongoose.connection.collections.meetings.drop(function(){
 mongoose.connection.collections.codes.drop(function(){
   console.log('codes droppped');
 });
+
 
 //Adding Sign Up Codes
 codes.map((code) => {
@@ -278,6 +280,22 @@ app.get('/feedback',function(req,res){
 	})
 })
 
+//Get Speech to text token
+app.get('/token', function(req,res){
+	var auth = new watson.AuthorizationV1({
+  	"url": "https://stream.watsonplatform.net/speech-to-text/api",
+  	"username": "fbc390cc-ae44-4968-b839-4cd9c34bc201",
+  	"password": "dZAVMXe7gWKn"
+	});
+	auth.getToken(function(err,token){
+		if(!token){
+			console.log('error:', err);
+		} else {
+			console.log('Token exists')
+			res.send(token);
+		}
+	});
+})
 
 // Server Port
 app.listen(4200,function() {

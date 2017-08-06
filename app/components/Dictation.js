@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import InputField from './InputField.js'
 
-const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonPress, errors, toMeta, data, toFile}) => (
+const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonPress, errors, toMeta, data, toFile, transcript}) => (
 		<Card className="dictation">
 			<div className="head">
 				<div style={{marginRight:'50px'}}>
@@ -35,6 +35,10 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 					        name="decisions"
 									value={item}
 									onChange={(event,newValue) => itemChange(newValue,index,'decisions')}
+									multiLine={true}
+									rows={1}
+									rowsMax={4}
+									style={{width: '100%'}}
 					      />
 								<p onClick={(e)=> itemDelete(item, index, e,'decisions')}>x</p>
 							</div>
@@ -52,6 +56,10 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 					        name="actions"
 									value={item.phrase}
 									onChange={(event,newValue) => itemChange(newValue,index,'actions')}
+									multiLine={true}
+									rows={1}
+      						rowsMax={4}
+									style={{width: '100%'}}
 					      />
 								<p onClick={(e)=> itemDelete(item, index, e,'actions')}>x</p>
 							</div>
@@ -69,6 +77,10 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 					        name="minutes"
 									value={item}
 									onChange={(event,newValue) => itemChange(newValue,index,'minutes')}
+									multiLine={true}
+									rows={1}
+									rowsMax={4}
+									style={{width: '100%'}}
 					      />
 								<p onClick={(e)=> itemDelete(item, index, e,'minutes')}>x</p>
 							</div>
@@ -79,6 +91,7 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 			</div>
 			<div className="navButtons">
 				<RaisedButton label="Previous" primary={true} onClick={toMeta}/>
+				{transcript}
 				<RaisedButton label="Finish" primary={true} onClick={toFile}/>
 			</div>
 		</Card>

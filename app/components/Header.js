@@ -12,7 +12,6 @@ export default class Header extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username:"colinlmacleod1",
 			issue:'',
 			suggestion:'',
 			likes:'',
@@ -27,11 +26,11 @@ export default class Header extends React.Component {
 	closeDrawer(){this.setState({open: false});}
 
 	sendFeedback(){
-		console.log('Issue: ' +this.state.issue,'Suggestion: '+this.state.suggestion)
+		console.log('Issue: ' +this.state.issue,'Suggestion: '+this.state.suggestion, 'Likes: '+this.state.likes)
 		const self = this;
 		axios.post('http://localhost:4200/feedback',
 			{
-				username: self.state.username,
+				username: self.props.username,
 				date: (new Date()).getTime(),
         issue: self.state.issue,
 				suggestion: self.state.suggestion,
@@ -42,7 +41,8 @@ export default class Header extends React.Component {
 				console.log(res.data)
         self.setState({
           issue:'',
-					suggestion:''
+					suggestion:'',
+					likes:''
         })
 				console.log('Feedback Sent')
 			})

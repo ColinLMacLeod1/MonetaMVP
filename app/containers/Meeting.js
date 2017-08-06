@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import WatsonSpeech from 'watson-speech'
 import MeetingForm from '../components/MeetingForm.js'
 import Dictation from '../components/Dictation.js'
 import FileReview from '../components/FileReview.js'
 import Snackbar from 'material-ui/Snackbar'
+
 
 export default class Meeting extends React.Component {
   constructor(props) {
@@ -33,7 +35,9 @@ export default class Meeting extends React.Component {
       pane: 0,
       username: this.props.username,
       saved:false,
-      email:false
+      email:false,
+      transcript:'',
+      isRecording:false
 		}
     this.onChange = this.onChange.bind(this)
     this.toDictation = this.toDictation.bind(this)
@@ -48,9 +52,36 @@ export default class Meeting extends React.Component {
     this.itemAdd = this.itemAdd.bind(this)
     this.itemChange = this.itemChange.bind(this)
     this.itemDelete = this.itemDelete.bind(this)
+    this.stream = this.stream.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+		this.handleKeyUp = this.handleKeyUp.bind(this)
 
     console.log(this.state.username)
 	}
+  componentDidMount() {
+    	window.addEventListener("keydown", this.handleKeyDown);
+    	window.addEventListener("keyup", this.handleKeyUp);
+	}
+  componentWillUnmount() {
+	    window.removeEventListener("keydown", this.handleKeyDown);
+	    window.removeEventListener("keyup", this.handleKeyUp);
+	}
+  handleKeyDown(event){
+    if(event.key === 'Alt' && !this.state.isRecording){
+      console.log(event)
+      event.preventDefault();
+      console.log('Start')
+      this.stream()
+      this.setState({isRecording: true});
+    }
+  }
+  handleKeyUp(event){
+    if(event.key == 'Alt' && this.state.isRecording){
+      event.preventDefault();
+      this.setState({isRecording: false});
+      console.log('Stop')
+    }
+}
   onChange(event, newValue, chips){
     console.log(newValue)
     if(newValue === null){
@@ -241,6 +272,48 @@ export default class Meeting extends React.Component {
     	[src]: newArray
     });
 	}
+  stream(){
+		console.log('stream')
+		const self = this;
+		axios.get('http://localhost:4200/token')
+		.then(function (token) {
+			console.log(token.data)
+			var stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
+        token: token.data,
+        objectMode: true, // send objects instead of text
+        format: true, // optional - performs basic formatting on the results such as capitals an periods
+				keywords: ['Action','Decision','Matt'],
+				keywords_threshold: 0.
+
+	    });
+
+	    stream.on('data', function(data) {
+				console.log(data)
+        self.setState({
+          transcript:data.results[0].alternatives[0].transcript
+        })
+				if(data.results[0].final){
+          self.setState({
+            transcript:''
+          })
+					if(data.results[0].keywords_result){
+            self.itemAdd(data.results[0].alternatives[0].transcript,'minutes')
+          }
+				}
+
+	    });
+
+	    stream.on('error', function(err) {
+	        console.log(err);
+	    });
+			window.addEventListener("keyup", stream.stop.bind(stream));
+	    //document.querySelector('#stop').onclick = stream.stop.bind(stream);
+
+  	})
+		.catch(function(error) {
+      console.log(error);
+  	});
+	}
   render() {
       var data={
         title: this.state.title,
@@ -278,6 +351,7 @@ export default class Meeting extends React.Component {
               itemAdd={this.itemAdd}
               itemChange={this.itemChange}
               itemDelete={this.itemDelete}
+              transcript={this.state.transcript}
             /><Snackbar
                   open={this.state.saved}
                   message="Saved"
