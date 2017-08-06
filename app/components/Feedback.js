@@ -51,7 +51,6 @@ export default class Feedback extends React.Component {
             </Card>
           ).reverse()}
   				</div>
-
   			)
   	}
   }
