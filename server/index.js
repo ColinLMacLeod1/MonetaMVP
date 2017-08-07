@@ -11,7 +11,9 @@ const Feedback = require('../models/feedback')
 const Code = require('../models/codes')
 const bcrypt = require('bcrypt')
 const watson = require('watson-developer-cloud')
+const config = require('config')
 
+var dbConfig = config.get('Customer.dbConfig');
 
 const saltRounds = 10;
 const codes = ['1234','5678'];
@@ -20,7 +22,7 @@ app.use(cors())
 app.use(bodyParser.json())
 // MongoDB Connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/testaroo',{
+mongoose.connect('mongodb://'+dbConfig.host+'/'+dbConfig.port,{
 	useMongoClient: true
 });
 
@@ -40,7 +42,9 @@ mongoose.connection.collections.meetings.drop(function(){
 mongoose.connection.collections.codes.drop(function(){
   console.log('codes droppped');
 });
-
+mongoose.connection.collections.feedbacks.drop(function(){
+  console.log('feedbacks droppped');
+});
 
 //Adding Sign Up Codes
 codes.map((code) => {
