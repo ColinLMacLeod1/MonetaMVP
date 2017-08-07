@@ -10,7 +10,6 @@ import Header from '../components/Header'
 import Feedback from '../components/Feedback'
 
 
-
 export default class App extends React.Component {
   constructor(props) {
 		super(props);
@@ -49,7 +48,7 @@ export default class App extends React.Component {
   }
   render() {
     let feedbackTab = null;
-    if(this.state.username == 'colin'){
+    if(this.state.username == 'colin' || this.state.username == 'team@monettatech.com'){
       console.log('colin signed in')
       feedbackTab = (
         <Tab label='Feedback'>

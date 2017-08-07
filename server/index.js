@@ -13,10 +13,10 @@ const bcrypt = require('bcrypt')
 const watson = require('watson-developer-cloud')
 const config = require('config')
 
-var dbConfig = config.get('Customer.dbConfig');
-
+const dbConfig = config.get('Customer.dbConfig');
 const saltRounds = 10;
-const codes = ['1234','5678'];
+const codes = config.get('Presets.codes');
+const initalUsers = config.get('Presets.users');
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -62,9 +62,9 @@ codes.map((code) => {
 });
 
 // Adding test users
-bcrypt.hash('macleod', saltRounds).then(function(hash){
+bcrypt.hash(initalUsers.teampassword, saltRounds).then(function(hash){
 	var user1 = new User({
-		username: 'colin',
+		username: initalUsers.teamuser,
 		password: hash
 	});
 	console.log(user1)
@@ -75,9 +75,9 @@ bcrypt.hash('macleod', saltRounds).then(function(hash){
 	});
 })
 
-bcrypt.hash('litt', saltRounds).then(function(hash){
+bcrypt.hash(initalUsers.testpassword, saltRounds).then(function(hash){
 	var user2 = new User({
-		username: 'andrew',
+		username: initalUsers.testuser,
 		password: hash
 	});
 	console.log(user2)
@@ -285,6 +285,17 @@ app.get('/feedback',function(req,res){
 	})
 })
 
+//Count users
+app.get('/usercount', function(req,res){
+	console.log('Getting User Count')
+	User.find({}).then(function(result){
+		console.log(result.length)
+		res.send(JSON.stringify(result.length))
+	}).catch(function(err){
+		console.log(err)
+	})
+})
+
 //Get Speech to text token
 app.get('/token', function(req,res){
 	var auth = new watson.AuthorizationV1({
@@ -301,6 +312,7 @@ app.get('/token', function(req,res){
 		}
 	});
 })
+
 
 // Server Port
 app.listen(4200,function() {

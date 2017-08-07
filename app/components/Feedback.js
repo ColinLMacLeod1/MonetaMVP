@@ -10,9 +10,24 @@ export default class Feedback extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			feedback:[]
+			feedback:[],
+			userCount:0
 		}
 		this.getFeedback = this.getFeedback.bind(this)
+	}
+	componentDidMount(){
+		const self = this;
+		axios.get('http://localhost:4200/usercount')
+			.then(function(res) {
+        console.log(res.data)
+				self.setState({
+          userCount:res.data
+        })
+				console.log('Users Counted')
+			})
+			.catch(function(error) {
+				console.log(error)
+			})
 	}
 
   getFeedback() {
@@ -33,6 +48,7 @@ export default class Feedback extends React.Component {
   		return (
   				<div>
           <FlatButton label="Get Feedback" fullWidth={true} onClick={this.getFeedback} />
+					{this.state.userCount}
           {this.state.feedback.map((feedback,index)=>
             <Card key={index}>
               <CardHeader
