@@ -4,13 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
 	entry: [
-		'./server/index.js',
 		'./app/routes/routes.js'
 	],
 	output: {
 		path: path.resolve(__dirname,"dist"),
 		filename: "index_bundle.js",
-		publicPath: "/"
+		publicPath: "/dist/"
 	},
 	module: {
 		rules: [
@@ -25,11 +24,16 @@ const config = {
 			template: './app/index.html',
 			filename: 'index.html',
 			inject: 'body'
-		})
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      compress: {
+        warnings: false
+      }
+    })
 	],
-	devServer: {
-		port: 6969,
-		historyApiFallback: true
+	node: {
+	  fs: 'empty'
 	}
 };
 
