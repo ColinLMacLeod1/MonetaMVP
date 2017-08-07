@@ -77,9 +77,9 @@ bcrypt.hash(initalUsers.teampassword, saltRounds).then(function(hash){
 
 bcrypt.hash(initalUsers.testpassword, saltRounds).then(function(hash){
 	var user2 = new User({
-		username: initalUsers.testuser,
-		password: hash
-	});
+			username: initalUsers.testuser,
+			password: hash
+		});
 	console.log(user2)
 	user2.save().then(function(){
 		if(user2.isNew === false){
@@ -87,6 +87,8 @@ bcrypt.hash(initalUsers.testpassword, saltRounds).then(function(hash){
 		};
 	});
 })
+
+//Adding some fake meetings
 for(i=0;i<4;i++){
 	var meeting = new Meeting({
 		title: "Finalize Sgt.Peppers Lyrics",
@@ -108,7 +110,7 @@ for(i=0;i<4;i++){
 		],
 		actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
 		decisions: ["Decision Test","Another one"],
-		username: "colinlmacleod1"
+		username: "colin"
 	});
 	meeting.save().then(function(){
 		if(meeting.isNew === false){
