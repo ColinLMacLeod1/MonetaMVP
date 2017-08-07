@@ -22,7 +22,7 @@ app.use(cors())
 app.use(bodyParser.json())
 // MongoDB Connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://'+dbConfig.host+'/'+dbConfig.port,{
+mongoose.connect('mongodb://'+dbConfig.uri,{
 	useMongoClient: true
 });
 
@@ -42,10 +42,11 @@ mongoose.connection.collections.meetings.drop(function(){
 mongoose.connection.collections.codes.drop(function(){
   console.log('codes droppped');
 });
+/*
 mongoose.connection.collections.feedbacks.drop(function(){
   console.log('feedbacks droppped');
 });
-
+*/
 //Adding Sign Up Codes
 codes.map((code) => {
 	var newCode = new Code({

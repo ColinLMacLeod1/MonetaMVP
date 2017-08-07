@@ -1,0 +1,7 @@
+{
+  "Customer":{
+    "dbConfig":{
+      "uri":"localhost/testDB"
+    }
+  }
+}

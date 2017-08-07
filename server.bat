@@ -1,3 +1,2 @@
-cd server
-node index.js
+node server/index.js
 cmd /k
