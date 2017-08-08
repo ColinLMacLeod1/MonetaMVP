@@ -38,6 +38,8 @@ const port = config.get('Presets.port')
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://'+dbConfig.uri,{
 	useMongoClient: true
+}).catch(function(err){
+	console.lot(err)
 });
 
 mongoose.connection.once('open',function(){
