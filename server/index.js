@@ -330,6 +330,7 @@ app.get('/token', function(req,res){
 
 
 // Server Port
-app.listen(4200,function() {
+app.listen(process.env.PORT || 4200,function() {
 	console.log('App listening on port 4200')
 })
+ module.exports = app;
