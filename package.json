@@ -45,15 +45,16 @@
     "webpack-dev-server": "^2.5.0"
   },
   "scripts": {
-    "test": "mocha",
-    "start": "webpack-dev-server"
+    "start": "npm run build && node server/index.js",
+    "build": "webpack --config ./webpack.deployment.config.js --progress --color",
+    "dev-start": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ColinLMacLeod1/MonetaMVP.git"
   },
   "author": "Colin MacLeod, Andrew Litt",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/ColinLMacLeod1/MonetaMVP/issues"
   },
