@@ -32,6 +32,7 @@ const dbConfig = config.get('Customer.dbConfig');
 const saltRounds = 10;
 const codes = config.get('Presets.codes');
 const initalUsers = config.get('Presets.users');
+const port = config.get('Presets.port')
 
 // MongoDB Connection
 mongoose.Promise = global.Promise;
@@ -330,7 +331,7 @@ app.get('/token', function(req,res){
 
 
 // Server Port
-app.listen(process.env.PORT || 4200,function() {
-	console.log('App listening on port 4200')
+app.listen(process.env.PORT || port,function() {
+	console.log('App listening on port', port)
 })
  module.exports = app;
