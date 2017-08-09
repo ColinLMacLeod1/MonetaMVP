@@ -25,7 +25,7 @@ export default class Login extends React.Component {
     console.log('email:', this.state.user.email);
     console.log('password:', this.state.user.password);
     const self = this;
-		axios.post('http://localhost:4200/login',
+		axios.post('http://localhost:8080/login',
 			{
 				username: self.state.user.email,
 				password: self.state.user.password
