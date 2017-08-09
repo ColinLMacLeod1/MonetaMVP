@@ -37,7 +37,8 @@ export default class Meeting extends React.Component {
       saved:false,
       email:false,
       transcript:'',
-      isRecording:false
+      isRecording:false,
+      token:''
 		}
     this.onChange = this.onChange.bind(this)
     this.toDictation = this.toDictation.bind(this)
@@ -61,6 +62,16 @@ export default class Meeting extends React.Component {
   componentDidMount() {
     	window.addEventListener("keydown", this.handleKeyDown);
     	window.addEventListener("keyup", this.handleKeyUp);
+      const self = this;
+      axios.get('http://localhost:4200/token')
+  		.then(function (token) {
+        self.setState({
+          token:token.data
+        })
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
 	}
   componentWillUnmount() {
 	    window.removeEventListener("keydown", this.handleKeyDown);
@@ -274,45 +285,40 @@ export default class Meeting extends React.Component {
 	}
   stream(){
 		console.log('stream')
-		const self = this;
-		axios.get('http://localhost:4200/token')
-		.then(function (token) {
-			console.log(token.data)
-			var stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
-        token: token.data,
-        objectMode: true, // send objects instead of text
-        format: true, // optional - performs basic formatting on the results such as capitals an periods
-				keywords: ['Action','Decision','Matt'],
-				keywords_threshold: 0.
+    const self=this;
 
-	    });
+		console.log(this.state.token)
+		var stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
+      token: this.state.token,
+      objectMode: true, // send objects instead of text
+      format: true, // optional - performs basic formatting on the results such as capitals an periods
+			keywords: ['Action','Decision','Matt'],
+			keywords_threshold: 0.
 
-	    stream.on('data', function(data) {
-				console.log(data)
+    });
+
+    stream.on('data', function(data) {
+			console.log(data)
+      self.setState({
+        transcript:data.results[0].alternatives[0].transcript
+      })
+			if(data.results[0].final){
         self.setState({
-          transcript:data.results[0].alternatives[0].transcript
+          transcript:''
         })
-				if(data.results[0].final){
-          self.setState({
-            transcript:''
-          })
-					if(data.results[0].keywords_result){
-            self.itemAdd(data.results[0].alternatives[0].transcript,'minutes')
-          }
-				}
+				if(data.results[0].keywords_result){
+          self.itemAdd(data.results[0].alternatives[0].transcript,'minutes')
+        }
+			}
 
-	    });
+    });
 
-	    stream.on('error', function(err) {
-	        console.log(err);
-	    });
-			window.addEventListener("keyup", stream.stop.bind(stream));
-	    //document.querySelector('#stop').onclick = stream.stop.bind(stream);
+    stream.on('error', function(err) {
+        console.log(err);
+    });
+		window.addEventListener("keyup", stream.stop.bind(stream));
+    //document.querySelector('#stop').onclick = stream.stop.bind(stream);
 
-  	})
-		.catch(function(error) {
-      console.log(error);
-  	});
 	}
   render() {
       var data={

@@ -1,7 +1,7 @@
 {
   "Customer":{
     "dbConfig":{
-      "uri":"root:A7LrL4gP@35.193.223.57:27017"
+      "uri":"root:FYcKxY6Q@35.196.182.249:27017"
     }
   },
   "Presets":{
@@ -11,6 +11,7 @@
       "testuser":"test@example.com",
       "testpassword":"test"
     },
-    "codes":["1234","5678"]
+    "codes":["1234","5678"],
+    "port":8080
   }
 }
