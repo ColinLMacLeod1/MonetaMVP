@@ -37,7 +37,7 @@ console.log(dbConfig.uri)
 
 // MongoDB Connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://'+dbConfig.uri,{
+mongoose.connect(dbConfig.uri,{
 	useMongoClient: true
 }).catch(function(err){
 	console.log(err)
