@@ -36,8 +36,9 @@ const port = config.get('Presets.port')
 console.log(dbConfig.uri)
 
 // MongoDB Connection
+//dbConfig.uri
 mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig.uri,{
+mongoose.connect(process.env.MONGODB_URI,{
 	useMongoClient: true
 }).catch(function(err){
 	console.log(err)
