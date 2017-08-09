@@ -12,6 +12,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import DatePicker from 'material-ui/DatePicker'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
+import Printing from '../components/Printing.js'
 
 export default class Repository extends React.Component {
   constructor(props) {
@@ -129,6 +130,7 @@ export default class Repository extends React.Component {
     console.log('to PDF')
     var content = document.getElementById("printable");
     var pri = document.getElementById("ifmcontentstoprint").contentWindow;
+    console.log(content)
     pri.document.open();
     pri.document.write(content.innerHTML);
     pri.document.close();
@@ -309,12 +311,15 @@ export default class Repository extends React.Component {
       {console.log('PRINTING Selection')
       console.log(this.state.meetingRes)
       container = (
+        <div>
         <FileDisplay
         data={this.state.meetingRes}
         toEmail={this.toEmail}
         toPDF={this.toPDF}
         deleteMeeting={this.deleteMeeting}
         />
+        <Printing data={this.state.meetingRes}/>
+        </div>
       );}
     else
       container= (<h5>Nothing Selected.</h5>)
