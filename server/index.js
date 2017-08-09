@@ -33,7 +33,8 @@ const saltRounds = 10;
 const codes = config.get('Presets.codes');
 const initalUsers = config.get('Presets.users');
 const port = config.get('Presets.port')
-console.log(dbConfig.uri)
+console.log('Config:'+dbConfig.uri)
+console.log('Env:'+process.env.MONGODB_URI)
 
 // MongoDB Connection
 //dbConfig.uri
