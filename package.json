@@ -53,6 +53,11 @@
     "type": "git",
     "url": "git+https://github.com/ColinLMacLeod1/MonetaMVP.git"
   },
+  "name": "Monetta MVP",
+  "version": "1.0.0",
+  "engines":{
+    "node":"8.0.0"
+  },
   "author": "Colin MacLeod, Andrew Litt",
   "license": "UNLICENSED",
   "bugs": {

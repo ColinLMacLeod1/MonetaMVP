@@ -33,13 +33,14 @@ const saltRounds = 10;
 const codes = config.get('Presets.codes');
 const initalUsers = config.get('Presets.users');
 const port = config.get('Presets.port')
+console.log(dbConfig.uri)
 
 // MongoDB Connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://'+dbConfig.uri,{
 	useMongoClient: true
 }).catch(function(err){
-	console.lot(err)
+	console.log(err)
 });
 
 mongoose.connection.once('open',function(){
