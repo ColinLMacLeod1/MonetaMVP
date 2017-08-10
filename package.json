@@ -43,11 +43,8 @@
     "webpack-dev-server": "^2.5.0"
 
   },
-  "devDependencies": {
-
-  },
   "scripts": {
-    "start": "npm i && npm run build && node server/index.js",
+    "start": "npm run build && node server/index.js",
     "build": "webpack --config ./webpack.deployment.config.js --progress --color",
     "dev-start": "webpack-dev-server"
   },

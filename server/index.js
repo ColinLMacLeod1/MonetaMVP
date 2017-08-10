@@ -38,7 +38,7 @@ console.log('Env:'+process.env.MONGODB_URI)
 
 // MongoDB Connection
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.dbConfig.uri,{
+mongoose.connect(dbConfig.uri,{
 	useMongoClient: true
 }).catch(function(err){
 	console.log(err)
