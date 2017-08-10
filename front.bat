@@ -1,2 +1,2 @@
-npm dev-start
+npm run dev-start
 cmd /k
