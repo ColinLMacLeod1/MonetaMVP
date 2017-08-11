@@ -47,7 +47,7 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 					<InputField	title='decisions'	submitData={(item,src) => itemAdd(item,src)}/>
 				</Card>
 				<Card className="section">
-					<CardTitle title="Action"/>
+					<CardTitle title="Action Items"/>
 					<List>
 						{data.actions.map((item,index) =>
 							<div key={index} className="listItem">

@@ -41,7 +41,6 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack-dev-server": "^2.5.0"
-
   },
   "scripts": {
     "start": "npm run build && node server/index.js",
@@ -52,9 +51,9 @@
     "type": "git",
     "url": "git+https://github.com/ColinLMacLeod1/MonetaMVP.git"
   },
-  "engines":{
-    "node":"8.0.0",
-    "npm":"5.0.3"
+  "engines": {
+    "node": "8.0.0",
+    "npm": "5.0.3"
   },
   "author": "Colin MacLeod, Andrew Litt",
   "license": "UNLICENSED",

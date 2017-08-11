@@ -1,5 +1,5 @@
 require('../styles/style.sass')
-
+require('../assets/fonts/font.scss');
 import React from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter as Router,
@@ -13,8 +13,17 @@ import Login from '../containers/Login';
 import Home from '../containers/Home';
 import App from '../containers/App';
 import Printing from '../components/Printing.js'
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: '#6699ff',
+		accent1Color: '#ffcc33'
+  }
+});
+
 var routes = (
-	<MuiThemeProvider>
+	<MuiThemeProvider muiTheme={muiTheme}>
 		<Router>
 			<div>
 				<Route exact path="/" component={App}/>
