@@ -298,7 +298,9 @@ export default class Meeting extends React.Component {
     });
 
     stream.on('data', function(data) {
-			console.log(data)
+
+      var text = data.results[0].alternatives[0].transcript;
+      console.log(text)
       self.setState({
         transcript:data.results[0].alternatives[0].transcript
       })
@@ -306,8 +308,12 @@ export default class Meeting extends React.Component {
         self.setState({
           transcript:''
         })
-				if(data.results[0].keywords_result){
-          self.itemAdd(data.results[0].alternatives[0].transcript,'minutes')
+				if(text.includes('Action') || text.includes('action')){
+          self.itemAdd(text,'actions')
+        } else if(text.includes('Decision') || text.includes('decision')) {
+          self.itemAdd(text,'decisions')
+        } else {
+          self.itemAdd(text, 'minutes')
         }
 			}
 
