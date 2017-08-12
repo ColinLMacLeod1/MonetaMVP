@@ -6,8 +6,10 @@ import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import InputField from './InputField.js'
+import CircularProgress from 'material-ui/CircularProgress'
+import RefreshIndicator from 'material-ui/RefreshIndicator'
 
-const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonPress, errors, toMeta, data, toFile, transcript}) => (
+const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonPress, errors, toMeta, data, toFile, transcript, isRecording}) => (
 		<Card className="dictation">
 			<div className="head">
 				<div style={{marginRight:'50px'}}>
@@ -89,9 +91,14 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 					<InputField	title='minutes'	submitData={(item,src) => itemAdd(item,src)}/>
 				</Card>
 			</div>
+			<div className="transcript">
+				{isRecording == true &&
+					<CircularProgress size={60} thickness={7} />
+	      }
+				{transcript}
+			</div>
 			<div className="navButtons">
 				<RaisedButton label="Previous" primary={true} onClick={toMeta}/>
-				{transcript}
 				<RaisedButton label="Finish" primary={true} onClick={toFile}/>
 			</div>
 		</Card>

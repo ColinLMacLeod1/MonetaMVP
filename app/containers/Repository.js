@@ -311,18 +311,18 @@ export default class Repository extends React.Component {
       {console.log('PRINTING Selection')
       console.log(this.state.meetingRes)
       container = (
-        <div>
-        <FileDisplay
-        data={this.state.meetingRes}
-        toEmail={this.toEmail}
-        toPDF={this.toPDF}
-        deleteMeeting={this.deleteMeeting}
-        />
-        <Printing data={this.state.meetingRes}/>
+        <div className="displayContainer">
+          <FileDisplay
+          data={this.state.meetingRes}
+          toEmail={this.toEmail}
+          toPDF={this.toPDF}
+          deleteMeeting={this.deleteMeeting}
+          />
+          <Printing data={this.state.meetingRes}/>
         </div>
       );}
     else
-      container= (<h5>Nothing Selected.</h5>)
+      container= (<div className="displayContainer"><h5>Nothing Selected.</h5></div>)
     //Define search title
     if(this.state.searchType == 'title')
       searchTitle = 'Title Search'
@@ -331,7 +331,7 @@ export default class Repository extends React.Component {
 
     return(
       <div>
-        <Card className='searchC'>
+        <div className='searchC'>
           <div className='searchCriteria'>
             <RadioButtonGroup name="searchType" defaultSelected="title" onChange={this.onTabChange}>
               <RadioButton
@@ -357,22 +357,23 @@ export default class Repository extends React.Component {
               />
             </div>
           </div>
-          <TextField
-            floatingLabelText={searchTitle}
-            name="titleSearch"
-            underlineShow={true}
-            fullWidth={true}
-            value = {this.state.search}
-            onChange = {this.handleChange}
-            onKeyPress={(e) => {
-              if(e.key==='Enter'){
-                this.search();
-              }
-            }}
-          />
-        </Card>
+          <div className="titleSearch">
+            <TextField
+              floatingLabelText={searchTitle}
+              name="titleSearch"
+              underlineShow={true}
+              fullWidth={true}
+              value = {this.state.search}
+              onChange = {this.handleChange}
+              onKeyPress={(e) => {
+                if(e.key==='Enter'){
+                  this.search();
+                }
+              }}
+            />
+          </div>
+        </div>
         <div className="repository">
-
           {sidebar}
           {container}
         </div>

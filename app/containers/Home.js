@@ -40,9 +40,7 @@ export default class Home extends React.Component {
         <Tab label="Repository">
           <Repository username={this.state.username}/>
         </Tab>
-        <Tab label="Help">
-          <Help />
-        </Tab>
+        
       </Tabs>
     )
   }

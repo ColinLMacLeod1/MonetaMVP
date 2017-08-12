@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import {Link} from 'react-router-dom';
 import logo from '../assets/images/logo2.png';
+import logo2 from '../assets/images/MonettaLogo.png'
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
@@ -71,9 +72,7 @@ export default class Header extends React.Component {
 	render() {
 	return (
 			<div className="header" style={{width:'100vw'}}>
-				<img src={logo}/>
-				<h1>MONETTA</h1>
-				<FlatButton label="Feedback" primary={true} onClick={()=>{this.setState({open: !this.state.open});}} />
+				<img src={logo2}/>
 				<Drawer
 					open={this.state.open}
 					docked={false}

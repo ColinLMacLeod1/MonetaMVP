@@ -1,14 +1,14 @@
 .repository
   display: flex
   flex-direction: row
-  flex: 1 1 auto
-  height: 100%
+  width: 100%
   .meetingList
     overflow-y: scroll
-    width: 30%
-    height: 55vh
+    width: 3
+    flex: 1
+    height: 75vh
   .displayContainer
-    width: 100%
+    flex: 2
   h5
     font-family: 'Roboto'
     font-weight: lighter
@@ -16,8 +16,10 @@
     font-size: 20pt
     padding: 10px
 .searchC
-  width: 80vw
-  margin: 2vh 10vw 0vh 10vw
+  width: 100%
+  margin-top: 20px
+  .titleSearch
+    margin: 0 50px
   .dateDiv
     display: flex
     flex-direction: row
