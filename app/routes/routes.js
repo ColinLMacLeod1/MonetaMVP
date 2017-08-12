@@ -1,5 +1,4 @@
 require('../styles/style.sass')
-require('../assets/fonts/font.scss');
 import React from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter as Router,
