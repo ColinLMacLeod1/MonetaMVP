@@ -2,4 +2,4 @@ runtime: nodejs
 env: flex
 env_variables:
   NODE_ENV: production
-  MONGODB_URI: mongodb://root:FYcKxY6Q@35.196.182.249:27017
+  MONGODB_URI: mongodb://root:Rzp6SjPE@104.154.137.20:27017
