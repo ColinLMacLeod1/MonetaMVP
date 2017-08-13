@@ -51,6 +51,7 @@ mongoose.connection.once('open',function(){
 });
 
 //Clearing DB on start up
+/*
 mongoose.connection.collections.users.drop(function(){
   console.log('users droppped');
 });
@@ -60,11 +61,13 @@ mongoose.connection.collections.meetings.drop(function(){
 mongoose.connection.collections.codes.drop(function(){
   console.log('codes droppped');
 });
+*/
 /*
 mongoose.connection.collections.feedbacks.drop(function(){
   console.log('feedbacks droppped');
 });
 */
+
 //Adding Sign Up Codes
 codes.map((code) => {
 	var newCode = new Code({
