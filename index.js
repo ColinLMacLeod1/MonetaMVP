@@ -19,8 +19,8 @@ app.use(cors())
 app.use(bodyParser.json())
 
 //Serving files
-const indexPath = path.join(__dirname, '../dist/index.html');
-const publicPath = express.static(path.join(__dirname, '../dist'));
+const indexPath = path.join(__dirname, './dist/index.html');
+const publicPath = express.static(path.join(__dirname, './dist'));
 app.use('/dist', publicPath);
 app.get('/', function(_,res){ res.sendFile(indexPath) });
 
