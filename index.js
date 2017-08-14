@@ -21,8 +21,10 @@ app.use(bodyParser.json())
 //Serving files
 const indexPath = path.join(__dirname, './dist/index.html');
 const publicPath = express.static(path.join(__dirname, './dist'));
+const sslPath = path.join(__dirname, './dist/well-known/acme-challenge/qddC1GpeYXjKmnH73ilroUIbKiJemUW4r51eVowur6k');
 app.use('/dist', publicPath);
 app.get('/', function(_,res){ res.sendFile(indexPath) });
+app.get('/.well-known/acme-challenge/qddC1GpeYXjKmnH73ilroUIbKiJemUW4r51eVowur6k', function(_,res){ res.sendFile(sslPath) });
 
 
 
@@ -108,40 +110,6 @@ bcrypt.hash(initalUsers.testpassword, saltRounds).then(function(hash){
 		};
 	});
 })
-
-//Adding some fake meetings
-for(i=0;i<4;i++){
-	var meeting = new Meeting({
-		title: "Finalize Sgt.Peppers Lyrics",
-		type: "Songwriting Meeting",
-		date: (new Date()).getTime(),
-		location:"Abbey Road",
-		groups: ["tech", "Sales"],
-		chair: "Litt",
-		members: [
-				"Paul",
-				"John",
-				"George",
-				"Ringo"
-			],
-		minutes:  [
-			"Minute test",
-			"Also a test",
-			"Still Testing"
-		],
-		actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
-		decisions: ["Decision Test","Another one"],
-		username: "colin"
-	});
-	meeting.save().then(function(){
-		if(meeting.isNew === false){
-			console.log('Meeting Saved');
-		};
-	}).catch(function(err){
-		console.log(err)
-	});
-}
-
 
 //Save meeting
 app.post('/save', function(req,res) {
