@@ -26,7 +26,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, ne
         <CardTitle title="Decisions"/>
         <List>
           {data.decisions.map((item,index) =>
-            <ListItem primaryText={item} key={Math.random()}/>
+          <ListItem disabled={true} primaryText={item} key={Math.random()}/>
           )}
         </List>
       </Card>
@@ -34,7 +34,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, ne
         <CardTitle title="Action Items"/>
         <List>
           {data.actions.map((item,index) =>
-            <ListItem primaryText={item.phrase} key={Math.random()}/>
+            <ListItem disabled={true} primaryText={item.phrase} key={Math.random()}/>
           )}
         </List>
       </Card>
@@ -42,7 +42,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, ne
         <CardTitle title="General Notes"/>
         <List>
           {data.minutes.map((item,index) =>
-            <ListItem primaryText={item} key={Math.random()}/>
+            <ListItem disabled={true} primaryText={item} key={Math.random()}/>
           )}
         </List>
       </Card>
@@ -51,9 +51,8 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, ne
       <RaisedButton label="Edit" primary={true} onClick={toDictation}/>
       <FlatButton label="Email" primary={true} onClick={toEmail}/>
       <FlatButton label="Print PDF" primary={true} onClick={toPDF}/>
-      <RaisedButton label="Save" primary={true} onClick={save}/>
+      <RaisedButton label="Save & Finish" primary={true} onClick={save}/>
     </div>
-    <FlatButton label="New Meeting"  fullWidth={true} onClick={newMeeting}/>
   </Card>
 )
 export default FileDisplay

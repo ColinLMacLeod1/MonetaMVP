@@ -156,7 +156,7 @@ export default class Meeting extends React.Component {
 			.catch(function(error) {
 				console.log(error)
 			})
-
+      this.newMeeting()
   }
   createEmail() {
   	// Making all of the values variables
@@ -350,7 +350,7 @@ export default class Meeting extends React.Component {
               data={data}
   					/><Snackbar
                   open={this.state.saved}
-                  message="Saved"
+                  message="Saved to Repository"
                   autoHideDuration={4000}
                   onRequestClose={this.handleRequestClose}
                 /></div>);
@@ -367,7 +367,7 @@ export default class Meeting extends React.Component {
               isRecording={this.state.isRecording}
             /><Snackbar
                   open={this.state.saved}
-                  message="Saved"
+                  message="Saved to Repository"
                   autoHideDuration={4000}
                   onRequestClose={this.handleRequestClose}
                 /></div>);
@@ -383,7 +383,7 @@ export default class Meeting extends React.Component {
               newMeeting={this.newMeeting}
             /><Snackbar
                   open={this.state.saved}
-                  message="Saved"
+                  message="Saved to Repository"
                   autoHideDuration={4000}
                   onRequestClose={this.handleRequestClose}
                 />

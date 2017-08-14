@@ -99,7 +99,7 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 			</div>
 			<div className="navButtons">
 				<RaisedButton label="Previous" primary={true} onClick={toMeta}/>
-				<RaisedButton label="Finish" primary={true} onClick={toFile}/>
+				<RaisedButton label="Review" primary={true} onClick={toFile}/>
 			</div>
 		</Card>
 	)

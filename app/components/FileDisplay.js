@@ -25,7 +25,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,deleteMeeting}) => (
         <CardTitle title="Decisions"/>
         <List>
           {data.decisions.map((item,index) =>
-            <ListItem primaryText={item} key={Math.random()}/>
+            <ListItem disabled={true} primaryText={item} key={Math.random()}/>
           )}
         </List>
       </Card>
@@ -33,7 +33,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,deleteMeeting}) => (
         <CardTitle title="Action Items"/>
         <List>
           {data.actions.map((item,index) =>
-            <ListItem primaryText={item.phrase} key={Math.random()}/>
+            <ListItem disabled={true} primaryText={item.phrase} key={Math.random()}/>
           )}
         </List>
       </Card>
@@ -41,7 +41,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,deleteMeeting}) => (
         <CardTitle title="General Notes"/>
         <List>
           {data.minutes.map((item,index) =>
-            <ListItem primaryText={item} key={Math.random()}/>
+            <ListItem disabled={true} primaryText={item} key={Math.random()}/>
           )}
         </List>
       </Card>
