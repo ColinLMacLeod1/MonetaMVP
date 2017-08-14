@@ -82,7 +82,6 @@ export default class App extends React.Component {
               <Tab label="Repository">
                 <Repository username={this.state.username}/>
               </Tab>
-              
               {feedbackTab}
             </Tabs>
           </div>

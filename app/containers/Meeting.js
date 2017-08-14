@@ -5,6 +5,7 @@ import MeetingForm from '../components/MeetingForm.js'
 import Dictation from '../components/Dictation.js'
 import FileReview from '../components/FileReview.js'
 import Snackbar from 'material-ui/Snackbar'
+import Printing from '../components/Printing.js'
 
 
 export default class Meeting extends React.Component {
@@ -38,7 +39,8 @@ export default class Meeting extends React.Component {
       email:false,
       transcript:'',
       isRecording:false,
-      token:''
+      token:'',
+      help: false
 		}
     this.onChange = this.onChange.bind(this)
     this.toDictation = this.toDictation.bind(this)
@@ -56,7 +58,8 @@ export default class Meeting extends React.Component {
     this.stream = this.stream.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
 		this.handleKeyUp = this.handleKeyUp.bind(this)
-
+    this.helpOpen = this.helpOpen.bind(this)
+    this.helpClose = this.helpClose.bind(this)
     console.log(this.state.username)
 	}
   componentDidMount() {
@@ -208,6 +211,15 @@ export default class Meeting extends React.Component {
   }
   toPDF(){
     console.log('to PDF')
+    var content = document.getElementById("printable");
+    var pri = document.getElementById("ifmcontentstoprint").contentWindow;
+    console.log(content)
+    pri.document.open();
+    pri.document.write(content.innerHTML);
+    pri.document.close();
+    pri.focus();
+    pri.print();
+    console.log('printed')
   }
   handleRequestClose(){
     this.setState({
@@ -283,6 +295,12 @@ export default class Meeting extends React.Component {
     	[src]: newArray
     });
 	}
+   helpOpen(){
+     this.setState({help: true});
+   }
+   helpClose(){
+     this.setState({help: false});
+   }
   stream(){
 		console.log('stream')
     const self=this;
@@ -365,6 +383,9 @@ export default class Meeting extends React.Component {
               itemDelete={this.itemDelete}
               transcript={this.state.transcript}
               isRecording={this.state.isRecording}
+              help={this.state.help}
+              helpOpen={this.helpOpen}
+              helpClose={this.helpClose}
             /><Snackbar
                   open={this.state.saved}
                   message="Saved to Repository"
@@ -381,7 +402,9 @@ export default class Meeting extends React.Component {
               toEmail={this.toEmail}
               handleRequestClose={this.handleRequestClose}
               newMeeting={this.newMeeting}
-            /><Snackbar
+            />
+            <Printing data={data}/>
+            <Snackbar
                   open={this.state.saved}
                   message="Saved to Repository"
                   autoHideDuration={4000}

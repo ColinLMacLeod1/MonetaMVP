@@ -52,7 +52,7 @@ const MeetingForm = ({ onChange, data, toDictation, errors}) => (
       />
       </div>
       <br/><br/>
-      <RaisedButton label="Next" primary={true} onClick={toDictation}/>
+      <RaisedButton label="Start" primary={true} onClick={toDictation}/>
   </Card>
 );
 

@@ -8,8 +8,8 @@ import FlatButton from 'material-ui/FlatButton';
 import InputField from './InputField.js'
 import CircularProgress from 'material-ui/CircularProgress'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
-
-const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonPress, errors, toMeta, data, toFile, transcript, isRecording}) => (
+import Dialog from 'material-ui/Dialog';
+const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpen, helpClose, buttonPress, errors, toMeta, data, toFile, transcript, isRecording, help}) => (
 		<Card className="dictation">
 			<div className="head">
 				<div className="meta">
@@ -25,6 +25,13 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 						)}
 					</ul>
 				</div>
+			</div>
+			<RaisedButton label="Help" onTouchTap={helpOpen} />
+			<div className="transcript">
+				{isRecording == true &&
+					<CircularProgress size={30} thickness={7} />
+	      }
+				{transcript}
 			</div>
 			<div className="sections">
 				<Card className="section">
@@ -91,16 +98,21 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonP
 					<InputField	title='minutes'	submitData={(item,src) => itemAdd(item,src)}/>
 				</Card>
 			</div>
-			<div className="transcript">
-				{isRecording == true &&
-					<CircularProgress size={60} thickness={7} />
-	      }
-				{transcript}
-			</div>
+
 			<div className="navButtons">
 				<RaisedButton label="Previous" primary={true} onClick={toMeta}/>
 				<RaisedButton label="Review" primary={true} onClick={toFile}/>
 			</div>
+
+			<Dialog
+          title="Help With Monetta"
+          modal={false}
+          open={help}
+					actions={<RaisedButton label="Close"  onClick={helpClose}/>}
+          onRequestClose={helpClose}
+        >
+          The text here will help you use Monetta. One day.
+        </Dialog>
 		</Card>
 	)
 

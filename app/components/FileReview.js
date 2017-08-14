@@ -4,13 +4,13 @@ import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const FileDisplay = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, newMeeting}) => (
+const FileReview = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, newMeeting}) => (
   <Card className="dictation">
     <div className="head">
       <div style={{marginRight:'50px'}}>
         <h1>{data.title}</h1>
         <h2>{data.type}</h2>
-        <h2>{data.location + ' on '+ data.date}</h2>
+        <h2>{data.location + ' on '+ data.date.toUTCString()}</h2>
       </div>
       <div>
         <h2>Members Present:</h2>
@@ -55,4 +55,4 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, ne
     </div>
   </Card>
 )
-export default FileDisplay
+export default FileReview
