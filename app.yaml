@@ -5,5 +5,6 @@ env_variables:
   MONGODB_URI: mongodb://root:Rzp6SjPE@104.154.137.20
 handlers:
 - url: ./well-known
-  secure: always
   static_dir: well-known
+- url: .*
+  secure: always
