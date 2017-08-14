@@ -12,7 +12,7 @@ import RefreshIndicator from 'material-ui/RefreshIndicator'
 const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, buttonPress, errors, toMeta, data, toFile, transcript, isRecording}) => (
 		<Card className="dictation">
 			<div className="head">
-				<div style={{marginRight:'50px'}}>
+				<div className="meta">
 					<h1>{data.title}</h1>
 					<h2>{data.type}</h2>
 					<h2>{data.location + ' on '+ data.date}</h2>
