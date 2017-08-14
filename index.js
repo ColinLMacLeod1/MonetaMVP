@@ -21,10 +21,10 @@ app.use(bodyParser.json())
 //Serving files
 const indexPath = path.join(__dirname, './dist/index.html');
 const publicPath = express.static(path.join(__dirname, './dist'));
-const sslPath = path.join(__dirname, './dist/well-known/acme-challenge/qddC1GpeYXjKmnH73ilroUIbKiJemUW4r51eVowur6k');
+const sslPath = path.join(__dirname, './dist/well-known/acme-challenge/RFPs8WP09KT0cJbTNCJgs2V42_7lKd_2UfJLdK3RBc8');
 app.use('/dist', publicPath);
 app.get('/', function(_,res){ res.sendFile(indexPath) });
-app.get('/.well-known/acme-challenge/qddC1GpeYXjKmnH73ilroUIbKiJemUW4r51eVowur6k', function(_,res){ res.sendFile(sslPath) });
+app.get('/.well-known/acme-challenge/RFPs8WP09KT0cJbTNCJgs2V42_7lKd_2UfJLdK3RBc8', function(_,res){ res.sendFile(sslPath) });
 
 
 
