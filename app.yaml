@@ -6,4 +6,5 @@ env_variables:
 
 handlers:
 - url: /.*
+  script: index.js
   secure: always
