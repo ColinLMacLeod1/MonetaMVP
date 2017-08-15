@@ -29,7 +29,7 @@ export default class Header extends React.Component {
 	sendFeedback(){
 		console.log('Issue: ' +this.state.issue,'Suggestion: '+this.state.suggestion, 'Likes: '+this.state.likes)
 		const self = this;
-		axios.post('http://localhost:8080/feedback',
+		axios.post('https://monettatech.com/feedback',
 			{
 				username: self.props.username,
 				date: (new Date()).getTime(),

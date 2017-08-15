@@ -25,7 +25,7 @@ export default class SignUp extends React.Component {
     event.preventDefault();
     console.log(this.state.user);
     const self = this;
-		axios.post('http://localhost:8080/signup',
+		axios.post('https://monettatech.com/signup',
 			{
 				username: self.state.user.email,
 				password: self.state.user.password,

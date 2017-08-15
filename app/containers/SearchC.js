@@ -61,7 +61,7 @@ export default class SearchC extends React.Component {
       self.setState({
         progress: 'loading'
       });
-  		axios.post('http://localhost:8080/search',
+  		axios.post('https://monettatech.com/search',
   			{
   				search:'',
           searchType:'title',
@@ -125,7 +125,7 @@ export default class SearchC extends React.Component {
   }
   deleteMeeting() {
     const self = this;
-    axios.post('http://localhost:8080/delete',
+    axios.post('https://monettatech.com/delete',
       {
         id:self.state.meetingRes._id
       }).then(function(res){
@@ -143,7 +143,7 @@ export default class SearchC extends React.Component {
       });
     var minDate = ((this.state.minDate) ? new Date(this.state.minDate).getTime() : 0);
     var maxDate = ((this.state.maxDate) ? new Date(this.state.maxDate).getTime() : 2147483647000);
-  		axios.post('http://localhost:8080/search',
+  		axios.post('https://monettatech.com/search',
   			{
   				search:self.state.search,
           searchType:self.state.searchType,
