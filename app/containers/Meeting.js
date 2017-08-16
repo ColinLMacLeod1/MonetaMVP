@@ -14,25 +14,19 @@ export default class Meeting extends React.Component {
 		this.state = {
 			start: false,
 			stop: false,
-			title: "Finalize Sgt.Peppers Lyrics",
-			type: "Songwriting Meeting",
+			title: "",
+			type: "",
 			date: new Date(),
-			location:"Abbey Road",
+			location:"",
 			groups: ["tech", "Sales"],
 			chair: "Litt",
 			members: [
-				  "Paul",
-			    "John",
-			    "George",
-			    "Ringo"
 				],
 			minutes: [
-				"Minute test",
-				"Also a test",
-        "Still Testing"
+
 			],
-			actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
-			decisions: ["Decision Test","Another one"],
+			actions: [],
+			decisions: [],
       pane: 0,
       username: this.props.username,
       saved:false,
