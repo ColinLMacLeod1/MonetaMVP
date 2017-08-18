@@ -18,6 +18,16 @@ const config = require('config')
 app.use(cors())
 app.use(bodyParser.json())
 
+//Redirecting to https
+app.use(function(req, res, next){
+  if (req.host != 'localhost' && req.get('X-Forwarded-Proto') == 'http') {
+    res.redirect(`https://${req.host}${req.url}`);
+    return;
+  }
+
+  app.router(req, res, next);
+});
+
 //Serving files
 const indexPath = path.join(__dirname, './dist/index.html');
 const publicPath = express.static(path.join(__dirname, './dist'));
