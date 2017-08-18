@@ -13,20 +13,14 @@ const Code = require('./models/codes')
 const bcrypt = require('bcrypt')
 const watson = require('watson-developer-cloud')
 const config = require('config')
+const yes = require('yes-https')
 
 //Middleware
 app.use(cors())
 app.use(bodyParser.json())
 
 //Redirecting to https
-app.use(function(req, res, next){
-  if (req.host != 'localhost' && req.get('X-Forwarded-Proto') == 'http') {
-    res.redirect(`https://${req.host}${req.url}`);
-    return;
-  }
-
-  app.router(req, res, next);
-});
+app.use(yes());
 
 //Serving files
 const indexPath = path.join(__dirname, './dist/index.html');
