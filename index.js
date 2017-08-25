@@ -20,7 +20,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 //Redirecting to https
-app.use(yes());
+//app.use(yes());
 
 //Serving files
 const indexPath = path.join(__dirname, './dist/index.html');
