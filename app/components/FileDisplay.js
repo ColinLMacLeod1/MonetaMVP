@@ -13,7 +13,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,deleteMeeting}) => (
       </div>
       <div>
         <h2>Members Present:</h2>
-        <ul>
+        <ul style={{listStyle:'none'}>
           {data.members.map((member,index) =>
             <li key={index}>{member}</li>
           )}

@@ -14,7 +14,7 @@ const FileReview = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, new
       </div>
       <div>
         <h2>Members Present:</h2>
-        <ul>
+        <ul style={{listStyle:'none'}>
           {data.members.map((member,index) =>
             <li key={index}>{member}</li>
           )}
