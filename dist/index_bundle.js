@@ -97860,10 +97860,6 @@ var _Help2 = _interopRequireDefault(_Help);
 
 var _Tabs = __webpack_require__(179);
 
-var _SearchC = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../containers/SearchC\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _SearchC2 = _interopRequireDefault(_SearchC);
-
 var _Meeting = __webpack_require__(143);
 
 var _Meeting2 = _interopRequireDefault(_Meeting);
@@ -97967,10 +97963,6 @@ var _Help = __webpack_require__(300);
 var _Help2 = _interopRequireDefault(_Help);
 
 var _Tabs = __webpack_require__(179);
-
-var _SearchC = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../containers/SearchC\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _SearchC2 = _interopRequireDefault(_SearchC);
 
 var _Meeting = __webpack_require__(143);
 
