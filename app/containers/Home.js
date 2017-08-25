@@ -1,7 +1,6 @@
 import React from 'react';
 import Help from '../components/Help'
 import {Tabs, Tab} from 'material-ui/Tabs'
-import SearchC from '../containers/SearchC'
 import Meeting from '../containers/Meeting'
 import Repository from '../containers/Repository'
 export default class Home extends React.Component {
@@ -40,7 +39,7 @@ export default class Home extends React.Component {
         <Tab label="Repository">
           <Repository username={this.state.username}/>
         </Tab>
-        
+
       </Tabs>
     )
   }
