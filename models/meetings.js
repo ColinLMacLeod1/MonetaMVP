@@ -8,6 +8,7 @@ const MeetingSchema = new Schema({
   location:String,
   groups: Array,
   chair: String,
+  lists: Array,
   members: Array,
   minutes: Array,
   actions: Array,
