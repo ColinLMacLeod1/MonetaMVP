@@ -75,10 +75,10 @@ export default class App extends React.Component {
           <div>
             <Header username={this.state.username} />
             <Tabs>
-              <Tab label="Meeting">
+              <Tab label="New Meeting">
                 <Meeting username={this.state.username} />
               </Tab>
-              <Tab label="Repository">
+              <Tab label="My Meetings">
                 <Repository username={this.state.username}/>
               </Tab>
               <Tab label="Help">

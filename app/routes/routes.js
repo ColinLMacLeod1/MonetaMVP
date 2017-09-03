@@ -26,12 +26,6 @@ var routes = (
 		<Router>
 			<div>
 				<Route exact path="/" component={App}/>
-				<Route path="/full" component={App} />
-				<Route path="/home" component={Home} />
-				<Route path="/meeting" component={Meeting} />
-				<Route path="/repository" component={Repository} />
-				<Route path="/login" component={Login} />
-				<Route path="/print" component={Printing} />
 	    </div>
 		</Router>
 	</MuiThemeProvider>
