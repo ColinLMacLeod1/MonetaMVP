@@ -9,7 +9,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MeetingForm from '../components/MeetingForm';
 import Repository from '../containers/Repository';
 import Login from '../containers/Login';
-import Home from '../containers/Home';
 import App from '../containers/App';
 import Printing from '../components/Printing.js'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';

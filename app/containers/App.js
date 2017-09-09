@@ -73,7 +73,7 @@ export default class App extends React.Component {
       case 'app':
         return (
           <div>
-            <Header username={this.state.username} />
+            <Header username={this.state.username} page={this.state.page}/>
             <Tabs>
               <Tab label="New Meeting">
                 <Meeting username={this.state.username} />
