@@ -75,6 +75,7 @@ mongoose.connection.collections.feedbacks.drop(function(){
 */
 
 //Adding Sign Up Codes
+/*
 codes.map((code) => {
 	var newCode = new Code({
 		code: code,
@@ -114,7 +115,7 @@ bcrypt.hash(initalUsers.testpassword, saltRounds).then(function(hash){
 		};
 	});
 })
-
+*/
 //Save meeting
 app.post('/save', function(req,res) {
 	console.log(req.body);
