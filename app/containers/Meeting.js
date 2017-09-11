@@ -243,11 +243,9 @@ export default class Meeting extends React.Component {
 			chair: "",
 			members: [],
 			minutes: [
-				"Minute test",
-				"Also a test"
 			],
-			actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
-			decisions: ["Decision Test"],
+			actions: [],
+			decisions: [],
       pane: 0
     });
   }

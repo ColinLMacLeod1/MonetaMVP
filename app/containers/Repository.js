@@ -163,7 +163,7 @@ export default class Repository extends React.Component {
             })
           } else{
             self.setState({
-              results:res.data,
+              results:res.data.reverse(),
               progress:'edit'
             });
           }
