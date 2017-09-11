@@ -4,6 +4,10 @@ import {List, ListItem} from 'material-ui/List';
 import {Step, Stepper, StepButton} from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import Help1 from './Help/Help1';
+import Help2 from './Help/Help2';
+import Help3 from './Help/Help3';
+import Help4 from './Help/Help4';
 
 export default class Help extends React.Component {
   constructor(props) {
@@ -34,18 +38,17 @@ export default class Help extends React.Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return 'Select campaign settings...';
+        return <Help1 />;
       case 1:
-        return 'What is an ad group anyways?';
+        return <Help2 />;
       case 2:
-        return 'This is the bit I really care about!';
+        return <Help3 />;
       case 3:
-        return "Numba 3 m'lord, pick numba 3";
+        return <Help4 />;
       default:
         return 'You\'re a long way from home sonny jim!';
     }
   }
-
   render(){
     return (
       <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>

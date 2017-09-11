@@ -9,6 +9,7 @@ import InputField from './InputField.js'
 import CircularProgress from 'material-ui/CircularProgress'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 import Dialog from 'material-ui/Dialog';
+
 const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpen, helpClose, buttonPress, errors, toMeta, data, toFile, transcript, isRecording, help}) => (
 		<Card className="dictation">
 			<div className="head">
