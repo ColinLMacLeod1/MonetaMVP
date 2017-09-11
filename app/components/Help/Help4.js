@@ -7,7 +7,7 @@ import screen1 from '../../assets/images/screen1.png';
 
 
 const Help4 = () => (
-  <Card style={{padding:"1vw"}}>
+  <Card >
     <CardHeader
       title="First, create your meeting"
       subtitle="Here is where you can put in all of the inital info for your meeting"

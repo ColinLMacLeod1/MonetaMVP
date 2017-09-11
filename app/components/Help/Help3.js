@@ -10,7 +10,7 @@ const Help3 = () => (
   <Card style={{padding:"1vw"}}>
     <CardHeader
       title="First, create your meeting"
-      subtitle="Here is where you can put in all of the inital info for your meeting. When you're done you can click Start to start your meeting"
+      subtitle="The review page will show you the finalized version of your notes. If you would like to edit your notes you can click the 'Edit' button to go back to the previous page. You can save the meeting, export it as a PDF and email it using the respective buttons."
     />
     <Card>
       <CardMedia>
