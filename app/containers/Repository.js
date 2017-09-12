@@ -232,8 +232,8 @@ export default class Repository extends React.Component {
         meetingRes: null,
         results: []
       });
-    var minDate = ((this.state.minDate) ? new Date(this.state.minDate).getTime() : 0);
-    var maxDate = ((this.state.maxDate) ? new Date(this.state.maxDate).getTime() : 2147483647000);
+    var minDate = this.state.minDate ? new Date(this.state.minDate).getTime() : 0;
+    var maxDate = this.state.maxDate ? new Date(this.state.maxDate).getTime() : 2147483647000;
   		axios.post('https://monettatech.com/search',
   			{
   				search:self.state.search,
