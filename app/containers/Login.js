@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import LoginForm from '../components/LoginForm.js';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import Dialog from 'material-ui/Dialog';
 
 
 export default class Login extends React.Component {
@@ -13,13 +14,21 @@ export default class Login extends React.Component {
       user: {
         email: '',
         password: ''
-      }
+      },
+      open: false
     };
 
     this.processLoginForm = this.processLoginForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
-
+  handleOpen() {
+	 	this.setState({open: true});
+	};
+  handleClose() {
+		this.setState({open: false});
+	};
   processLoginForm(event) {
     event.preventDefault();
     console.log('email:', this.state.user.email);
@@ -84,13 +93,28 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <LoginForm
-        onSubmit={this.processLoginForm}
-        onChange={this.changeUser}
-        errors={this.state.errors}
-        user={this.state.user}
-        toSignUp={this.props.toSignUp}
-      />
+      <div>
+        <LoginForm
+          onSubmit={this.processLoginForm}
+          onChange={this.changeUser}
+          errors={this.state.errors}
+          user={this.state.user}
+          toSignUp={this.props.toSignUp}
+          handleOpen={this.handleOpen}
+        />
+        <Dialog
+					modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+				>
+					<iframe
+						src="https://docs.google.com/forms/d/e/1FAIpQLSdSYFNqF6doLkLGBI9rZmaGXo8Jgc08OhA1Np0P_wycMZkQRw/viewform?embedded=true"
+						style={{height:"80vh", width:"100%"}}
+						>
+						Loading...
+					</iframe>
+				</Dialog>
+      </div>
     );
   }
 

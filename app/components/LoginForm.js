@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
 
-const LoginForm = ({onSubmit, onChange, errors, user, toSignUp}) => (
+const LoginForm = ({onSubmit, onChange, errors, user, toSignUp, handleOpen}) => (
   <Card className="loginForm">
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Login</h2>
@@ -36,7 +36,7 @@ const LoginForm = ({onSubmit, onChange, errors, user, toSignUp}) => (
 
       <div className="button-line">
         <RaisedButton type="submit" label="Log in" primary />
-        <FlatButton label="Create New Account" onClick={toSignUp} primary={true} />
+        <FlatButton label="Sign Up" onClick={handleOpen} primary={true} />
       </div>
     </form>
   </Card>
