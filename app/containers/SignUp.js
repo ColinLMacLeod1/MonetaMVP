@@ -21,8 +21,7 @@ export default class SignUp extends React.Component {
     this.changeUser = this.changeUser.bind(this);
   }
 
-  processSignUpForm(event) {
-    event.preventDefault();
+  processSignUpForm() {
     console.log(this.state.user);
     const self = this;
 		axios.post('https://monettatech.com/signup',

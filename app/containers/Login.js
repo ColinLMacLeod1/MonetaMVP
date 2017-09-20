@@ -29,8 +29,7 @@ export default class Login extends React.Component {
   handleClose() {
 		this.setState({open: false});
 	};
-  processLoginForm(event) {
-    event.preventDefault();
+  processLoginForm() {
     console.log('email:', this.state.user.email);
     console.log('password:', this.state.user.password);
     const self = this;

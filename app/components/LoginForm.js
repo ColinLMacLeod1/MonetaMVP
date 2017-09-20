@@ -8,7 +8,6 @@ import FlatButton from 'material-ui/FlatButton';
 
 const LoginForm = ({onSubmit, onChange, errors, user, toSignUp, handleOpen}) => (
   <Card className="loginForm">
-    <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Login</h2>
 
       {errors.summary && <p className="error-message">{errors.summary}</p>}
@@ -35,10 +34,9 @@ const LoginForm = ({onSubmit, onChange, errors, user, toSignUp, handleOpen}) => 
       </div>
 
       <div className="button-line">
-        <RaisedButton type="submit" label="Log in" primary />
+        <RaisedButton onClick={()=>onSubmit()} label="Log in" primary />
         <FlatButton label="Sign Up" onClick={handleOpen} primary={true} />
       </div>
-    </form>
   </Card>
 );
 
