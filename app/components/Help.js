@@ -70,7 +70,7 @@ export default class Help extends React.Component {
           </Step>
           <Step>
             <StepButton onClick={() => this.setState({stepIndex: 3})}>
-              Your repository
+              The 'My Meetings' Tab
             </StepButton>
           </Step>
         </Stepper>
