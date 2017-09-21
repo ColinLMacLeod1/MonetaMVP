@@ -9,7 +9,7 @@ import screen3 from '../../assets/images/screen3.png';
 const Help3 = () => (
   <Card style={{padding:"1vw"}}>
     <CardHeader
-      title="First, create your meeting"
+      title="Here is your chance to review your notes before saving, printing, or emailing them."
       subtitle="The review page will show you the finalized version of your notes. If you would like to edit your notes you can click the 'Edit' button to go back to the previous page. You can save the meeting, export it as a PDF and email it using the respective buttons."
     />
     <Card>

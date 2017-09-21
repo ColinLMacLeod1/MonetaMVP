@@ -60,7 +60,7 @@ export default class Help extends React.Component {
           </Step>
           <Step>
             <StepButton onClick={() => this.setState({stepIndex: 1})}>
-              Druring the meeting
+              During the meeting
             </StepButton>
           </Step>
           <Step>
@@ -75,7 +75,7 @@ export default class Help extends React.Component {
           </Step>
         </Stepper>
         <div >
-          <p>{this.getStepContent(this.state.stepIndex)}</p>
+          {this.getStepContent(this.state.stepIndex)}
           <div style={{marginTop: 12}}>
             <FlatButton
               label="Back"

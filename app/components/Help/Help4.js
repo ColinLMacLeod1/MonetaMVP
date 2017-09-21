@@ -9,8 +9,8 @@ import screen1 from '../../assets/images/screen1.png';
 const Help4 = () => (
   <Card >
     <CardHeader
-      title="First, create your meeting"
-      subtitle="Here is where you can put in all of the inital info for your meeting"
+      title="This is where all of your past meetings are stored."
+      subtitle="From here you can search, delete, print, or email any of your past meetings. You can search by member or by title between any two dates. Just enter the info and press 'enter' to search! If you want to bring up all of your meetings simple search with nothing typed in the titel field. If you don't select dates it will automatically search all time."
     />
     <Card>
       <CardMedia>
