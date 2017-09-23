@@ -22,6 +22,18 @@ export default class Meeting extends React.Component {
 			chair: "Litt",
 			members: [
 				],
+      lists: [{
+        listName: 'Minutes',
+        notes: []
+      },
+      {
+        listName: 'Actions',
+        notes: []
+      },
+      {
+        listName: 'Decisions',
+        notes: []
+      }],
 			minutes: [
 
 			],
@@ -231,11 +243,9 @@ export default class Meeting extends React.Component {
 			chair: "",
 			members: [],
 			minutes: [
-				"Minute test",
-				"Also a test"
 			],
-			actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
-			decisions: ["Decision Test"],
+			actions: [],
+			decisions: [],
       pane: 0
     });
   }
@@ -344,6 +354,7 @@ export default class Meeting extends React.Component {
         type: this.state.type,
         date: this.state.date,
         location: this.state.location,
+        lists: this.state.lists,
         members: this.state.members,
         minutes: this.state.minutes,
         actions: this.state.actions,

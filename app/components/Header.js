@@ -70,10 +70,14 @@ export default class Header extends React.Component {
 
 
 	render() {
+		let feedbackButton = null;
+		if(this.props.page == 'app') {
+			feedbackButton = <FlatButton label="Feedback" primary={true} onClick={()=>{this.setState({open: !this.state.open});}} />;
+		}
 	return (
-			<div className="header" style={{width:'100vw'}}>
+			<div className="header" style={{width:'100%'}}>
 				<img src={logo2}/>
-				<FlatButton label="Feedback" primary={true} onClick={()=>{this.setState({open: !this.state.open});}} />
+				{feedbackButton}
 				<Drawer
 					open={this.state.open}
 					docked={false}

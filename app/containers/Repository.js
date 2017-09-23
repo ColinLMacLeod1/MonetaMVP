@@ -13,6 +13,7 @@ import CircularProgress from 'material-ui/CircularProgress'
 import DatePicker from 'material-ui/DatePicker'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
 import Printing from '../components/Printing.js'
+import FlatButton from 'material-ui/FlatButton'
 
 export default class Repository extends React.Component {
   constructor(props) {
@@ -162,7 +163,7 @@ export default class Repository extends React.Component {
             })
           } else{
             self.setState({
-              results:res.data,
+              results:res.data.reverse(),
               progress:'edit'
             });
           }
@@ -223,7 +224,7 @@ export default class Repository extends React.Component {
     })
     this.loadAll()
   }
-  search() {
+  search(searchType) {
     console.log('search')
     const self = this;
       self.setState({
@@ -231,12 +232,12 @@ export default class Repository extends React.Component {
         meetingRes: null,
         results: []
       });
-    var minDate = ((this.state.minDate) ? new Date(this.state.minDate).getTime() : 0);
-    var maxDate = ((this.state.maxDate) ? new Date(this.state.maxDate).getTime() : 2147483647000);
+    var minDate = this.state.minDate ? new Date(this.state.minDate).getTime() : 0;
+    var maxDate = this.state.maxDate ? new Date(this.state.maxDate).getTime() : 2147483647000;
   		axios.post('https://monettatech.com/search',
   			{
   				search:self.state.search,
-          searchType:self.state.searchType,
+          searchType:searchType,
           username:self.state.username,
           minDate:minDate,
           maxDate:maxDate
@@ -356,6 +357,11 @@ export default class Repository extends React.Component {
                 onChange={this.maxDateChange}
               />
             </div>
+            <FlatButton
+              label="Refresh"
+              primary={true}
+              onClick={() => this.search('title')}
+            />
           </div>
           <div className="titleSearch">
             <TextField
@@ -367,7 +373,7 @@ export default class Repository extends React.Component {
               onChange = {this.handleChange}
               onKeyPress={(e) => {
                 if(e.key==='Enter'){
-                  this.search();
+                  this.search(this.state.searchType);
                 }
               }}
             />
