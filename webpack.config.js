@@ -27,11 +27,7 @@ const config = {
 			filename: 'index.html',
 			inject: 'body'
 		})
-	],
-	devServer: {
-		port: 6969,
-		historyApiFallback: true
-	}
+	]
 };
 
 module.exports = config;

@@ -1,14 +1,240 @@
+@import _mixins.sass
+@import _placeholders.sass
+@import _variables.sass
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Quicksand|Roboto|Material+Icons')
+@import Meeting
+@import Header
+@import Repository
+@import Printing
+
+
 
 html, body, iframe
   margin: 0
   padding: 0
   border: none
   font-family: "Roboto"
-.loginForm
-  padding: 20px
-  margin: 10vh auto
-  width: 325px
+
+
+.Header
+  width: 100%
+  height: $headerHeight
+  background-color: white
+  border-bottom: 2px solid $blueMid1
+  .HeaderBlock
+    width: $headerBlockWidth
+    height: inherit
+    margin-left: auto
+    margin-right: auto
+    display: flex
+    align-items: center
+    justify-content: center
+    .right
+      position: relative
+      left: 29%
+      width: auto
+    .left
+      position: relative
+      right: 29%
+      width: auto
+
+.DialogLogin
+  display: flex
+  flex-direction: center
+  align-items: center
+  text-align: center
+  justify-content: center
+  color: $gold
+
+
+.HomeTop
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  text-align: center
+  margin-top: 20px
+  color: $blueDark
+  width: 100%
+  .HomeTopWrapper
+    display: flex
+    flex-direction: center
+    align-items: center
+    justify-content: center
+    .Left
+      display: flex
+      justify-content: center
+      align-items: center
+      text-align: left
+      margin-top: 2em
+      color: $blueMid1
+      width: 58%
+      .Illustration
+        margin-left: 4em
+        margin-right: 4em
+        margin-bottom: 4em
+        width: 28em
+        position: relative
+        top: 2em
+
+
+.LoginSignup
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  text-align: center
+  h2
+    color: $gold
+  .LoginSignupBox
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    text-align: center
+    width: 400px
+    height: 350px
+    .Signup
+      width: 100px
+      margin: 20px
+    .Login
+      width: 100px
+      margin: 20px
+
+
+.HomeMid
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  width: 100%
+  .ScrollAlarm
+    margin-top: 20px
+    width: 100px
+    height: 80px
+  .Wrapper
+    background-color: $blueDark
+    height: auto
+    width: 100%
+    padding-top: 2em
+    padding-bottom: 2em
+    .WrapperText
+      width: $headerBlockWidth
+      height: auto
+      margin-left: auto
+      margin-right: auto
+      margin-top: 1em
+      color: white
+      display: flex
+      flex-direction: row
+      text-align: left
+      align-items: center
+      .Dict
+        height: 10em
+        margin-left: 2.5em
+        margin-top: 2em
+        margin-bottom: 2em
+      .Repo
+        height: 14em
+        margin-left: 5em
+        margin-right: 6em
+        margin-top: 2em
+      .Data
+        height: 18em
+        margin-left: 6em
+        margin-right: 5em
+    .WrapperSum
+      width: 100%
+      text-align: center
+      align-items: center
+      display: flex
+      flex-direction: column
+      margin-bottom: 1em
+      margin-top: 1em
+      .WrapperSumBlock
+        width: 58%
+        color: white
+
+.HomeBot
+    width: 100%
+    display: flex
+    flex-direction: column
+    text-align: center
+    align-items: center
+    color: $gold
+    margin-top: 3em
+    margin-bottom: 3em
+    .Wrapper1
+      width: $headerBlockWidth/2
+    .Wrapper2
+      width: $headerBlockWidth/2
+      color: $blueDark
+    .BecomeAlpha
+      width: 280px
+      margin: 20px
+      font-weight: bold
+
+.Footer
+  width: 100%
+  height: $headerHeight
+  background-color: white
+  border-top: 2px solid $blueMid1
+  .FooterBlock
+    width: $headerBlockWidth
+    height: inherit
+    margin-left: auto
+    margin-right: auto
+    display: flex
+    align-items: center
+    justify-content: center
+    align-content: center
+    .ContactInfo
+      position: relative
+      right: 15%
+      top: 10px
+      height: 100%
+      font-size: 12px
+      line-height: 12px
+      text-align: center
+      padding-bottom: 5px
+      color: $blueDark
+    .Logo
+      width: 15%
+      position: relative
+      right: 29%
+    .Buttons
+      width: auto
+      position: relative
+      left: 40%
+      color: $blueMid1
+      font-weight: bold
+
+.PrivacyTermsWrapper
+  width: 100%
+  height: 100%
+  color: $blueDark
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  .PrivacyTerms
+    width: 58%
+    margin: 50px auto
+    text-align: center
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    h1
+      color: $gold
+    .PrivacyPolicy
+      text-align: left
+      width: inherit
+      p
+        font-size: 14px
+        color: $blueMid1
+
 
 @import Meeting
 @import Header
