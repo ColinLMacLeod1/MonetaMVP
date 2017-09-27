@@ -36,7 +36,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
           </h1>
           <br></br><br></br>
           <p style={{position: 'relative', bottom: '2em', fontSize: '18px'}}>
-            With Monetta you will be able to dictate your notes during meetings to get rid of the distraction they have always been, store your documentation safely and obtain productivity data on your meetings to achieve a new level of efficiency.
+            With Monetta you will be able to dictate your notes during meetings to get rid of the distraction they have always been, store your documentation in a searchable repository and obtain productivity data on your meetings to achieve a new level of efficiency.
             <br></br><br></br>
             Our team knows that long and unproductive meetings can be terrible.
           </p>
@@ -105,7 +105,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
           <h2> 2. Monetta will store your documentation in a secure and searchable repository.</h2>
           <p>Ever wish you could easily remember the exact outcome of each meeting to make sure you are doing exactly what you are supposed to?
           <br></br><br></br>
-          Ever wanted to search through the actual content of the documentation rather than just the title of it?
+          Ever wanted to search through the actual content of the documentation rather than just the file name?
           <br></br><br></br>
           At Monetta we use state-of-the-art cloud infrastructure to design and optimize a repository that you can access through your smartphone or your computer. We make sure you have quick access to any file you need to find.
           </p>
@@ -123,7 +123,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
         <div className='WrapperText'>
           <div>
           <h2> 3. Monetta puts productivity data at your fingertips.</h2>
-          <p>Monetta analyzes the meeting patterns with to give you and your team deep data insights. If you ever wondered what your meetings would look like to a data scientist, this is it.
+          <p>Monetta analyzes the meeting patterns to give you and your team deep data insights. If you ever wondered what your meetings would look like to a data scientist, this is it.
           <br></br><br></br>
           We let you know the data points that will help you better manage your meetings and make the changes necessary to achieve your team goals:
           <br></br><br></br>
@@ -131,7 +131,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
           <br></br><br></br>
           Maybe your team wants to make sure everyone is receiving deliverables fairly and no one is being overworked.
           <br></br><br></br>
-          Or maybe you just want to see some pretty graphs - we dont judge.
+          Or maybe you just want to see some pretty graphs - we don't judge.
           </p>
           </div>
           <div>
