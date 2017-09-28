@@ -29,13 +29,13 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
 
 
           <div>
-          <h1 className='Heading' style={{position: 'relative', fontSize: '36px', color: 'rgb(70,153,255)'}}>
+          <h1 className=''>
             Meetings are messy.
             <br></br>
             We are here to change that.
           </h1>
           <br></br><br></br>
-          <p style={{position: 'relative', bottom: '2em', fontSize: '18px'}}>
+          <p>
             With Monetta you will be able to dictate your notes during meetings to get rid of the distraction they have always been, store your documentation in a searchable repository and obtain productivity data on your meetings to achieve a new level of efficiency.
             <br></br><br></br>
             Our team knows that long and unproductive meetings can be terrible.
@@ -71,7 +71,6 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
 
 
     <div className='HomeMid'>
-      <img src={ScrollAlarm} className='ScrollAlarm' />
 
       <div className='Wrapper'>
         <div className='WrapperText'>

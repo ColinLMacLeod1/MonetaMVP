@@ -8,22 +8,12 @@ const FooterComponent = ({handlePrivacyTerms, handleContactUs, handleActivation,
   <div className='Footer'>
     <div className='FooterBlock'>
 
-      <img className='Logo' src={nameLogo} />
-
-      <div className='Buttons'>
-        <FlatButton label='Privacy & terms' primary={true} onClick={handleActivation}/>
+      <div className='Logo'>
+        <img className='Logo' src={nameLogo} />
       </div>
-
-      <Dialog modal={false} open={act} onRequestClose={handleActivation}>
-
-        <h1 className='DialogLogin'> Coming soon to a web browser near you! </h1>
-
-
-      </Dialog>
 
       <div className='ContactInfo'>
         <h2> Contact Us </h2>
-
         <p>team@monettatech.com</p>
         <p>945 Princess St., K7L3N6</p>
         <p>Kingston, ON</p>
@@ -31,8 +21,19 @@ const FooterComponent = ({handlePrivacyTerms, handleContactUs, handleActivation,
         <br></br>
       </div>
 
-    </div>
+      <div className='Button'>
+        <FlatButton label='Privacy & terms' primary={true} onClick={handleActivation}/>
+      </div>
 
+
+
+
+
+      <Dialog modal={false} open={act} onRequestClose={handleActivation}>
+        <h1 className='DialogLogin'> Coming soon to a web browser near you! </h1>
+      </Dialog>
+
+    </div>
   </div>
 )
 

@@ -15,6 +15,7 @@ html, body, iframe
   padding: 0
   border: none
   font-family: "Roboto"
+  min-width: 1024px
 
 
 .Header
@@ -67,17 +68,19 @@ html, body, iframe
       justify-content: center
       align-items: center
       text-align: left
-      margin-top: 2em
       color: $blueMid1
       width: 80%
       .Heading
         display: flex
         text-align: left
+        font-size: 36px
+      .headingGold
+        color: $gold
       .Illustration
         margin-left: 3vw
         margin-right: 3vw
         margin-bottom: 4vh
-        width: 28vw
+        width: 34vw
         min-width: 300px
         position: relative
         top: 2vh
@@ -89,6 +92,7 @@ html, body, iframe
   justify-content: center
   align-items: center
   text-align: center
+  margin-bottom: 5vh
   h2
     color: $gold
   .LoginSignupBox
@@ -135,23 +139,22 @@ html, body, iframe
       text-align: left
       align-items: center
       .Dict
-        height: 10vw
+        width: 10vw
         margin-left: 2.5vw
         margin-top: 2vw
         margin-bottom: 2vw
-        min-width: 200px
-        min-height: auto
+        min-width: 300px
       .Repo
-        height: 14vw
-        margin-left: 5vw
-        margin-right: 6vw
+        width: 10vw
+        margin-left: 3.5vw
+        margin-right: 4.5vw
         margin-top: 2vw
-        min-width: 200px
+        min-width: 250px
       .Data
-        height: 18vw
-        margin-left: 6vw
-        margin-right: 5vw
-        min-width: 200px
+        width: 10vw
+        margin-left: 4.5vw
+        margin-right: 3.5vw
+        min-width: 250px
     .WrapperSum
       width: 100%
       text-align: center
@@ -174,49 +177,38 @@ html, body, iframe
     margin-top: 3em
     margin-bottom: 3em
     .Wrapper1
-      width: $headerBlockWidth/2
-    .Wrapper2
-      width: $headerBlockWidth/2
-      color: $blueDark
+      width: $headerBlockWidth/1.5
+      min-width: 450px
+      max-width: 600px
     .BecomeAlpha
       width: 280px
       margin: 20px
       font-weight: bold
 
+
 .Footer
-  width: 100%
-  height: $headerHeight
-  background-color: white
+  display: inline-flex
+  justify-content: center
   border-top: 2px solid $blueMid1
+  width: 100%
   .FooterBlock
-    width: $headerBlockWidth
-    height: inherit
-    margin-left: auto
-    margin-right: auto
-    display: flex
+    display: inline-flex
     align-items: center
-    justify-content: center
-    align-content: center
-    .ContactInfo
-      position: relative
-      right: 15%
-      top: 10px
-      height: 100%
-      font-size: 12px
-      line-height: 12px
-      text-align: center
-      padding-bottom: 5px
-      color: $blueDark
+    justify-content: space-between
+    width: $headerBlockWidth
     .Logo
-      width: 15%
-      position: relative
-      right: 29%
-    .Buttons
-      width: auto
-      position: relative
-      left: 40%
-      color: $blueMid1
-      font-weight: bold
+      width: 150px
+      order: 1
+    .ContactInfo
+      width: 150px
+      order: 2
+      text-align: center
+      font-size: 12px
+      color: $blueDark
+    .Button
+      padding: 0
+      width: 150px
+      order: 3
 
 .PrivacyTermsWrapper
   width: 100%
