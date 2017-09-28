@@ -14,6 +14,7 @@ const bcrypt = require('bcrypt')
 const watson = require('watson-developer-cloud')
 const config = require('config')
 const yes = require('yes-https')
+const { SlackOAuthClient } = require('messaging-api-slack')
 
 //Middleware
 app.use(cors())
@@ -30,8 +31,11 @@ app.use('/dist', publicPath);
 app.get('/', function(_,res){ res.sendFile(indexPath) });
 app.get('/.well-known/acme-challenge/RFPs8WP09KT0cJbTNCJgs2V42_7lKd_2UfJLdK3RBc8', function(_,res){ res.sendFile(sslPath) });
 
-
-
+//OAuth
+const slack = SlackOAuthClient.connect(
+	'xoxb-248587322181-WkedBxz2LYOblHzscrV8tNj0'
+);
+slack.postMessage('Feedback', 'Deployed');
 
 //Constants
 const dbConfig = config.get('Customer.dbConfig');
@@ -265,6 +269,15 @@ app.post('/feedback',function(req,res){
 		if(feedback.isNew === false){
 			console.log('Feedback Saved');
 		};
+	});
+	slack.postMessage('Feedback',
+		'Username: ' + req.body.username + '\n' +
+		'Date: ' + req.body.date + '\n' +
+		'Likes: ' + req.body.likes + '\n' +
+		'Suggestion: ' + req.body.suggestion + '\n' +
+		'Issue: ' + req.body.issue
+	).catch((err)=>{
+		console.log(err)
 	});
 	res.send(JSON.stringify('Feedback Saved'));
 })

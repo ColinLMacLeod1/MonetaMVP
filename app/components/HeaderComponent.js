@@ -29,7 +29,7 @@ const HeaderComponent = ({handleHome, handleActivation, act, errors, onChange, u
     </div>
 
     <Dialog modal={false} open={act} onRequestClose={handleActivation}>
-      <h1 className='DialogLogin'> Coming soon to a browser near you </h1>
+      <h1 className='DialogLogin'></h1>
         <div className='LoginSignup'>
           <Login login={login} />
         </div>
