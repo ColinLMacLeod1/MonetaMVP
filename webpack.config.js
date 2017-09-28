@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
 	entry: [
-		'webpack-dev-server/client?http://localhost:6969',
 		'./app/routes/routes.js'
 	],
 	output: {

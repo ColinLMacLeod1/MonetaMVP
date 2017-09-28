@@ -10,6 +10,7 @@ import PrivacyTermsComponent from './components/PrivacyTermsComponent.js'
 import Meeting from './containers/Meeting'
 import Repository from './containers/Repository'
 import Help from './components/Help'
+import Feedback from './components/Feedback'
 
 
 export default class App extends React.Component {
@@ -24,13 +25,13 @@ export default class App extends React.Component {
     this.sucessfulLogin = this.sucessfulLogin.bind(this)
 	}
 
-  handlePageChange (e) {
+  handlePageChange (page) {
     console.log('handlePageChange() (App.js)');
-    this.setState({page:e});
+    this.setState({page:page});
   }
 
-  sucessfulLogin (e) {
-    this.setState({page: 'App', username: [e]});
+  sucessfulLogin (user) {
+    this.setState({page: 'App', username: user});
     console.log('you have logged in: ' + this.state.username);
   }
 
@@ -52,7 +53,16 @@ export default class App extends React.Component {
   }
 
   render() {
-
+    console.log(this.state.page)
+    let feedbackTab = null;
+    if(this.state.username == 'colin' || this.state.username == 'team@monettatech.com'){
+      console.log('colin signed in')
+      feedbackTab = (
+        <Tab label='Feedback'>
+          <Feedback />
+        </Tab>
+      )
+    }
     switch (this.state.page) {
       case 'Home':
         return(
@@ -75,7 +85,19 @@ export default class App extends React.Component {
       case 'App':
       return(
         <div>
-          <h2> exiting homepage </h2>
+           <Header username={this.state.username} inside={true} page={this.state.page}/>
+           <Tabs>
+             <Tab label="New Meeting">
+               <Meeting username={this.state.username} />
+             </Tab>
+             <Tab label="My Meetings">
+               <Repository username={this.state.username}/>
+             </Tab>
+             <Tab label="Help">
+               <Help />
+             </Tab>
+             {feedbackTab}
+           </Tabs>
         </div>
       )
     }

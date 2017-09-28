@@ -5,9 +5,10 @@ import nameLogo from '../assets/images/nameLogo.png'
 import Dialog from 'material-ui/Dialog'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
+import Login from '../containers/Login'
 
 
-const HeaderComponent = ({handleHome, handleActivation, act, errors, onChange, username, password, onClick}) => (
+const HeaderComponent = ({handleHome, handleActivation, act, errors, onChange, username, password, onClick, login}) => (
   <div>
       <div className='Header'>
       <div className='HeaderBlock'>
@@ -30,7 +31,7 @@ const HeaderComponent = ({handleHome, handleActivation, act, errors, onChange, u
     <Dialog modal={false} open={act} onRequestClose={handleActivation}>
       <h1 className='DialogLogin'> Coming soon to a browser near you </h1>
         <div className='LoginSignup'>
-
+          <Login login={login} />
         </div>
     </Dialog>
   </div>

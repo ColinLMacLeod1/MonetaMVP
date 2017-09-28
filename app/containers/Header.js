@@ -163,6 +163,7 @@ export default class Header extends React.Component {
             username={this.state.username}
             password={this.state.password}
             onClick={this.processLoginRequest}
+            login={this.props.login}
             />
         </div>
       )
