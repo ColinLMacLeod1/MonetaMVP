@@ -15,7 +15,6 @@ html, body, iframe
   padding: 0
   border: none
   font-family: "Roboto"
-  min-width: 1024px
 
 
 .Header
@@ -23,22 +22,19 @@ html, body, iframe
   height: $headerHeight
   background-color: white
   border-bottom: 2px solid $blueMid1
+  display: flex
+  justify-content: center
   .HeaderBlock
     width: $headerBlockWidth
     height: inherit
-    margin-left: auto
-    margin-right: auto
     display: flex
+    justify-content: space-between
     align-items: center
-    justify-content: center
-    .right
-      position: relative
-      left: 29%
-      width: auto
-    .left
-      position: relative
-      right: 29%
-      width: auto
+  .HeaderLogo
+    min-width: 100px
+    width: 20vw
+    max-width: 300px
+
 
 .DialogLogin
   display: flex
@@ -65,17 +61,24 @@ html, body, iframe
     justify-content: center
     .Top
       display: flex
+      flex-direction: column
       justify-content: center
       align-items: center
-      text-align: left
-      color: $blueMid1
-      width: 80%
+      text-align: center
+      color: $blueDark
+      text-align: center
+      margin: 20px
       .Heading
         display: flex
-        text-align: left
         font-size: 36px
-      .headingGold
-        color: $gold
+        margin: 20px 0
+      .Snippet
+        margin: 10px
+        font-weight: bold
+        color: $blueMid1
+      .SignupButton
+        margin-top: 60px
+        margin-bottom: 60px
       .Illustration
         margin-left: 3vw
         margin-right: 3vw
@@ -117,16 +120,12 @@ html, body, iframe
   justify-content: center
   align-items: center
   width: 100%
-  .ScrollAlarm
-    margin-top: 50px
-    width: 100px
-    height: 80px
   .Wrapper
     background-color: $blueDark
     height: auto
     width: 100%
-    padding-top: 2em
-    padding-bottom: 2em
+    padding-top: 20px
+    padding-bottom: 20px
     .WrapperText
       width: $headerBlockWidth
       height: auto
@@ -139,19 +138,19 @@ html, body, iframe
       text-align: left
       align-items: center
       .Dict
-        width: 10vw
+        width: 25vw
         margin-left: 2.5vw
         margin-top: 2vw
         margin-bottom: 2vw
         min-width: 300px
       .Repo
-        width: 10vw
+        width: 15vw
         margin-left: 3.5vw
         margin-right: 4.5vw
         margin-top: 2vw
         min-width: 250px
       .Data
-        width: 10vw
+        width: 15vw
         margin-left: 4.5vw
         margin-right: 3.5vw
         min-width: 250px

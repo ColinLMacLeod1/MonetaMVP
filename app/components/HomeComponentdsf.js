@@ -27,7 +27,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
         <div className='Top'>
           <h1 className='Heading'> Make your meetings as memorable as they should be </h1>
           <p className='Snippet'> A new way to capture everything that matters </p>
-          <RaisedButton className='SignupButton' secondary={true}  label='Join our Alpha' labelColor='rgb(255,172,77)' onClick={handleActivation}/>
+          <RaisedButton className='SignupButton' label='Join our Alpha' labelColor='rgb(255,172,77)' onClick={handleActivation}/>
           <img className='Illustration' src={Illustration} />
         </div>
 
@@ -35,6 +35,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
 
 
       <div className='LoginSignup'>
+
 
         <Dialog modal={false} open={act} onRequestClose={handleActivation}>
 
