@@ -62,21 +62,25 @@ html, body, iframe
     flex-direction: center
     align-items: center
     justify-content: center
-    .Left
+    .Top
       display: flex
       justify-content: center
       align-items: center
       text-align: left
       margin-top: 2em
       color: $blueMid1
-      width: 58%
+      width: 80%
+      .Heading
+        display: flex
+        text-align: left
       .Illustration
-        margin-left: 4em
-        margin-right: 4em
-        margin-bottom: 4em
-        width: 28em
+        margin-left: 3vw
+        margin-right: 3vw
+        margin-bottom: 4vh
+        width: 28vw
+        min-width: 300px
         position: relative
-        top: 2em
+        top: 2vh
 
 
 .LoginSignup
@@ -110,7 +114,7 @@ html, body, iframe
   align-items: center
   width: 100%
   .ScrollAlarm
-    margin-top: 20px
+    margin-top: 50px
     width: 100px
     height: 80px
   .Wrapper
@@ -131,29 +135,33 @@ html, body, iframe
       text-align: left
       align-items: center
       .Dict
-        height: 10em
-        margin-left: 2.5em
-        margin-top: 2em
-        margin-bottom: 2em
+        height: 10vw
+        margin-left: 2.5vw
+        margin-top: 2vw
+        margin-bottom: 2vw
+        min-width: 200px
+        min-height: auto
       .Repo
-        height: 14em
-        margin-left: 5em
-        margin-right: 6em
-        margin-top: 2em
+        height: 14vw
+        margin-left: 5vw
+        margin-right: 6vw
+        margin-top: 2vw
+        min-width: 200px
       .Data
-        height: 18em
-        margin-left: 6em
-        margin-right: 5em
+        height: 18vw
+        margin-left: 6vw
+        margin-right: 5vw
+        min-width: 200px
     .WrapperSum
       width: 100%
       text-align: center
       align-items: center
       display: flex
       flex-direction: column
-      margin-bottom: 1em
-      margin-top: 1em
+      margin-bottom: 1vw
+      margin-top: 1vw
       .WrapperSumBlock
-        width: 58%
+        width: $headerBlockWidth
         color: white
 
 .HomeBot

@@ -12,31 +12,18 @@ export default class Header extends React.Component {
       errors: {},
       username: '',
       password: '',
-
       issue:'',
 			suggestion:'',
 			likes:'',
       openFeedback:false
-
       }
-
-
     this.handleHome=this.handleHome.bind(this)
     this.handleActivation=this.handleActivation.bind(this)
     this.processLoginRequest=this.processLoginRequest.bind(this)
 
-
-
-		this.sendFeedback = this.sendFeedback.bind(this)
-		this.issueChange = this.issueChange.bind(this)
-		this.suggestionChange = this.suggestionChange.bind(this)
-		this.likesChange = this.likesChange.bind(this)
-
-
-    this.feedbackButton = this.feedbackButton.bind(this)
     this.changeParentState = this.changeParentState.bind(this)
-
-
+		this.sendFeedback = this.sendFeedback.bind(this)
+    this.feedbackButton = this.feedbackButton.bind(this)
   }
 
 
@@ -59,7 +46,6 @@ export default class Header extends React.Component {
   changeParentState (event) {
     console.log('changeUser() (Header.js)');
     this.setState({[event.target.name]: event.target.value});
-
     console.log({[event.target.name]: event.target.value});
   }
 
@@ -67,84 +53,83 @@ export default class Header extends React.Component {
     console.log('processLoginRequest() (Header.js)');
     console.log('Username: ' + this.state.username);
     console.log('Password: ' + this.state.password);
+
+    const self = this;
+		axios.post('https://monettatech.com/login',
+        {
+				username: self.state.username,
+				password: self.state.password
+        }
+			)
+			.then (function(res) {
+				console.log(res.data)
+        if(res.data != 'User not found'){
+          var errors = self.state.errors;
+          errors.username = "";
+          self.setState( {errors:errors} )
+        }
+
+        if (res.data != 'User Exists') {
+          var errors = self.state.errors;
+          errors.password = "";
+          self.setState( {errors:errors} )
+        }
+
+				if(res.data != 'User not found' && res.data != 'User Exists'){
+					console.log('Login Successful')
+          self.props.login(self.state.username)
+
+          //self.props.history.push('/home')
+				} else if(res.data == 'User not found') {
+          var errors = self.state.errors;
+          errors.username = "User not found";
+          self.setState( {errors:errors} )
+
+        } else if(res.data == 'User Exists'){
+            var errors = self.state.errors;
+            errors.password = "Password does not match";
+            self.setState( {errors:errors} )
+        }
+
+			}
+      )
+			.catch(function(error) {
+				console.log(error)
+			  }
+      )
   }
 
-
-
-
-
-
-
-
-
-sendFeedback(){
-	console.log('Issue: ' +this.state.issue,'Suggestion: '+this.state.suggestion, 'Likes: '+this.state.likes)
-	const self = this;
-	axios.post('https://monettatech.com/feedback',
-		{
-			username: self.props.username,
-			date: (new Date()).getTime(),
-      issue: self.state.issue,
-			suggestion: self.state.suggestion,
-			likes: self.state.likes
-		}
-  )
-
-
-		.then(function(res) {
-			console.log(res.data)
-
+  sendFeedback () {
+  	console.log('Issue: ' +this.state.issue,'Suggestion: '+this.state.suggestion, 'Likes: '+this.state.likes)
+  	const self = this;
+  	axios.post('https://monettatech.com/feedback', {
+  			username: self.props.username,
+  			date: (new Date()).getTime(),
+        issue: self.state.issue,
+  			suggestion: self.state.suggestion,
+  			likes: self.state.likes
+  		  }
+    )
+  	.then(function(res) {
+  		console.log(res.data)
       self.setState({
         issue:'',
-				suggestion:'',
-				likes:''
-      })
+  			suggestion:'',
+  			likes:''
+        })
+  		console.log('Feedback Sent')
+  	  }
+    )
+  	.catch(function(error) {
+      console.log(error)
+  	  }
+    )
+  	this.setState({open: false})
+  }
 
-			console.log('Feedback Sent')
-
-
-		})
-
-
-		.catch(function(error) {
-			console.log(error)
-		})
-
-	this.setState({open: false})
-}
-
-
-issueChange(event){
-  this.setState({
-    issue: event.target.value,
-  });
-};
-suggestionChange(event){
-  this.setState({
-    suggestion: event.target.value,
-  });
-};
-likesChange(event){
-  this.setState({
-    likes: event.target.value,
-  });
-};
-
-
-
-
-
-feedbackButton () {
-
-
-  this.setState({openFeedback: [!this.state.openFeedback]});
-}
-
-
-
-
-
-
+  feedbackButton () {
+    this.setState({openFeedback: [!this.state.openFeedback]});
+  }
 
   render () {
     switch (this.props.inside) {

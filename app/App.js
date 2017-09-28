@@ -21,11 +21,17 @@ export default class App extends React.Component {
 		}
 
     this.handlePageChange=this.handlePageChange.bind(this)
+    this.sucessfulLogin = this.sucessfulLogin.bind(this)
 	}
 
   handlePageChange (e) {
     console.log('handlePageChange() (App.js)');
     this.setState({page:e});
+  }
+
+  sucessfulLogin (e) {
+    this.setState({page: 'App', username: [e]});
+    console.log('you have logged in: ' + this.state.username);
   }
 
   dontdeletethis() {
@@ -51,7 +57,7 @@ export default class App extends React.Component {
       case 'Home':
         return(
         <div>
-          <Header handlePageChange={this.handlePageChange} inside={false}/>
+          <Header handlePageChange={this.handlePageChange} inside={false} login={this.sucessfulLogin}/>
           <Home />
           <Footer handlePageChange={this.handlePageChange}/>
         </div>

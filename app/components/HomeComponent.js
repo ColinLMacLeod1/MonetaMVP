@@ -24,12 +24,12 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
 
       <div className='HomeTopWrapper'>
 
-        <div className='Left'>
+        <div className='Top'>
 
 
 
           <div>
-          <h1 style={{position: 'relative', fontSize: '36px', color: 'rgb(70,153,255)'}}>
+          <h1 className='Heading' style={{position: 'relative', fontSize: '36px', color: 'rgb(70,153,255)'}}>
             Meetings are messy.
             <br></br>
             We are here to change that.
@@ -131,7 +131,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
           <br></br><br></br>
           Maybe your team wants to make sure everyone is receiving deliverables fairly and no one is being overworked.
           <br></br><br></br>
-          Or maybe you just want to see some pretty graphs - we don't judge.
+          Or maybe you just want to see some pretty graphs - we dont judge.
           </p>
           </div>
           <div>
@@ -152,9 +152,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
       <div className='Wrapper1'>
         <p> Join the many innovative companies that are helping us design our software and get in your say as well. </p>
       </div>
-      <div className='Wrapper2'>
-        <p>If you could design a Ferrari, what would you want in it?</p>
-      </div>
+
       <RaisedButton className='BecomeAlpha' label='Become an Alpha User' labelColor='rgb(255,172,77)' onClick={handleActivation}/>
 
     </div>
