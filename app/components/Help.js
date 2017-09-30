@@ -76,7 +76,7 @@ export default class Help extends React.Component {
         </Stepper>
         <div >
           {this.getStepContent(this.state.stepIndex)}
-          <div style={{marginTop: 12}}>
+          <div style={{marginTop: 12, marginBottom: 12}}>
             <FlatButton
               label="Back"
               disabled={this.state.stepIndex === 0}

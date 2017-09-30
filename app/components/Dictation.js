@@ -27,13 +27,11 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 					</ul>
 				</div>
 			</div>
-			<RaisedButton label="Help" onTouchTap={helpOpen} />
-			<div className="transcript">
-				{isRecording == true &&
-					<CircularProgress size={30} thickness={7} />
-	      }
-				{transcript}
+
+			<div className='Help'>
+				<RaisedButton label='Help' onTouchTap={helpOpen} />
 			</div>
+
 			<div className="sections">
 				<Card className="section">
 					<CardTitle title="Decisions"/>
@@ -50,7 +48,7 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 									rowsMax={4}
 									style={{width: '100%'}}
 					      />
-								<p onClick={(e)=> itemDelete(item, index, e,'decisions')}>x</p>
+								<p className='deleteButton' onClick={(e)=> itemDelete(item, index, e,'decisions')}>x</p>
 							</div>
 						)}
 					</List>
@@ -71,7 +69,7 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
       						rowsMax={4}
 									style={{width: '100%'}}
 					      />
-								<p onClick={(e)=> itemDelete(item, index, e,'actions')}>x</p>
+								<p className='deleteButton' onClick={(e)=> itemDelete(item, index, e,'actions')}>x</p>
 							</div>
 						)}
 					</List>
@@ -92,7 +90,7 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 									rowsMax={4}
 									style={{width: '100%'}}
 					      />
-								<p onClick={(e)=> itemDelete(item, index, e,'minutes')}>x</p>
+								<p className='deleteButton' onClick={(e)=> itemDelete(item, index, e,'minutes')}>x</p>
 							</div>
 						)}
 					</List>
@@ -102,17 +100,41 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 
 			<div className="navButtons">
 				<RaisedButton label="Previous" primary={true} onClick={toMeta}/>
-				<RaisedButton label="Review" primary={true} onClick={toFile}/>
+				<div className="transcript">
+					{isRecording == true &&
+						<CircularProgress size={30} thickness={7} />
+					}
+					{transcript}
+				</div>
+				<RaisedButton label="Finish & Review" primary={true} onClick={toFile}/>
 			</div>
 
 			<Dialog
-          title="Help With Monetta"
           modal={false}
           open={help}
 					actions={<RaisedButton label="Close"  onClick={helpClose}/>}
           onRequestClose={helpClose}
+					className="helpDialog"
         >
-          The text here will help you use Monetta. One day.
+				<h1> Dictation feature: </h1>
+        <p>
+				 Hold down the "alt" key on your keyboard in order to start recording your speech.
+				<br/>
+				<br/>
+				Unfortunately, due to the sensitivity of voice recognition please make sure to pronounce words clearly and at a modest pace (as if you are using a virtual assistant).
+				Please visit the "Help" tab on the top right for more general information about the use of Monetta!
+				</p>
+
+				<h1> Note: </h1>
+				<p>
+				 You are able to enter your notes by simply typing it in the text field of your chosen category and clicking the "Enter" key on your keyboard or "Submit" next to the text field!
+				<br/>
+				</p>
+
+				<br/>
+
+				<h2 style={{color: 'rgb(255,172,77)'}}> For any issues please send us feedback by using the button on the top right of the screen!</h2>
+
         </Dialog>
 		</Card>
 	)

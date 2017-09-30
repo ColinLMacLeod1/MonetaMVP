@@ -48,10 +48,10 @@ const FileReview = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, new
       </Card>
     </div>
     <div className="navButtons">
-      <RaisedButton label="Edit" primary={true} onClick={toDictation}/>
+      <RaisedButton label="Return & Edit" primary={true} onClick={toDictation}/>
       <FlatButton label="Email" primary={true} onClick={toEmail}/>
-      <FlatButton label="Print PDF" primary={true} onClick={toPDF}/>
-      <RaisedButton label="Save & Finish" primary={true} onClick={save}/>
+      <FlatButton label="Download PDF" primary={true} onClick={toPDF}/>
+      <RaisedButton label="Save & Submit" primary={true} onClick={save}/>
     </div>
   </Card>
 )

@@ -66,6 +66,8 @@ export default class Repository extends React.Component {
     this.deleteMeeting = this.deleteMeeting.bind(this)
     this.search = this.search.bind(this)
   }
+
+
   componentDidMount(){
     this.loadAll()
     this.state = this.state || {};
@@ -79,6 +81,10 @@ export default class Repository extends React.Component {
 
     query.addListener(queryListener);
   }
+
+
+
+
   createEmail() {
     // Making all of the values variables
     var mailURI = "mailto:";
@@ -282,8 +288,8 @@ export default class Repository extends React.Component {
     let container = null;
     let searchTitle = null;
     //Define SIDEBAR CONTENT
-    if(this.state.results !== [] && Array.isArray(this.state.results))
-      {console.log('PRINTING RESULTS')
+    if(this.state.results !== [] && Array.isArray(this.state.results)) {
+      console.log('PRINTING RESULTS')
       console.log(this.state.meetingRes)
         sidebar = (
         <List className="meetingList">
@@ -383,6 +389,8 @@ export default class Repository extends React.Component {
           {sidebar}
           {container}
         </div>
+
+
       </div>
     )
   }

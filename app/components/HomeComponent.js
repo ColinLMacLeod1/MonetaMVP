@@ -4,11 +4,11 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
 
-import ScrollAlarm from '../assets/images/ScrollAlarm.png'
 import DictationFeature from '../assets/images/DictationFeature.png'
 import RepositoryFeature from '../assets/images/SecureRepoFeature.png'
 import DataFeature from '../assets/images/DataFeature.png'
 import Illustration from '../assets/images/WhyAreYouLookingHere.jpg'
+
 
 
 
@@ -27,7 +27,14 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
         <div className='Top'>
           <h1 className='Heading'> Make your meetings as memorable as they should be </h1>
           <p className='Snippet'> A new way to capture everything that matters </p>
-          <RaisedButton className='SignupButton' secondary={true}  label='Join our Alpha' labelColor='rgb(255,172,77)' onClick={handleActivation}/>
+          <RaisedButton
+            className='SignupButton'
+            secondary={true}
+            label='Join our Alpha'
+            labelPosition='after'
+            labelColor='rgb(255,172,77)'
+            onClick={handleActivation}
+            />
           <img className='Illustration' src={Illustration} />
         </div>
 
