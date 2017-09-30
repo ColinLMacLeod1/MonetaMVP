@@ -27,7 +27,6 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 					</ul>
 				</div>
 			</div>
-			<RaisedButton label="Help" onTouchTap={helpOpen} />
 			<div className="transcript">
 				{isRecording == true &&
 					<CircularProgress size={30} thickness={7} />
