@@ -167,7 +167,7 @@ export default class Meeting extends React.Component {
 			})
 
       this.newMeeting()
-      this.props.handleDirectToRepo('b')
+      this.props.handleDirectToRepo('b', true)
 
   }
   createEmail() {

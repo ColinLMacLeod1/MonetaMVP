@@ -19,12 +19,14 @@ export default class App extends React.Component {
 		this.state = {
       username: 'none',
       page:'App',
-      tabValue: 'a'
+      tabValue: 'a',
+      code: ''
 		}
 
     this.handlePageChange=this.handlePageChange.bind(this)
     this.handleTabChange=this.handleTabChange.bind(this)
     this.sucessfulLogin = this.sucessfulLogin.bind(this)
+    this.hasRefresh=this.hasRefresh.bind(this)
 	}
 
   handlePageChange (pg) {
@@ -32,9 +34,18 @@ export default class App extends React.Component {
     this.setState({page:pg});
   }
 
-  handleTabChange (tabVal) {
+  handleTabChange (tabVal, bool) {
     console.log('handleTabChange() (App.js)');
     this.setState({tabValue:tabVal});
+
+    if (bool == true) {
+      this.setState({code: 'refresh'})
+      console.log('handleTabChange() sucessful code update')
+    }
+  }
+
+  hasRefresh () {
+      this.setState({code: ''})
   }
 
   sucessfulLogin (user) {
@@ -98,7 +109,7 @@ export default class App extends React.Component {
                <Meeting username={this.state.username} handleDirectToRepo={this.handleTabChange}/>
              </Tab>
              <Tab label="My Meetings" value='b'>
-               <Repository username={this.state.username}/>
+               <Repository username={this.state.username} code={this.state.code} handleRefresh={this.hasRefresh}/>
              </Tab>
              <Tab label="Help" value='c'>
                <Help />

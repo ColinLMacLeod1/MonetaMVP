@@ -51,7 +51,8 @@ export default class Repository extends React.Component {
 			],
 			actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
 			decisions: ["Decision Test"],
-      email:false
+      email:false,
+      codeRepo: 1
 		}
     this.createEmail = this.createEmail.bind(this)
     this.toEmail = this.toEmail.bind(this)
@@ -65,6 +66,19 @@ export default class Repository extends React.Component {
     this.maxDateChange = this.maxDateChange.bind(this)
     this.deleteMeeting = this.deleteMeeting.bind(this)
     this.search = this.search.bind(this)
+    this.updateRefresh = this.updateRefresh.bind(this)
+  }
+
+  updateRefresh() {
+    if (this.props.code == 'refresh') {
+      this.loadAll();
+      console.log('sucess refresh');
+
+      this.props.handleRefresh()
+    }
+
+    console.log('CALLED');
+
   }
 
 
@@ -336,6 +350,8 @@ export default class Repository extends React.Component {
     else
       searchTitle = 'Member Search'
 
+    this.updateRefresh();
+
     return(
       <div>
         <div className='searchC'>
@@ -366,7 +382,7 @@ export default class Repository extends React.Component {
             <FlatButton
               label="Refresh"
               primary={true}
-              onClick={() => this.search('title')}
+              onClick={() => this.loadAll()}
             />
           </div>
           <div className="titleSearch">

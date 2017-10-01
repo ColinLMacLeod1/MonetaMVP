@@ -35,6 +35,8 @@ export default class Meeting extends React.Component {
           floatingLabelText={this.capitalize(this.props.title)}
           value={this.state.text}
           name={this.props.title}
+          multiLine={true}
+
           onChange={(event,newValue) => this.textChange(event,newValue)}
           onKeyPress={(ev) => {
             if (ev.key === 'Enter') {

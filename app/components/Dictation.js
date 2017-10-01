@@ -17,7 +17,8 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 				<div className="meta">
 					<h1>{data.title}</h1>
 					<h2>{data.type}</h2>
-					<h2>{data.location + ' on '+ data.date}</h2>
+					<h2>{data.location + ' on '+ data.date.toDateString()}</h2>
+					<h2>{data.date.toTimeString()}</h2>
 				</div>
 
 				<div>
