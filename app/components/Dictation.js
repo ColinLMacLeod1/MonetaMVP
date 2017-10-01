@@ -12,12 +12,14 @@ import Dialog from 'material-ui/Dialog';
 
 const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpen, helpClose, buttonPress, errors, toMeta, data, toFile, transcript, isRecording, help}) => (
 		<Card className="dictation">
+
 			<div className="head">
 				<div className="meta">
 					<h1>{data.title}</h1>
 					<h2>{data.type}</h2>
 					<h2>{data.location + ' on '+ data.date}</h2>
 				</div>
+
 				<div>
 					<h2>Members Present:</h2>
 					<ul style={{listStyle:'none'}}>
@@ -30,12 +32,15 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 
 			<div className='Help'>
 				<RaisedButton label='Help' onTouchTap={helpOpen} />
+				<p> Hold "Alt" on your keyboard to begin recording speech </p>
 			</div>
 
 			<div className="sections">
+
 				<Card className="section">
-					<CardTitle title="Decisions"/>
-					<List>
+					<h1 style={{margin: 0}}> Team Decisions </h1>
+					<p style={{margin: 0, color: 'rgb(70,153,255)'}}> Activation word: "decision" </p>
+					<List style={{margin: 5}}>
 						{data.decisions.map((item,index) =>
 							<div key={index} className="listItem">
 								<TextField
@@ -54,9 +59,12 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 					</List>
 					<InputField	title='decisions'	submitData={(item,src) => itemAdd(item,src)}/>
 				</Card>
+
+
 				<Card className="section">
-					<CardTitle title="Action Items"/>
-					<List>
+					<h1 style={{margin: 0}}> Action Items </h1>
+					<p style={{margin: 0, color: 'rgb(70,153,255)'}}> Activation word: "action" </p>
+					<List style={{margin: 5}}>
 						{data.actions.map((item,index) =>
 							<div key={index} className="listItem">
 								<TextField
@@ -76,8 +84,9 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 					<InputField title='actions'	submitData={(item,src) => itemAdd(item,src)}/>
 				</Card>
 				<Card className="section">
-					<CardTitle title="General Notes"/>
-					<List>
+					<h1 style={{margin: 0}}> General Notes </h1>
+					<p style={{margin: 0, color: 'rgb(70,153,255)'}}> This category will only activate if no other category is activated </p>
+					<List style={{margin: 5}}>
 						{data.minutes.map((item,index) =>
 							<div key={index} className="listItem">
 								<TextField

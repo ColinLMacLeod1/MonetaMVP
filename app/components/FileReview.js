@@ -50,7 +50,10 @@ const FileReview = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, new
     <div className="navButtons">
       <RaisedButton label="Return & Edit" primary={true} onClick={toDictation}/>
       <FlatButton label="Email" primary={true} onClick={toEmail}/>
-      <FlatButton label="Download PDF" primary={true} onClick={toPDF}/>
+      <div className='recommendedButton'>
+        <FlatButton style={{margin: 0, padding: 0}} label="--> Download PDF <--" primary={true} onClick={toPDF}/>
+        <p > RECOMMENDED DURING TESTING </p>
+      </div>
       <RaisedButton label="Save & Submit" primary={true} onClick={save}/>
     </div>
   </Card>
