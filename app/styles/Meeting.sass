@@ -2,6 +2,12 @@
   display: block
   padding: 20px
   margin: 10px 10px
+  .inputField
+    display: flex
+    flex-direction: row
+    align-items: center
+    margin: 0 0
+    padding: 0 0
   h1
     font-family: "Roboto"
     overflow: hidden
@@ -35,6 +41,10 @@
     margin: 0 0
     .meta
       width: 50%
+    .title
+      max-width: 40vw
+      overflow-x: auto
+      padding-bottom: 15px
   .sections
     display: flex
     flex-direction: row
@@ -84,7 +94,10 @@
     font-weight: bold !important
 
 .meeting
-  display: block
-  padding: 20px
-  width: 50%
-  margin: 10px auto
+  display: flex
+  flex-direction: column
+  align-items: center
+  padding: 40px
+  width: 40%
+  min-width: 400px
+  margin: 20px auto

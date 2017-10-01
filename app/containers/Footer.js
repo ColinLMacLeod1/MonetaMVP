@@ -5,7 +5,9 @@ import FooterComponent from '../components/FooterComponent.js'
 export default class Footer extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {act: false}
+    this.state = {
+      act: false
+    }
 
     this.handlePrivacyTerms=this.handlePrivacyTerms.bind(this)
     this.handleActivation = this.handleActivation.bind(this)

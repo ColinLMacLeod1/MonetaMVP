@@ -8,7 +8,7 @@ const FileDisplay = ({data,toDictation,save,toEmail,toPDF,deleteMeeting}) => (
   <Card className="dictation">
     <div className="head">
       <div style={{marginRight:'50px'}}>
-        <h1>{data.title}</h1>
+        <h1 className='title'>{data.title}</h1>
         <h2>{data.type}</h2>
         <h2>{data.location + ' on '+ (new Date(data.date)).toUTCString()}</h2>
       </div>

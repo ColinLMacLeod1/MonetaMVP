@@ -26,7 +26,7 @@ export default class Header extends React.Component {
 			<div className="header" style={{width:'100%'}}>
 
 				<div className='topBar'>
-					<FlatButton className="PrivacyTerms" label='Privacy & Terms' labelStyle={{color: 'white'}}  onClick={this.props.PrivacyTerms}/>
+					<FlatButton className="PrivacyTerms" label='Privacy & Terms' labelStyle={{color: 'white'}}  onClick={this.props.handlePTerms}/>
 					<button className='Button' onClick={this.props.handleHome}><img src={logo2} className='Logo'/></button>
 					<RaisedButton className='Feedback' label="Send Feedback" secondary={true} onClick={ ()=>{this.setState({open: !this.state.open});} } />
 

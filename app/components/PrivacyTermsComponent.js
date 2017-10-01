@@ -3,7 +3,7 @@ import React from 'react'
 
 
 const PrivacyTermsComponent = () => (
-      <div className='PrivacyTermsWrapper'>
+      <div className='PrivacyTermsWrapper' >
         <div className='PrivacyTerms'>
 
           <h1> Monetta Technologies Inc. </h1>

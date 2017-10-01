@@ -52,7 +52,7 @@ const FileReview = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, new
       <FlatButton label="Email" primary={true} onClick={toEmail}/>
       <div className='recommendedButton'>
         <FlatButton style={{margin: 0, padding: 0}} label="--> Download PDF <--" primary={true} onClick={toPDF}/>
-        <p > RECOMMENDED DURING TESTING </p>
+        <p > RECOMMENDED</p>
       </div>
       <RaisedButton label="Save & Submit" primary={true} onClick={save}/>
     </div>

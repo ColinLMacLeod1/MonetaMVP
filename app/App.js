@@ -1,12 +1,11 @@
 import React from 'react'
 import {Tab, Tabs} from 'material-ui/Tabs'
+import Dialog from 'material-ui/Dialog'
 
 import Header from './containers/Header.js'
 import Home from './containers/Home.js'
-import Footer from './containers/Footer.js'
+import FooterComponent from './components/FooterComponent.js'
 import PrivacyTermsComponent from './components/PrivacyTermsComponent.js'
-
-
 import Meeting from './containers/Meeting'
 import Repository from './containers/Repository'
 import Help from './components/Help'
@@ -20,13 +19,15 @@ export default class App extends React.Component {
       username: 'none',
       page:'App',
       tabValue: 'a',
-      code: ''
+      code: '',
+      PTermsAct: false
 		}
 
     this.handlePageChange=this.handlePageChange.bind(this)
     this.handleTabChange=this.handleTabChange.bind(this)
     this.sucessfulLogin = this.sucessfulLogin.bind(this)
     this.hasRefresh=this.hasRefresh.bind(this)
+    this.handlePTerms=this.handlePTerms.bind(this)
 	}
 
   handlePageChange (pg) {
@@ -53,25 +54,21 @@ export default class App extends React.Component {
     console.log('you have logged in: ' + this.state.username);
   }
 
-  dontdeletethis() {
-    <div>
-      <Header username={this.state.username} page={this.state.page} inside={true}/>
-      <Tabs>
-        <Tab label="New Meeting">
-          <Meeting username={this.state.username} />
-        </Tab>
-        <Tab label="My Meetings">
-          <Repository username={this.state.username}/>
-        </Tab>
-        <Tab label="Help">
-          <Help />
-        </Tab>
-      </Tabs>
-    </div>
+
+  handlePTerms () {
+    console.log('handleActivation() (Header.js)');
+    if (!this.state.PTermsAct) {
+    this.setState({PTermsAct: true});
+    console.log('Open Dialog');
+    } else {
+    this.setState({PTermsAct: false});
+    console.log('Close Dialog');
+    }
   }
 
+
   render() {
-      console.log(Date.now())
+    console.log(Date.now())
     console.log(this.state.page)
     let feedbackTab = null;
     if(this.state.username == 'colin' || this.state.username == 'team@monettatech.com'){
@@ -82,13 +79,36 @@ export default class App extends React.Component {
         </Tab>
       )
     }
+
+    let PTerms = (<div></div>);
+
+    if (this.state.PTermsAct) {
+      PTerms = (
+        <Dialog modal={false} open={this.state.PTermsAct} onRequestClose={this.handlePTerms} autoScrollBodyContent={true}>
+          <div>
+            <PrivacyTermsComponent />
+          </div>
+        </Dialog>
+      )
+    }
+
+
+
     switch (this.state.page) {
       case 'Home':
         return(
         <div>
-          <Header handlePageChange={this.handlePageChange} inside={false} login={this.sucessfulLogin}/>
+
+          <Header
+            handlePageChange={this.handlePageChange}
+            inside={false}
+            login={this.sucessfulLogin}
+            handlePTerms={this.handlePTerms}
+            />
+
           <Home />
-          <Footer handlePageChange={this.handlePageChange}/>
+          <FooterComponent handlePTerms={this.handlePTerms}/>
+          {PTerms}
         </div>
       )
 
@@ -104,7 +124,15 @@ export default class App extends React.Component {
       case 'App':
       return(
         <div>
-           <Header username={this.state.username} inside={true} page={this.state.page} handlePageChange={this.handlePageChange}/>
+
+           <Header
+            username={this.state.username}
+            inside={true}
+            page={this.state.page}
+            handlePageChange={this.handlePageChange}
+            handlePTerms={this.handlePTerms}
+            />
+
            <Tabs value={this.state.tabValue} onChange={this.handleTabChange}>
              <Tab label="New Meeting" value='a'>
                <Meeting username={this.state.username} handleDirectToRepo={this.handleTabChange}/>
@@ -117,6 +145,7 @@ export default class App extends React.Component {
              </Tab>
              {feedbackTab}
            </Tabs>
+           {PTerms}
         </div>
       )
     }

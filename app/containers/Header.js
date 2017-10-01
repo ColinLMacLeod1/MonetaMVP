@@ -112,7 +112,7 @@ export default class Header extends React.Component {
   	const self = this;
   	axios.post('https://monettatech.com/feedback', {
   			username: self.props.username,
-  			date: (new Date()).getTime(),
+  			date: (new Date()).toString(),
         issue: self.state.issue,
   			suggestion: self.state.suggestion,
   			likes: self.state.likes
@@ -154,7 +154,7 @@ export default class Header extends React.Component {
             suggestion={this.state.suggestion}
             likes={this.state.likes}
             sendFeedback={this.sendFeedback}
-            PrivacyTerms={this.handlePrivacyTerms}
+            handlePTerms={this.props.handlePTerms}
             handleHome={this.handleHome}
             />
         </div>

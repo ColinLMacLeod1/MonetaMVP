@@ -30,6 +30,12 @@ const LoginForm = ({onSubmit, onChange, errors, user, toSignUp, handleOpen}) => 
           onChange={onChange}
           errorText={errors.password}
           value={user.password}
+          onKeyPress= {(ev) => {
+            if (ev.key == 'Enter') {
+              ev.preventDefault();
+              onSubmit();
+            }
+          }}
         />
       </div>
 

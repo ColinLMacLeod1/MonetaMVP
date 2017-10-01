@@ -31,7 +31,6 @@ export default class Meeting extends React.Component {
     return(
       <div className='inputField'>
         <TextField
-          className="field-line"
           floatingLabelText={this.capitalize(this.props.title)}
           value={this.state.text}
           name={this.props.title}
@@ -49,7 +48,7 @@ export default class Meeting extends React.Component {
           }}
         />
         <RaisedButton style={{margin: '0 15px'}} label='Enter' onClick={this.enterButton}/>
-      </div>
+      </ div>
     )
   }
 }

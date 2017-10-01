@@ -281,9 +281,7 @@ export default class Repository extends React.Component {
   			.catch(function(error) {
   				console.log(error)
   			})
-  		this.setState({
-  			search: ''
-  		});
+
       console.log('Searched')
   }
   render(){

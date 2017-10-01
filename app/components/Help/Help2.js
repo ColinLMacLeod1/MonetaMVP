@@ -3,16 +3,19 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import screen2 from '../../assets/images/screen2.png';
+import screen2 from '../../assets/images/help2.png';
 
 
 const Help2 = () => (
   <Card style={{padding:"1vw"}}>
 
-    <CardHeader
-      title="This is the screen you'll see during the meeting."
-      subtitle="Here you can add notes with our Speech to Text feature or by typing them in. Hold down the Alt key to record a note whenever you want. If you wish to add a note manually you can do do by typing in the text field under the category you wish to add the note to. When your meeting is done, click review to continue. "
-    />
+    <h1> This is your meeting dashboard </h1>
+    <p> Here you can add notes with our Speech to Text feature while holding down "Alt" on your keyboard.
+    Note that you are still able to add notes by simply typing them into the text field of each respective category if you do not wish to use voice recognition!
+    <br/><br/>
+    When your meeting is done, click the "Finish & Review" button to continue.
+    </p>
+    <br/>
     <Card>
       <CardMedia>
         <img src={screen2} alt="" />

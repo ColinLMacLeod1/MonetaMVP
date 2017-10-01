@@ -16,7 +16,7 @@ const HeaderComponent = ({handleHome, handleActivation, act, errors, onChange, u
         <div>
           <FlatButton primary={true} label='Home' onClick={handleHome}/>
         </div>
-        <a className='HeaderLogo'><img className='HeaderLogo' src={nameLogo} style={{width:'20%'}} /></a>
+        <a className='HeaderLogo'><img src={nameLogo} style={{width:'20%'}} /></a>
         <div>
           <RaisedButton labelColor='rgb(92, 167, 255)' label='Login' onClick={handleActivation}/>
         </div>

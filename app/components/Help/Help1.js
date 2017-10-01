@@ -3,15 +3,17 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import screen1 from '../../assets/images/screen1.png';
+import screen1 from '../../assets/images/help1.png';
 
 
 const Help1 = () => (
   <Card style={{padding:"1vw"}}>
-    <CardHeader
-      title="First, create your meeting."
-      subtitle="Here is where you can put in all of the inital info for your meeting. When you're done you can click Start to start your meeting."
-    />
+    <h1>The meeting information page</h1>
+    <p>
+      Here is where you can put in all of the inital information for your meeting.
+      To add individual members, press 'Enter' on your keyboard to add each individual. When you are done you can click 'Start' to begin.
+    </p>
+
     <Card>
       <CardMedia>
         <img src={screen1} alt="" />

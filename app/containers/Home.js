@@ -15,7 +15,6 @@ export default class Home extends React.Component {
 
     this.changeUser=this.changeUser.bind(this)
     this.processSignupRequest=this.processSignupRequest.bind(this)
-
     this.handleActivation = this.handleActivation.bind(this)
 
   }

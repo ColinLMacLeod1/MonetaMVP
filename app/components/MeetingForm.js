@@ -11,9 +11,8 @@ import ChipInput from 'material-ui-chip-input'
 
 const MeetingForm = ({ onChange, data, toDictation, errors}) => (
   <Card className="meeting">
-    <CardTitle title="New Meeting" />
+    <h1> Create a new meeting: </h1>
       <TextField
-        className="field-line"
         value={data.title}
         floatingLabelText="Title"
         name="title"
@@ -21,7 +20,6 @@ const MeetingForm = ({ onChange, data, toDictation, errors}) => (
         onChange={onChange}
       /><Divider />
       <TextField
-        className="field-line"
         value={data.type}
         floatingLabelText="Meeting Type"
         name="type"
@@ -29,7 +27,6 @@ const MeetingForm = ({ onChange, data, toDictation, errors}) => (
         onChange={onChange}
       /><Divider />
       <TextField
-        className="field-line"
         value={data.location}
         floatingLabelText="Location"
         name="location"
@@ -37,20 +34,19 @@ const MeetingForm = ({ onChange, data, toDictation, errors}) => (
         onChange={onChange}
       /><Divider />
       <TimePicker
-        className="field-line"
         value={data.date}
         hintText="Time"
         minutesStep={5}
         underlineShow={false}
         onChange={onChange}
       /><Divider />
-      <div>
+
       <ChipInput
         defaultValue={data.members}
         onChange={(chips) => onChange(null, null, chips)}
-        floatingLabelText="Add Members"
+        floatingLabelText="Name of Participants (hit 'Enter' to add each individual)"
+        style={{width: '400px'}}
       />
-      </div>
       <br/><br/>
       <RaisedButton label="Start" primary={true} onClick={toDictation}/>
   </Card>

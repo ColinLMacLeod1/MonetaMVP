@@ -4,7 +4,7 @@ import Dialog from 'material-ui/Dialog'
 import nameLogo from '../assets/images/nameLogo.png'
 
 
-const FooterComponent = ({handlePrivacyTerms, handleContactUs, handleActivation, act}) => (
+const FooterComponent = ({handlePTerms}) => (
   <div className='Footer'>
     <div className='FooterBlock'>
 
@@ -22,16 +22,9 @@ const FooterComponent = ({handlePrivacyTerms, handleContactUs, handleActivation,
       </div>
 
       <div className='Button'>
-        <FlatButton label='Privacy & terms' primary={true} onClick={handleActivation}/>
+        <FlatButton label='Privacy & terms' primary={true} onClick={handlePTerms}/>
       </div>
 
-
-
-
-
-      <Dialog modal={false} open={act} onRequestClose={handleActivation}>
-        <h1 className='DialogLogin'> Coming soon to a web browser near you! </h1>
-      </Dialog>
 
     </div>
   </div>

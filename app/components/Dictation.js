@@ -33,14 +33,14 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 
 			<div className='Help'>
 				<RaisedButton label='Help' onTouchTap={helpOpen} />
-				<p> Hold "Alt" on your keyboard to begin recording speech </p>
+				<p style={{marginRight: '30px'}}> Hold "Alt" on your keyboard to begin recording speech </p>
 			</div>
 
 			<div className="sections">
 
 				<Card className="section">
 					<h1 style={{margin: 0}}> Team Decisions </h1>
-					<p style={{margin: 0, color: 'rgb(70,153,255)'}}> Activation word: "decision" </p>
+					<p style={{margin: 0, color: 'rgb(70,153,255)'}}> Activation word: "decision, decide, decided" </p>
 					<List style={{margin: 5}}>
 						{data.decisions.map((item,index) =>
 							<div key={index} className="listItem">
@@ -86,7 +86,7 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 				</Card>
 				<Card className="section">
 					<h1 style={{margin: 0}}> General Notes </h1>
-					<p style={{margin: 0, color: 'rgb(70,153,255)'}}> This category will only activate if no other category is activated </p>
+					<p style={{margin: 0, color: 'rgb(70,153,255)'}}>Will only activate if no other category is activated</p>
 					<List style={{margin: 5}}>
 						{data.minutes.map((item,index) =>
 							<div key={index} className="listItem">
