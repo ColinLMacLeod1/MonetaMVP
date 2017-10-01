@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import HeaderComponent from '../components/HeaderComponent.js'
 import HeaderInsideComponent from '../components/HeaderInsideComponent.js'
+import Login from './Login.js'
+import Dialog from 'material-ui/Dialog'
 
 
 export default class Header extends React.Component {
@@ -24,12 +26,18 @@ export default class Header extends React.Component {
     this.changeParentState = this.changeParentState.bind(this)
 		this.sendFeedback = this.sendFeedback.bind(this)
     this.feedbackButton = this.feedbackButton.bind(this)
+    this.handlePrivacyTerms = this.handlePrivacyTerms.bind(this)
   }
 
 
   handleHome () {
     console.log('handleHome() (Header.js)');
     this.props.handlePageChange('Home');
+  }
+
+  handlePrivacyTerms () {
+    console.log('handlePrivacyterms () (Header.js)');
+    console.log('Coming Soon');
   }
 
   handleActivation () {
@@ -146,7 +154,8 @@ export default class Header extends React.Component {
             suggestion={this.state.suggestion}
             likes={this.state.likes}
             sendFeedback={this.sendFeedback}
-
+            PrivacyTerms={this.handlePrivacyTerms}
+            handleHome={this.handleHome}
             />
         </div>
       )

@@ -18,16 +18,23 @@ export default class App extends React.Component {
 		super(props);
 		this.state = {
       username: 'none',
-      page:'Home'
+      page:'App',
+      tabValue: 'a'
 		}
 
     this.handlePageChange=this.handlePageChange.bind(this)
+    this.handleTabChange=this.handleTabChange.bind(this)
     this.sucessfulLogin = this.sucessfulLogin.bind(this)
 	}
 
-  handlePageChange (page) {
+  handlePageChange (pg) {
     console.log('handlePageChange() (App.js)');
-    this.setState({page:page});
+    this.setState({page:pg});
+  }
+
+  handleTabChange (tabVal) {
+    console.log('handleTabChange() (App.js)');
+    this.setState({tabValue:tabVal});
   }
 
   sucessfulLogin (user) {
@@ -58,7 +65,7 @@ export default class App extends React.Component {
     if(this.state.username == 'colin' || this.state.username == 'team@monettatech.com'){
       console.log('colin signed in')
       feedbackTab = (
-        <Tab label='Feedback'>
+        <Tab label='Feedback' value='d'>
           <Feedback />
         </Tab>
       )
@@ -85,15 +92,15 @@ export default class App extends React.Component {
       case 'App':
       return(
         <div>
-           <Header username={this.state.username} inside={true} page={this.state.page}/>
-           <Tabs>
-             <Tab label="New Meeting">
-               <Meeting username={this.state.username} />
+           <Header username={this.state.username} inside={true} page={this.state.page} handlePageChange={this.handlePageChange}/>
+           <Tabs value={this.state.tabValue} onChange={this.handleTabChange}>
+             <Tab label="New Meeting" value='a'>
+               <Meeting username={this.state.username} handleDirectToRepo={this.handleTabChange}/>
              </Tab>
-             <Tab label="My Meetings">
+             <Tab label="My Meetings" value='b'>
                <Repository username={this.state.username}/>
              </Tab>
-             <Tab label="Help">
+             <Tab label="Help" value='c'>
                <Help />
              </Tab>
              {feedbackTab}

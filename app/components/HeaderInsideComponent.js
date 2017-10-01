@@ -15,7 +15,6 @@ export default class Header extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-
 			open: false
 		}
 	}
@@ -25,8 +24,14 @@ export default class Header extends React.Component {
 		console.log(this.props.openFeedback);
 	return (
 			<div className="header" style={{width:'100%'}}>
-				<img src={logo2}/>
-				<FlatButton label="Feedback" primary={true} onClick={ ()=>{this.setState({open: !this.state.open});} } />
+
+				<div className='topBar'>
+					<FlatButton className="PrivacyTerms" label='Privacy & Terms' labelStyle={{color: 'white'}}  onClick={this.props.PrivacyTerms}/>
+					<button className='Button' onClick={this.props.handleHome}><img src={logo2} className='Logo'/></button>
+					<RaisedButton className='Feedback' label="Send Feedback" secondary={true} onClick={ ()=>{this.setState({open: !this.state.open});} } />
+
+				</div>
+
 				<Drawer
 					open={this.state.open}
 					docked={false}

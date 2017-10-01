@@ -1,7 +1,7 @@
 .dictation
   display: block
   padding: 20px
-  margin: 15px 15px
+  margin: 10px 10px
   h1
     font-family: "Roboto"
     overflow: hidden
@@ -11,6 +11,17 @@
     font-weight: lighter
     color: grey
     overflow: hidden
+  .Help
+    margin: 10px 0
+  .helpDialog
+    display: flex
+    flex-direction: column
+    align-items: center
+    text-align: left
+    margin: 10px 0
+    padding: 0 0
+  .deleteButton
+    cursor: pointer
   .field-line
     margin: 0px !important
   .head
@@ -18,6 +29,7 @@
     flex-direction: row
     align-items: baseline
     justify-content: flex-start
+    margin: 0 0
     .meta
       width: 50%
   .sections
@@ -35,21 +47,39 @@
     display: flex
     flex-direction: row
     justify-content: space-between
-    align-items: center
+    align-items: flex-start
     margin-top: 15px
+    .recommendedButton
+      margin: 0
+      padding: 0
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      text-align: center
+      p
+        margin: 0
+        padding: 5px
+        background-color: $gold
+        color: white
+        border: 1px solid white
+        border-radius: 5px
+        position: relative
+
+  .transcript
+    height: 50px
+    width: 70%
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
   .listItem
     display: flex
     flex-direction: row
     flex-wrap: nowrap
   .listItem:hover
     font-weight: bold !important
-  .transcript
-    height: 100px
-    width: 100%
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
+
 .meeting
   display: block
   padding: 20px

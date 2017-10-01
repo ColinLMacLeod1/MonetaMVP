@@ -165,7 +165,10 @@ export default class Meeting extends React.Component {
 			.catch(function(error) {
 				console.log(error)
 			})
+
       this.newMeeting()
+      this.props.handleDirectToRepo('b')
+
   }
   createEmail() {
   	// Making all of the values variables
@@ -411,7 +414,7 @@ export default class Meeting extends React.Component {
             <Printing data={data}/>
             <Snackbar
                   open={this.state.saved}
-                  message="Saved to Repository"
+                  message="Saved to My Meetings"
                   autoHideDuration={4000}
                   onRequestClose={this.handleRequestClose}
                 />
