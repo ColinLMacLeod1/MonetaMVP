@@ -235,14 +235,14 @@ export default class Repository extends React.Component {
       {
         id:self.state.meetingRes._id
       }).then(function(res){
+        self.setState({
+          meetingRes: null
+        })
+        self.loadAll()
         console.log(res)
       }).catch(function(err){
         console.log(err)
       })
-    this.setState({
-      meetingRes: null
-    })
-    this.loadAll()
   }
   search(searchType) {
     console.log('search')

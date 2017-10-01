@@ -256,16 +256,16 @@ export default class Meeting extends React.Component {
     var newArray
     if(src==='decisions'){
       newArray = this.state.decisions
-      newArray.push(item)
+      newArray.unshift(item)
     }
     else if(src==='minutes'){
       newArray = this.state.minutes
-      newArray.push(item)
+      newArray.unshift(item)
     }
     else if(src==='actions'){
       newArray = this.state.actions
       var newItem = {phrase:item,assigned:'',date:''}
-      newArray.push(newItem)
+      newArray.unshift(newItem)
     }
     this.setState({
       [src]: newArray

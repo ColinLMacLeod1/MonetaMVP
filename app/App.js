@@ -71,6 +71,7 @@ export default class App extends React.Component {
   }
 
   render() {
+      console.log(Date.now())
     console.log(this.state.page)
     let feedbackTab = null;
     if(this.state.username == 'colin' || this.state.username == 'team@monettatech.com'){
