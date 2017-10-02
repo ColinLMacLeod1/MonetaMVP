@@ -13,15 +13,13 @@ const HeaderComponent = ({handleHome, handleActivationLogin, loginDialog, handle
       <div className='Header'>
       <div className='HeaderBlock'>
 
-        <div>
+        <div className='HeaderHome'>
           <FlatButton primary={true} label='Home' onClick={handleHome}/>
         </div>
         <a className='HeaderLogo'><img src={nameLogo} style={{width:'20%'}} /></a>
-        <div>
+        <div className='HeaderButtons'>
           <RaisedButton labelColor='rgb(92, 167, 255)' label='Login' onClick={handleActivationLogin}/>
-        </div>
-        <div>
-          <RaisedButton style={{marginLeft:"3vw"}} labelColor='rgb(92, 167, 255)' label='Sign Up' onClick={handleActivationSignup}/>
+          <RaisedButton style={{marginLeft:"1vw"}} labelColor='rgb(92, 167, 255)' label='Sign Up' onClick={handleActivationSignup}/>
         </div>
       </div>
     </div>
