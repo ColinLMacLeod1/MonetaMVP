@@ -315,7 +315,7 @@ export default class Meeting extends React.Component {
         })
 				if(text.includes('Action') || text.includes('action')){
           self.itemAdd(text,'actions')
-        } else if(text.includes('Decision') || text.includes('decision') || text.includes('decided') || text.includes('Decided')) {
+        } else if(text.includes('Decision') || text.includes('decision') || text.includes('decided') || text.includes('Decided') || text.includes('deciding') || text.includes('Decide') || text.includes('decide')) {
           self.itemAdd(text,'decisions')
         } else {
           self.itemAdd(text, 'minutes')
