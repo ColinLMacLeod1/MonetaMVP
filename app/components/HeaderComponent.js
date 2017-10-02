@@ -6,9 +6,9 @@ import Dialog from 'material-ui/Dialog'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Login from '../containers/Login'
+import Signup from '../containers/Signup'
 
-
-const HeaderComponent = ({handleHome, handleActivation, act, errors, onChange, username, password, onClick, login}) => (
+const HeaderComponent = ({handleHome, handleActivationLogin, loginDialog, handleActivationSignup, signupDialog, errors, onChange, username, password, onClick, login}) => (
   <div>
       <div className='Header'>
       <div className='HeaderBlock'>
@@ -18,16 +18,22 @@ const HeaderComponent = ({handleHome, handleActivation, act, errors, onChange, u
         </div>
         <a className='HeaderLogo'><img src={nameLogo} style={{width:'20%'}} /></a>
         <div>
-          <RaisedButton labelColor='rgb(92, 167, 255)' label='Login' onClick={handleActivation}/>
+          <RaisedButton labelColor='rgb(92, 167, 255)' label='Login' onClick={handleActivationLogin}/>
         </div>
-
+        <div>
+          <RaisedButton style={{marginLeft:"3vw"}} labelColor='rgb(92, 167, 255)' label='Sign Up' onClick={handleActivationSignup}/>
+        </div>
       </div>
     </div>
 
-    <Dialog modal={false} open={act} onRequestClose={handleActivation}>
-      <h1 className='DialogLogin'></h1>
+    <Dialog modal={false} open={loginDialog} onRequestClose={handleActivationLogin}>
         <div className='LoginSignup'>
           <Login login={login} />
+        </div>
+    </Dialog>
+    <Dialog modal={false} open={signupDialog} onRequestClose={handleActivationSignup}>
+        <div className='LoginSignup'>
+          <Signup login={login} />
         </div>
     </Dialog>
   </div>

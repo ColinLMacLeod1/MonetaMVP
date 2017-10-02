@@ -17,7 +17,7 @@ export default class App extends React.Component {
 		super(props);
 		this.state = {
       username: 'none',
-      page:'App',
+      page:'Home',
       tabValue: 'a',
       code: '',
       PTermsAct: false

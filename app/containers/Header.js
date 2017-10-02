@@ -10,7 +10,8 @@ export default class Header extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      act: false,
+      loginDialog: false,
+      signupDialog: false,
       errors: {},
       username: '',
       password: '',
@@ -20,9 +21,9 @@ export default class Header extends React.Component {
       openFeedback:false
       }
     this.handleHome=this.handleHome.bind(this)
-    this.handleActivation=this.handleActivation.bind(this)
+    this.handleActivationLogin=this.handleActivationLogin.bind(this)
+    this.handleActivationSignup=this.handleActivationSignup.bind(this)
     this.processLoginRequest=this.processLoginRequest.bind(this)
-
     this.changeParentState = this.changeParentState.bind(this)
 		this.sendFeedback = this.sendFeedback.bind(this)
     this.feedbackButton = this.feedbackButton.bind(this)
@@ -40,13 +41,23 @@ export default class Header extends React.Component {
     console.log('Coming Soon');
   }
 
-  handleActivation () {
+  handleActivationLogin () {
     console.log('handleActivation() (Header.js)');
-    if (!this.state.act) {
-    this.setState({act: true});
+    if (!this.state.loginDialog) {
+    this.setState({loginDialog: true});
     console.log('Open Dialog');
     } else {
-    this.setState({act: false});
+    this.setState({loginDialog: false});
+    console.log('Close Dialog');
+    }
+  }
+  handleActivationSignup () {
+    console.log('handleActivation() (Header.js)');
+    if (!this.state.signupDialog) {
+    this.setState({signupDialog: true});
+    console.log('Open Dialog');
+    } else {
+    this.setState({signupDialog: false});
     console.log('Close Dialog');
     }
   }
@@ -165,8 +176,10 @@ export default class Header extends React.Component {
         <div>
           <HeaderComponent
             handleHome={this.handleHome}
-            handleActivation={this.handleActivation}
-            act={this.state.act}
+            handleActivationLogin={this.handleActivationLogin}
+            loginDialog={this.state.loginDialog}
+            handleActivationSignup={this.handleActivationSignup}
+            signupDialog={this.state.signupDialog}
             errors={this.state.errors}
             onChange={this.changeUser}
             username={this.state.username}
