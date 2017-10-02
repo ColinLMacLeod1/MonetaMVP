@@ -5,12 +5,11 @@ import {Card, CardTitle} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import InputField from './InputField.js'
 import CircularProgress from 'material-ui/CircularProgress'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 import Dialog from 'material-ui/Dialog';
 
-const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpen, helpClose, buttonPress, errors, toMeta, data, toFile, transcript, isRecording, help}) => (
+const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpen, helpClose, changeText, enterText, changePane, buttonPress, errors, data, transcript, isRecording, help, text}) => (
 		<Card className="dictation">
 
 			<div className="head">
@@ -58,7 +57,22 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 							</div>
 						)}
 					</List>
-					<InputField	title='decisions'	submitData={(item,src) => itemAdd(item,src)}/>
+					<div className='inputField'>
+						<TextField
+							floatingLabelText='Decisions (hit "Enter" to add a note)'
+							name='decisions'
+							value={text.decisions}
+							multiLine={true}
+							style={{width: '100%'}}
+							onChange={changeText}
+							onKeyPress={(ev) => {
+								if (ev.key === 'Enter') {
+									ev.preventDefault();
+									enterText('decisions');
+								}
+							}}
+						/>
+					</ div>
 				</Card>
 
 
@@ -82,11 +96,26 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 							</div>
 						)}
 					</List>
-					<InputField title='actions'	submitData={(item,src) => itemAdd(item,src)}/>
+					<div className='inputField'>
+						<TextField
+							floatingLabelText='Actions (hit "Enter" to add a note)'
+							name='actions'
+							multiLine={true}
+							value={text.actions}
+							style={{width: '100%'}}
+							onChange={changeText}
+							onKeyPress={(ev) => {
+								if (ev.key === 'Enter') {
+									ev.preventDefault();
+									enterText('actions');
+								}
+							}}
+						/>
+					</ div>
 				</Card>
 				<Card className="section">
 					<h1 style={{margin: 0}}> General Notes </h1>
-					<p style={{margin: 0, color: 'rgb(70,153,255)'}}>Will only activate if no other category is activated</p>
+					<p style={{margin: 0, color: 'rgb(70,153,255)'}}>Activated by general speech</p>
 					<List style={{margin: 5}}>
 						{data.minutes.map((item,index) =>
 							<div key={index} className="listItem">
@@ -104,19 +133,34 @@ const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpe
 							</div>
 						)}
 					</List>
-					<InputField	title='minutes'	submitData={(item,src) => itemAdd(item,src)}/>
+					<div className='inputField'>
+						<TextField
+							floatingLabelText='(hit "Enter" to add a note manually)'
+							name='minutes'
+							multiLine={true}
+							value={text.minutes}
+							style={{width: '100%'}}
+							onChange={changeText}
+							onKeyPress={(ev) => {
+								if (ev.key === 'Enter') {
+									ev.preventDefault();
+									enterText('minutes');
+								}
+							}}
+						/>
+					</ div>
 				</Card>
 			</div>
 
 			<div className="navButtons">
-				<RaisedButton label="Previous" primary={true} onClick={toMeta}/>
+				<RaisedButton label="Previous" primary={true} onClick={() => changePane('Info')}/>
 				<div className="transcript">
 					{isRecording == true &&
 						<CircularProgress size={30} thickness={7} />
 					}
 					{transcript}
 				</div>
-				<RaisedButton label="Finish & Review" primary={true} onClick={toFile}/>
+				<RaisedButton label="Finish & Review" primary={true} onClick={() => changePane('Review')}/>
 			</div>
 
 			<Dialog

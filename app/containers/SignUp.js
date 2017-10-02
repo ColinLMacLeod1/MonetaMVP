@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import SignUpForm from '../components/SignUpForm.js';
+import SignUpComponent from '../components/SignUpComponent.js';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
@@ -93,7 +93,7 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <SignUpForm
+      <SignUpComponent
         onSubmit={this.processSignUpForm}
         onChange={this.changeUser}
         errors={this.state.errors}

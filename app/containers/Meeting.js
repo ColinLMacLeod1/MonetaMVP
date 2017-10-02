@@ -1,12 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import WatsonSpeech from 'watson-speech'
-import MeetingForm from '../components/MeetingForm.js'
-import Dictation from '../components/Dictation.js'
-import FileReview from '../components/FileReview.js'
+import MeetingInfoComponent from '../components/MeetingInfoComponent.js'
+import DashboardComponent from '../components/DashboardComponent.js'
+import FileReviewComponent from '../components/FileReviewComponent.js'
+import PrintingComponent from '../components/PrintingComponent.js'
 import Snackbar from 'material-ui/Snackbar'
-import Printing from '../components/Printing.js'
-
 
 export default class Meeting extends React.Component {
   constructor(props) {
@@ -39,7 +38,7 @@ export default class Meeting extends React.Component {
 			],
 			actions: [],
 			decisions: [],
-      pane: 0,
+      pane: 'Info',
       username: this.props.username,
       saved:false,
       email:false,
@@ -53,10 +52,9 @@ export default class Meeting extends React.Component {
         minutes: ''
       },
 		}
+
+    this.changePane = this.changePane.bind(this)
     this.onChange = this.onChange.bind(this)
-    this.toDictation = this.toDictation.bind(this)
-    this.toMeta = this.toMeta.bind(this)
-    this.toFile = this.toFile.bind(this)
     this.save = this.save.bind(this)
     this.toEmail = this.toEmail.bind(this)
     this.toPDF = this.toPDF.bind(this)
@@ -124,21 +122,11 @@ export default class Meeting extends React.Component {
     }
   }
 
-  toDictation(){
-    this.setState({
-      pane: 1
-    })
+  changePane (val) {
+    this.setState({pane: val})
   }
-  toMeta(){
-    this.setState({
-      pane: 0
-    })
-  }
-  toFile(){
-    this.setState({
-      pane: 2
-    })
-  }
+
+
   save(){
     const self = this;
 		axios.post('https://monettatech.com/save',
@@ -344,7 +332,7 @@ export default class Meeting extends React.Component {
     this.setState({text: newstate});
   }
 
-  enterText (name) {    
+  enterText (name) {
     switch (name) {
       case 'minutes':
       return (
@@ -380,14 +368,14 @@ export default class Meeting extends React.Component {
         decisions: this.state.decisions
       }
       switch (this.state.pane) {
-      case 0:
+      case 'Info':
         return (<div>
-  					<MeetingForm
+  					<MeetingInfoComponent
               onSubmit={this.onSubmit}
               onChange={this.onChange}
               onDelete={this.onDelete}
               memberChange={this.memberChange}
-              toDictation={this.toDictation}
+              changePane={this.changePane}
               errors={this.errors}
               data={data}
   					/><Snackbar
@@ -396,12 +384,11 @@ export default class Meeting extends React.Component {
                   autoHideDuration={4000}
                   onRequestClose={this.handleRequestClose}
                 /></div>);
-      case 1:
+      case 'Dashboard':
         return (<div>
-            <Dictation
+            <DashboardComponent
               data={data}
-              toMeta={this.toMeta}
-              toFile={this.toFile}
+              changePane={this.changePane}
               itemAdd={this.itemAdd}
               itemChange={this.itemChange}
               itemDelete={this.itemDelete}
@@ -419,18 +406,18 @@ export default class Meeting extends React.Component {
                   autoHideDuration={4000}
                   onRequestClose={this.handleRequestClose}
                 /></div>);
-      case 2:
+      case 'Review':
         return (<div>
-            <FileReview
+            <FileReviewComponent
               data={data}
-              toDictation={this.toDictation}
+              changePane={this.changePane}
               save={this.save}
               toPDF={this.toPDF}
               toEmail={this.toEmail}
               handleRequestClose={this.handleRequestClose}
               newMeeting={this.newMeeting}
             />
-            <Printing data={data}/>
+            <PrintingComponent data={data}/>
             <Snackbar
                   open={this.state.saved}
                   message="Saved to My Meetings"

@@ -3,7 +3,7 @@ import _, { clone,merge } from 'lodash';
 import axios from 'axios';
 import {List, ListItem} from 'material-ui/List';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
-import FileDisplay from '../components/FileDisplay.js'
+import FileDisplayComponent from '../components/FileDisplayComponent.js'
 import Snackbar from 'material-ui/Snackbar'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import TextField from 'material-ui/TextField'
@@ -11,7 +11,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import DatePicker from 'material-ui/DatePicker'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
-import Printing from '../components/Printing.js'
+import PrintingComponent from '../components/PrintingComponent.js'
 import FlatButton from 'material-ui/FlatButton'
 
 export default class Repository extends React.Component {
@@ -299,13 +299,13 @@ export default class Repository extends React.Component {
     if(this.state.meetingRes != null && this.state.meetingRes != Undefined) {
       container = (
         <div className="displayContainer">
-          <FileDisplay
+          <FileDisplayComponent
           data={this.state.meetingRes}
           toEmail={this.toEmail}
           toPDF={this.toPDF}
           deleteMeeting={this.deleteMeeting}
           />
-          <Printing data={this.state.meetingRes}/>
+          <PrintingComponent data={this.state.meetingRes}/>
         </div>
       )}
     else

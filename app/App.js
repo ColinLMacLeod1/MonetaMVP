@@ -7,8 +7,8 @@ import FooterComponent from './components/FooterComponent.js'
 import PrivacyTermsComponent from './components/PrivacyTermsComponent.js'
 import Meeting from './containers/Meeting'
 import Repository from './containers/Repository'
-import Help from './components/Help'
-import Feedback from './components/Feedback'
+import Help from './containers/Help'
+import Feedback from './containers/Feedback'
 
 
 export default class App extends React.Component {

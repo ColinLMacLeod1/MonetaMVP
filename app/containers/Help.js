@@ -4,10 +4,10 @@ import {List, ListItem} from 'material-ui/List';
 import {Step, Stepper, StepButton} from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import Help1 from './Help/Help1';
-import Help2 from './Help/Help2';
-import Help3 from './Help/Help3';
-import Help4 from './Help/Help4';
+import Help1 from '../components/Help/Help1';
+import Help2 from '../components/Help/Help2';
+import Help3 from '../components/Help/Help3';
+import Help4 from '../components/Help/Help4';
 
 export default class Help extends React.Component {
   constructor(props) {

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import LoginForm from '../components/LoginForm.js';
+import LoginComponent from '../components/LoginComponent.js';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
@@ -89,7 +89,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <div>
-        <LoginForm
+        <LoginComponent
           onSubmit={this.processLoginForm}
           onChange={this.changeUser}
           errors={this.state.errors}

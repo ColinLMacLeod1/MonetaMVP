@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import FeedbackComponent from './FeedbackComponent.js'
+import FeedbackComponent from '../components/FeedbackComponent.js'
 
 
 export default class Feedback extends React.Component {

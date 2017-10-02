@@ -9,7 +9,7 @@ import Chip from 'material-ui/Chip'
 import ChipInput from 'material-ui-chip-input'
 
 
-const MeetingForm = ({ onChange, data, toDictation, errors}) => (
+const MeetingForm = ({ onChange, data, changePane, errors}) => (
   <Card className="meeting">
     <h1> Create a new meeting: </h1>
       <TextField
@@ -48,7 +48,7 @@ const MeetingForm = ({ onChange, data, toDictation, errors}) => (
         style={{width: '400px'}}
       />
       <br/><br/>
-      <RaisedButton label="Start" primary={true} onClick={toDictation}/>
+      <RaisedButton label="Start" primary={true} onClick={() => changePane('Dictation')}/>
   </Card>
 );
 

@@ -4,7 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const FileReview = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, newMeeting}) => (
+const FileReview = ({data,changePane,save,toEmail,toPDF,handleRequestClose,newMeeting}) => (
   <Card className="dictation">
     <div className="head">
       <div style={{marginRight:'50px'}}>
@@ -48,7 +48,7 @@ const FileReview = ({data,toDictation,save,toEmail,toPDF,handleRequestClose, new
       </Card>
     </div>
     <div className="navButtons">
-      <RaisedButton label="Return & Edit" primary={true} onClick={toDictation}/>
+      <RaisedButton label="Return & Edit" primary={true} onClick={() => changePane('Dashboard')}/>
       <FlatButton label="Email" primary={true} onClick={toEmail}/>
       <div className='recommendedButton'>
         <FlatButton style={{margin: 0, padding: 0}} label="--> Download PDF <--" primary={true} onClick={toPDF}/>
