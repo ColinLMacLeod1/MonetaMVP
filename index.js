@@ -13,7 +13,7 @@ const Code = require('./models/codes')
 const bcrypt = require('bcrypt')
 const watson = require('watson-developer-cloud')
 const config = require('config')
-const yes = require('yes-https')
+//const yes = require('yes-https')
 const { SlackOAuthClient } = require('messaging-api-slack')
 
 //Middleware
