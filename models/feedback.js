@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const FeedbackSchema = new Schema({
   username: String,
-  date: Number,
+  date: String,
   issue: String,
   suggestion: String,
   likes: String

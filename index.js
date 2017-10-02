@@ -260,7 +260,7 @@ app.post('/feedback',function(req,res){
 	});
 	slack.postMessage('Feedback',
 		'Username: ' + req.body.username + '\n' +
-		'Date: ' + req.body.date.toDateString() + '\n' +
+		'Date: ' + req.body.date + '\n' +
 		'Likes: ' + req.body.likes + '\n' +
 		'Suggestion: ' + req.body.suggestion + '\n' +
 		'Issue: ' + req.body.issue
