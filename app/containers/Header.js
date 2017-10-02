@@ -4,6 +4,14 @@ import HeaderComponent from '../components/HeaderComponent.js'
 import HeaderInsideComponent from '../components/HeaderInsideComponent.js'
 import Login from './Login.js'
 import Dialog from 'material-ui/Dialog'
+import Drawer from 'material-ui/Drawer'
+import Subheader from 'material-ui/Subheader'
+import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
+import Snackbar from 'material-ui/Snackbar'
+
+
+
 
 
 export default class Header extends React.Component {
@@ -18,7 +26,8 @@ export default class Header extends React.Component {
       issue:'',
 			suggestion:'',
 			likes:'',
-      openFeedback:false
+      openFeedback:false,
+      sent: false
       }
     this.handleHome=this.handleHome.bind(this)
     this.handleActivationLogin=this.handleActivationLogin.bind(this)
@@ -28,6 +37,7 @@ export default class Header extends React.Component {
 		this.sendFeedback = this.sendFeedback.bind(this)
     this.feedbackButton = this.feedbackButton.bind(this)
     this.handlePrivacyTerms = this.handlePrivacyTerms.bind(this)
+    this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
 
@@ -126,11 +136,16 @@ export default class Header extends React.Component {
       console.log(error)
   	  }
     )
-  	this.setState({open: false})
+  	this.setState({openFeedback: false})
+    this.setState({sent: true})
   }
 
   feedbackButton () {
-    this.setState({openFeedback: [!this.state.openFeedback]});
+    this.setState({openFeedback: !this.state.openFeedback});
+  }
+
+  handleRequestClose () {
+    this.setState({sent: false});
   }
 
   render () {
@@ -151,6 +166,60 @@ export default class Header extends React.Component {
             handlePTerms={this.props.handlePTerms}
             handleHome={this.handleHome}
             />
+          <div className='header'>
+            <Drawer
+              open={this.state.openFeedback}
+              docked={false}
+              onRequestChange={this.feedbackButton}
+              width={'20%'}
+              containerClassName="drawer"
+              >
+              <Subheader>Send us your Feedback!</Subheader>
+              <TextField
+                hintText="Issues"
+                multiLine={true}
+                rows={1}
+                rowsMax={10}
+                name='issue'
+                value={this.state.issue}
+                onChange={this.changeParentState}
+                style={{width:'16vw'}}
+              />
+              <TextField
+                hintText="Suggestions"
+                multiLine={true}
+                rows={1}
+                rowsMax={10}
+                name='suggestion'
+                value={this.state.suggestion}
+                onChange={this.changeParentState}
+                style={{width:'16vw'}}
+
+              />
+              <TextField
+                hintText="Likes"
+                multiLine={true}
+                rows={1}
+                rowsMax={10}
+                name='likes'
+                value={this.state.likes}
+                onChange={this.changeParentState}
+                style={{width:'16vw'}}
+
+              />
+              <FlatButton
+                label="Send"
+                primary={true}
+                onClick={this.sendFeedback}
+                fullWidth={true} />
+            </Drawer>
+          </div>
+          <Snackbar
+                open={this.state.sent}
+                message="Thank you for the feedback!"
+                autoHideDuration={4000}
+                onRequestClose={this.handleRequestClose}
+              />
         </div>
       )
 

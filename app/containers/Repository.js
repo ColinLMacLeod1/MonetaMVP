@@ -3,7 +3,6 @@ import _, { clone,merge } from 'lodash';
 import axios from 'axios';
 import {List, ListItem} from 'material-ui/List';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
-import MeetingForm from '../components/MeetingForm.js'
 import FileDisplay from '../components/FileDisplay.js'
 import Snackbar from 'material-ui/Snackbar'
 import {Tabs, Tab} from 'material-ui/Tabs'

@@ -46,7 +46,12 @@ export default class Meeting extends React.Component {
       transcript:'',
       isRecording:false,
       token:'',
-      help: false
+      help: false,
+      text: {
+        decisions: '',
+        actions: '',
+        minutes: ''
+      },
 		}
     this.onChange = this.onChange.bind(this)
     this.toDictation = this.toDictation.bind(this)
@@ -66,6 +71,8 @@ export default class Meeting extends React.Component {
 		this.handleKeyUp = this.handleKeyUp.bind(this)
     this.helpOpen = this.helpOpen.bind(this)
     this.helpClose = this.helpClose.bind(this)
+    this.changeText = this.changeText.bind(this)
+    this.enterText = this.enterText.bind(this)
 	}
   componentDidMount() {
     	window.addEventListener("keydown", this.handleKeyDown);
@@ -250,9 +257,8 @@ export default class Meeting extends React.Component {
       var newItem = {phrase:item,assigned:'',date:''}
       newArray.unshift(newItem)
     }
-    this.setState({
-      [src]: newArray
-    })
+    this.setState({[src]: newArray})
+    this.setState({text: ''})
   }
   itemChange(item, index, src){
     var newArray
@@ -331,6 +337,36 @@ export default class Meeting extends React.Component {
     //document.querySelector('#stop').onclick = stream.stop.bind(stream);
 
 	}
+
+  changeText (e) {
+    var newstate = {};
+    newstate[e.target.name] = e.target.value;
+    this.setState({text: newstate});
+  }
+
+  enterText (name) {    
+    switch (name) {
+      case 'minutes':
+      return (
+        this.itemAdd(this.state.text.minutes, 'minutes'),
+        this.setState({text: {minutes: ''}})
+      )
+
+      case 'actions':
+      return (
+        this.itemAdd(this.state.text.actions, 'actions'),
+        this.setState({text: {actions: ''}})
+      )
+
+      case 'decisions':
+      return (
+        this.itemAdd(this.state.text.decisions, 'decisions'),
+        this.setState({text: {decisions: ''}})
+      )
+    }
+  }
+
+
   render() {
       var data={
         title: this.state.title,
@@ -374,6 +410,9 @@ export default class Meeting extends React.Component {
               help={this.state.help}
               helpOpen={this.helpOpen}
               helpClose={this.helpClose}
+              text={this.state.text}
+              changeText={this.changeText}
+              enterText={this.enterText}
             /><Snackbar
                   open={this.state.saved}
                   message="Saved to Repository"

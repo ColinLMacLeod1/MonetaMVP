@@ -1,8 +1,6 @@
 import React from 'react';
-import _, { clone,merge } from 'lodash';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
 import axios from 'axios';
-import FlatButton from 'material-ui/FlatButton';
+import FeedbackComponent from './FeedbackComponent.js'
 
 
 export default class Feedback extends React.Component {
@@ -41,28 +39,15 @@ export default class Feedback extends React.Component {
 				console.log(error)
 			})
 	}
+
   render() {
   		return (
   				<div>
-          <FlatButton label="Get Feedback" fullWidth={true} onClick={this.getFeedback} />
-					{this.state.userCount}
-          {this.state.feedback.map((feedback,index)=>
-            <Card key={index}>
-              <CardHeader
-                title={feedback.username}
-                subtitle={(new Date(feedback.date)).toString()}
-              />
-              <CardText>
-                {'Suggestions: ' +feedback.suggestion}
-              </CardText>
-              <CardText>
-                {'Issues: ' +feedback.issue}
-              </CardText>
-              <CardText>
-                {'Likes: ' +feedback.likes}
-              </CardText>
-            </Card>
-          ).reverse()}
+						<FeedbackComponent
+							getFeedback={this.getFeedback}
+							userCount={this.state.userCount}
+							feedback={this.state.feedback}
+						/>
   				</div>
   			)
   	}

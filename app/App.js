@@ -1,7 +1,6 @@
 import React from 'react'
 import {Tab, Tabs} from 'material-ui/Tabs'
 import Dialog from 'material-ui/Dialog'
-
 import Header from './containers/Header.js'
 import Home from './containers/Home.js'
 import FooterComponent from './components/FooterComponent.js'
@@ -17,7 +16,7 @@ export default class App extends React.Component {
 		super(props);
 		this.state = {
       username: 'none',
-      page:'Home',
+      page:'App',
       tabValue: 'a',
       code: '',
       PTermsAct: false
@@ -101,15 +100,6 @@ export default class App extends React.Component {
           <Home />
           <FooterComponent handlePTerms={this.handlePTerms}/>
           {PTerms}
-        </div>
-      )
-
-      case 'PrivacyTerms':
-      return(
-        <div>
-          <Header handlePageChange={this.handlePageChange} inside={false}/>
-          <PrivacyTermsComponent/>
-          <Footer handlePageChange={this.handlePageChange}/>
         </div>
       )
 
