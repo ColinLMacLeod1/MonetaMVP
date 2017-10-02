@@ -297,7 +297,7 @@ export default class Repository extends React.Component {
       )
     //Define CONTIAINER CONTENT
     var Undefined
-    if(this.state.meetingRes != null && this.state.meetingRes != Undefined)
+    if(this.state.meetingRes != null && this.state.meetingRes != Undefined) {
       container = (
         <div className="displayContainer">
           <FileDisplay
@@ -308,9 +308,9 @@ export default class Repository extends React.Component {
           />
           <Printing data={this.state.meetingRes}/>
         </div>
-      );}
+      )}
     else
-      container= (<div className="displayContainer"><h5>Nothing Selected.</h5></div>)
+      {container= (<div className="displayContainer"><h5>Nothing Selected.</h5></div>)}
     //Define search title
     if(this.state.searchType == 'title')
       searchTitle = 'Title Search'
