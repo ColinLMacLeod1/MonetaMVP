@@ -101,7 +101,8 @@ export default class Meeting extends React.Component {
       this.setState({isRecording: false});
       console.log('Stop')
     }
-}
+  }
+
   onChange(event, newValue, chips){
     console.log(newValue)
     if(newValue === null){
@@ -121,6 +122,7 @@ export default class Meeting extends React.Component {
         })
     }
   }
+
   toDictation(){
     this.setState({
       pane: 1

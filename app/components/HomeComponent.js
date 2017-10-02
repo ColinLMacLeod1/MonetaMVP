@@ -27,6 +27,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
         <div className='Top'>
           <h1 className='Heading'> Make your meetings as memorable as they should be </h1>
           <p className='Snippet'> A new way to capture everything that matters </p>
+          <h5>Want a Sign Up Code? Apply for one here:</h5>
           <RaisedButton
             className='SignupButton'
             secondary={true}
