@@ -44,7 +44,6 @@ const codes = config.get('Presets.codes');
 const initalUsers = config.get('Presets.users');
 const port = config.get('Presets.port')
 console.log('Config:'+dbConfig.uri)
-console.log('Env:'+process.env.MONGODB_URI)
 
 // MongoDB Connection
 mongoose.Promise = global.Promise;
@@ -121,7 +120,6 @@ bcrypt.hash(initalUsers.testpassword, saltRounds).then(function(hash){
 */
 //Save meeting
 app.post('/save', function(req,res) {
-	console.log(req.body);
 	var meeting = new Meeting({
 		title: req.body.title,
 		type: req.body.type,
@@ -147,7 +145,6 @@ app.post('/save', function(req,res) {
 
 // User Login
 app.post('/login',function(req,response){
-	console.log('Login Attempt')
 	User.findOne({username:req.body.username}).then(function(result){
 		if(result){
 			bcrypt.compare(req.body.password, result.password).then(function(res){
@@ -155,13 +152,11 @@ app.post('/login',function(req,response){
 					console.log(req.body.username, 'is now Logged In')
 					response.send(req.body.username)
 				} else {
-					console.log('User Exists')
 					response.send(JSON.stringify('User Exists'));
 				}
 			})
 		} else {
 			response.send('User not found');
-			console.log('User not found');
 		}
 	}).catch(function(error){
 		console.log('Error', error);
@@ -219,9 +214,7 @@ app.post('/signup',function(req,res){
 
 // Repo Search
 app.post('/search',function(req,res){
-	console.log(req.body)
 	if(req.body.searchType === 'title'){
-		console.log('Title search')
 		Meeting.find({title: {$regex:req.body.search, $options: "i"},
 									username:req.body.username,
 									date: { $gt: req.body.minDate, $lt: req.body.maxDate }
@@ -229,7 +222,6 @@ app.post('/search',function(req,res){
 			res.send(JSON.stringify(result))
 		})
 	} else if(req.body.searchType === 'member') {
-		console.log('Member search')
 		Meeting.find({members: {$in:[req.body.search]}, username:req.body.username}).then(function(result){
 			res.send(JSON.stringify(result))
 		})
@@ -240,12 +232,9 @@ app.post('/search',function(req,res){
 
 //Delete Meeting
 app.post('/delete',function(req,res){
-	console.log('Deleting')
-	console.log(req.body)
 	Meeting.remove({_id:req.body.id}).then(function(){
 		Meeting.findOne({_id:req.body.id}).then(function(result){
 			if(!result){
-				console.log('Deleted')
 				res.send('Deleted')
 			} else {
 				res.send('Delete Unsuccessful')
@@ -257,7 +246,6 @@ app.post('/delete',function(req,res){
 
 //Save Feedback
 app.post('/feedback',function(req,res){
-	console.log('Sending Feedback')
 	var feedback = new Feedback({
 		username: req.body.username,
 		date: req.body.date,
@@ -267,7 +255,6 @@ app.post('/feedback',function(req,res){
 	});
 	feedback.save().then(function(){
 		if(feedback.isNew === false){
-			console.log('Feedback Saved');
 		};
 	});
 	slack.postMessage('Feedback',
@@ -284,10 +271,8 @@ app.post('/feedback',function(req,res){
 
 //Get Feedback
 app.get('/feedback',function(req,res){
-	console.log('Getting Feedback')
 	Feedback.find({}).then(function(result){
 		res.send(JSON.stringify(result))
-		console.log('Feedback')
 	}).catch(function(err){
 		console.log(err)
 	})
@@ -295,9 +280,7 @@ app.get('/feedback',function(req,res){
 
 //Count users
 app.get('/usercount', function(req,res){
-	console.log('Getting User Count')
 	User.find({}).then(function(result){
-		console.log(result.length)
 		res.send(JSON.stringify(result.length))
 	}).catch(function(err){
 		console.log(err)
@@ -315,7 +298,6 @@ app.get('/token', function(req,res){
 		if(!token){
 			console.log('error:', err);
 		} else {
-			console.log('Token exists')
 			res.send(token);
 		}
 	});

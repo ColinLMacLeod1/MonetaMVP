@@ -15,18 +15,14 @@ export default class Footer extends React.Component {
 
 
   handlePrivacyTerms () {
-    console.log('handlePrivacyTerms() (Footer.js)');
     this.props.handlePageChange('PrivacyTerms');
   }
 
   handleActivation () {
-    console.log('handleActivation() (Header.js)');
     if (!this.state.act) {
     this.setState({act: true});
-    console.log('Open Dialog');
     } else {
     this.setState({act: false});
-    console.log('Close Dialog');
     }
   }
   render () {

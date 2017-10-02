@@ -21,27 +21,17 @@ export default class Home extends React.Component {
 
 
   changeUser (event) {
-    console.log('changeUser() (Header.js)');
     this.setState({[event.target.name]: event.target.value});
   }
 
   processSignupRequest () {
-    console.log('processSignupRequest() (Header.js)');
-
-    console.log('Username: ' + this.state.signupUsername);
-    console.log('Password: ' + this.state.signupPassword);
-    console.log('Email: ' + this.state.signupEmail);
-    console.log('Company: ' + this.state.signupCompany);
   }
 
   handleActivation () {
-    console.log('handleActivation() (Home.js)');
     if (!this.state.act) {
     this.setState({act: true});
-    console.log('Open Dialog');
     } else {
     this.setState({act: false});
-    console.log('Close Dialog');
   }
 }
 

@@ -19,11 +19,9 @@ export default class Feedback extends React.Component {
 		const self = this;
 		axios.get('https://monettatech.com/usercount')
 			.then(function(res) {
-        console.log(res.data)
 				self.setState({
           userCount:res.data
         })
-				console.log('Users Counted')
 			})
 			.catch(function(error) {
 				console.log(error)
@@ -34,7 +32,6 @@ export default class Feedback extends React.Component {
 		const self = this;
 		axios.get('https://monettatech.com/feedback')
 			.then(function(res) {
-        console.log(res.data)
 				self.setState({
           feedback:res.data
         })

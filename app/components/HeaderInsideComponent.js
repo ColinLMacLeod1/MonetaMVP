@@ -21,7 +21,6 @@ export default class Header extends React.Component {
 
 
 	render() {
-		console.log(this.props.openFeedback);
 	return (
 			<div className="header" style={{width:'100%'}}>
 

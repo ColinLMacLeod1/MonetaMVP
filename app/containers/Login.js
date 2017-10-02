@@ -30,8 +30,6 @@ export default class Login extends React.Component {
 		this.setState({open: false});
 	};
   processLoginForm() {
-    console.log('email:', this.state.user.email);
-    console.log('password:', this.state.user.password);
     const self = this;
 		axios.post('https://monettatech.com/login',
 			{
@@ -40,7 +38,6 @@ export default class Login extends React.Component {
 			}
 			)
 			.then(function(res) {
-				console.log(res.data)
         if(res.data != 'User not found'){
           var errors = self.state.errors;
           errors.email = "";
@@ -56,7 +53,6 @@ export default class Login extends React.Component {
           })
         }
 				if(res.data != 'User not found' && res.data != 'User Exists'){
-					console.log('Login Successful')
           self.props.login(self.state.user.email)
           //self.props.history.push('/home')
 				} else if(res.data == 'User not found') {

@@ -31,17 +31,14 @@ export default class App extends React.Component {
 	}
 
   handlePageChange (pg) {
-    console.log('handlePageChange() (App.js)');
     this.setState({page:pg});
   }
 
   handleTabChange (tabVal, bool) {
-    console.log('handleTabChange() (App.js)');
     this.setState({tabValue:tabVal});
 
     if (bool == true) {
       this.setState({code: 'refresh'})
-      console.log('handleTabChange() sucessful code update')
     }
   }
 
@@ -56,20 +53,15 @@ export default class App extends React.Component {
 
 
   handlePTerms () {
-    console.log('handleActivation() (Header.js)');
     if (!this.state.PTermsAct) {
     this.setState({PTermsAct: true});
-    console.log('Open Dialog');
     } else {
     this.setState({PTermsAct: false});
-    console.log('Close Dialog');
     }
   }
 
 
   render() {
-    console.log(Date.now())
-    console.log(this.state.page)
     let feedbackTab = null;
     if(this.state.username == 'colin' || this.state.username == 'team@monettatech.com'){
       console.log('colin signed in')

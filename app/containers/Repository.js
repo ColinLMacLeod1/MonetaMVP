@@ -72,13 +72,8 @@ export default class Repository extends React.Component {
   updateRefresh() {
     if (this.props.code == 'refresh') {
       this.loadAll();
-      console.log('sucess refresh');
-
       this.props.handleRefresh()
     }
-
-    console.log('CALLED');
-
   }
 
 
@@ -118,24 +113,18 @@ export default class Repository extends React.Component {
     for(var i=0;i<this.state.meetingRes.groups.length;i++) {
       groups = groups + this.state.meetingRes.groups[i] + "%0A";
     }
-    console.log(groups)
     for(var i=0;i<this.state.meetingRes.members.length;i++) {
       members = members + this.state.meetingRes.members[i] + "%0A";
     }
-    console.log(members)
     for(var i=0;i<this.state.meetingRes.minutes.length;i++) {
       minutes = minutes + this.state.meetingRes.minutes[i] + "%0A";
     }
-    console.log(minutes)
     for(var i=0;i<this.state.meetingRes.actions.length;i++) {
       actions = actions + this.state.meetingRes.actions[i].phrase + " Assigned to: " + this.state.meetingRes.actions[i].assigned.toString() + " Due " + this.state.meetingRes.actions[i].date + "%0A";
     }
-    console.log(actions)
     for(var i=0;i<this.state.meetingRes.decisions.length;i++) {
       decisions = decisions + this.state.meetingRes.decisions[i] + "%0A";
     }
-    console.log(decisions)
-
     body = title + type + date + location  + groups + chair + members + minutes + actions + decisions + message;
     return  mailURI  + "?body=" + body ;``
   }
@@ -145,19 +134,15 @@ export default class Repository extends React.Component {
     })
     var test = this.createEmail();
     location.href = test;
-    console.log(test)
   }
   toPDF(){
-    console.log('to PDF')
     var content = document.getElementById("printable");
     var pri = document.getElementById("ifmcontentstoprint").contentWindow;
-    console.log(content)
     pri.document.open();
     pri.document.write(content.innerHTML);
     pri.document.close();
     pri.focus();
     pri.print();
-    console.log('printed')
   }
   loadAll(){
     const self = this;
@@ -174,7 +159,6 @@ export default class Repository extends React.Component {
   			}
   			)
   			.then(function(res) {
-  				console.log(res.data)
           if(res.data.length==0){
             self.setState({
               progress:'noResult',
@@ -187,8 +171,6 @@ export default class Repository extends React.Component {
               progress:'edit'
             });
           }
-  				console.log('Search Loaded')
-          console.log(res.data)
   			})
   			.catch(function(error) {
   				console.log(error)
@@ -199,7 +181,6 @@ export default class Repository extends React.Component {
     this.setState({
       search: e.target.value
     });
-    console.log(this.state.search)
   }
   handleKeyPress(e){
     if(e.key==='Enter'){
@@ -207,14 +188,12 @@ export default class Repository extends React.Component {
     }
   }
   onTabChange(e,value) {
-    console.log(value)
     this.setState({
       searchType: value
     });
 
   }
   selectResult(rank) {
-    console.log(rank)
     this.setState({
       meetingRes:this.state.results[rank]
     });
@@ -239,13 +218,11 @@ export default class Repository extends React.Component {
           meetingRes: null
         })
         self.loadAll()
-        console.log(res)
       }).catch(function(err){
         console.log(err)
       })
   }
   search(searchType) {
-    console.log('search')
     const self = this;
       self.setState({
         progress: 'loading',
@@ -264,7 +241,6 @@ export default class Repository extends React.Component {
   			}
   			)
   			.then(function(res) {
-  				console.log(res.data)
           if(res.data.length==0){
             self.setState({
               progress:'noResult',
@@ -276,13 +252,10 @@ export default class Repository extends React.Component {
               progress:'done'
             });
           }
-  				console.log('Search Complete')
   			})
   			.catch(function(error) {
   				console.log(error)
   			})
-
-      console.log('Searched')
   }
   render(){
     var data={
@@ -301,8 +274,6 @@ export default class Repository extends React.Component {
     let searchTitle = null;
     //Define SIDEBAR CONTENT
     if(this.state.results !== [] && Array.isArray(this.state.results)) {
-      console.log('PRINTING RESULTS')
-      console.log(this.state.meetingRes)
         sidebar = (
         <List className="meetingList">
 
@@ -327,8 +298,6 @@ export default class Repository extends React.Component {
     //Define CONTIAINER CONTENT
     var Undefined
     if(this.state.meetingRes != null && this.state.meetingRes != Undefined)
-      {console.log('PRINTING Selection')
-      console.log(this.state.meetingRes)
       container = (
         <div className="displayContainer">
           <FileDisplay

@@ -66,7 +66,6 @@ export default class Meeting extends React.Component {
 		this.handleKeyUp = this.handleKeyUp.bind(this)
     this.helpOpen = this.helpOpen.bind(this)
     this.helpClose = this.helpClose.bind(this)
-    console.log(this.state.username)
 	}
   componentDidMount() {
     	window.addEventListener("keydown", this.handleKeyDown);
@@ -88,9 +87,7 @@ export default class Meeting extends React.Component {
 	}
   handleKeyDown(event){
     if(event.key === 'Alt' && !this.state.isRecording){
-      console.log(event)
       event.preventDefault();
-      console.log('Start')
       this.stream()
       this.setState({isRecording: true});
     }
@@ -99,14 +96,11 @@ export default class Meeting extends React.Component {
     if(event.key == 'Alt' && this.state.isRecording){
       event.preventDefault();
       this.setState({isRecording: false});
-      console.log('Stop')
     }
   }
 
   onChange(event, newValue, chips){
-    console.log(newValue)
     if(newValue === null){
-      console.log('Called!')
       this.setState({
         members: chips
       })
@@ -139,9 +133,7 @@ export default class Meeting extends React.Component {
     })
   }
   save(){
-    console.log('Saving')
     const self = this;
-    console.log(self.state.username)
 		axios.post('https://monettatech.com/save',
 			{
 				title: self.state.title,
@@ -158,11 +150,9 @@ export default class Meeting extends React.Component {
 			}
 			)
 			.then(function(res) {
-				console.log(res.data)
         self.setState({
           saved:true
         })
-				console.log('Saved')
 			})
 			.catch(function(error) {
 				console.log(error)
@@ -191,23 +181,18 @@ export default class Meeting extends React.Component {
   	for(var i=0;i<this.state.groups.length;i++) {
   		groups = groups + this.state.groups[i] + "%0A";
   	}
-  	console.log(groups)
   	for(var i=0;i<this.state.members.length;i++) {
   		members = members + this.state.members[i] + "%0A";
   	}
-  	console.log(members)
   	for(var i=0;i<this.state.minutes.length;i++) {
   		minutes = minutes + this.state.minutes[i] + "%0A";
   	}
-  	console.log(minutes)
   	for(var i=0;i<this.state.actions.length;i++) {
   		actions = actions + this.state.actions[i].phrase + " Assigned to: " + this.state.actions[i].assigned.toString() + " Due " + this.state.actions[i].date + "%0A";
   	}
-  	console.log(actions)
   	for(var i=0;i<this.state.decisions.length;i++) {
   		decisions = decisions + this.state.decisions[i] + "%0A";
   	}
-  	console.log(decisions)
 
   	body = title + type + date + location  + groups + chair + members + minutes + actions + decisions + message;
   	return  mailURI  + "?body=" + body ;
@@ -218,19 +203,15 @@ export default class Meeting extends React.Component {
     })
     var test = this.createEmail();
 		location.href = test;
-		console.log(test)
   }
   toPDF(){
-    console.log('to PDF')
     var content = document.getElementById("printable");
     var pri = document.getElementById("ifmcontentstoprint").contentWindow;
-    console.log(content)
     pri.document.open();
     pri.document.write(content.innerHTML);
     pri.document.close();
     pri.focus();
     pri.print();
-    console.log('printed')
   }
   handleRequestClose(){
     this.setState({
@@ -311,10 +292,8 @@ export default class Meeting extends React.Component {
      this.setState({help: false});
    }
   stream(){
-		console.log('stream')
     const self=this;
 
-		console.log(this.state.token)
 		var stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
       token: this.state.token,
       objectMode: true, // send objects instead of text
@@ -327,7 +306,6 @@ export default class Meeting extends React.Component {
     stream.on('data', function(data) {
 
       var text = data.results[0].alternatives[0].transcript;
-      console.log(text)
       self.setState({
         transcript:data.results[0].alternatives[0].transcript
       })

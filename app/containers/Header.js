@@ -32,46 +32,33 @@ export default class Header extends React.Component {
 
 
   handleHome () {
-    console.log('handleHome() (Header.js)');
     this.props.handlePageChange('Home');
   }
 
   handlePrivacyTerms () {
-    console.log('handlePrivacyterms () (Header.js)');
     console.log('Coming Soon');
   }
 
   handleActivationLogin () {
-    console.log('handleActivation() (Header.js)');
     if (!this.state.loginDialog) {
     this.setState({loginDialog: true});
-    console.log('Open Dialog');
     } else {
     this.setState({loginDialog: false});
-    console.log('Close Dialog');
     }
   }
   handleActivationSignup () {
-    console.log('handleActivation() (Header.js)');
     if (!this.state.signupDialog) {
     this.setState({signupDialog: true});
-    console.log('Open Dialog');
     } else {
     this.setState({signupDialog: false});
-    console.log('Close Dialog');
     }
   }
 
   changeParentState (event) {
-    console.log('changeUser() (Header.js)');
     this.setState({[event.target.name]: event.target.value});
-    console.log({[event.target.name]: event.target.value});
   }
 
   processLoginRequest () {
-    console.log('processLoginRequest() (Header.js)');
-    console.log('Username: ' + this.state.username);
-    console.log('Password: ' + this.state.password);
 
     const self = this;
 		axios.post('https://monettatech.com/login',
@@ -81,7 +68,6 @@ export default class Header extends React.Component {
         }
 			)
 			.then (function(res) {
-				console.log(res.data)
         if(res.data != 'User not found'){
           var errors = self.state.errors;
           errors.username = "";
@@ -95,7 +81,6 @@ export default class Header extends React.Component {
         }
 
 				if(res.data != 'User not found' && res.data != 'User Exists'){
-					console.log('Login Successful')
           self.props.login(self.state.username)
 
           //self.props.history.push('/home')
@@ -119,7 +104,6 @@ export default class Header extends React.Component {
   }
 
   sendFeedback () {
-  	console.log('Issue: ' +this.state.issue,'Suggestion: '+this.state.suggestion, 'Likes: '+this.state.likes)
   	const self = this;
   	axios.post('https://monettatech.com/feedback', {
   			username: self.props.username,
@@ -130,7 +114,6 @@ export default class Header extends React.Component {
   		  }
     )
   	.then(function(res) {
-  		console.log(res.data)
       self.setState({
         issue:'',
   			suggestion:'',
