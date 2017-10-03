@@ -227,7 +227,7 @@ export default class Meeting extends React.Component {
 			],
 			actions: [],
 			decisions: [],
-      pane: 0
+      pane: 'Info'
     });
   }
   itemAdd(item, src){

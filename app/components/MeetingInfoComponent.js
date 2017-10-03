@@ -48,7 +48,7 @@ const MeetingForm = ({ onChange, data, changePane, errors}) => (
         style={{width: '400px'}}
       />
       <br/><br/>
-      <RaisedButton label="Start" primary={true} onClick={() => changePane('Dictation')}/>
+      <RaisedButton label="Start" primary={true} onClick={() => changePane('Dashboard')}/>
   </Card>
 );
 
