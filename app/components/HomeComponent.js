@@ -16,18 +16,14 @@ import Illustration from '../assets/images/WhyAreYouLookingHere.jpg'
 const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, signupPassword, signupUsername, signupCompany, errors}) => (
   <div>
 
-
-
     <div className='HomeTop'>
-
-
 
       <div className='HomeTopWrapper'>
 
         <div className='Top'>
           <h1 className='Heading'> Make your meetings as memorable as they should be </h1>
-          <p className='Snippet'> A new way to capture everything that matters </p>
-          <h5>Want a Sign Up Code? Apply for one here:</h5>
+          <h3 className='Snippet'> A new way to capture everything that matters </h3>
+          <h5> Ready for something different? Try Monetta for free:</h5>
           <RaisedButton
             className='SignupButton'
             secondary={true}

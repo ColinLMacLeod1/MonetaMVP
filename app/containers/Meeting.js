@@ -18,8 +18,6 @@ export default class Meeting extends React.Component {
 			type: "",
 			date: new Date(),
 			location:"",
-			groups: ["tech", "Sales"],
-			chair: "Litt",
 			members: [
 				],
       lists: [{
@@ -165,8 +163,6 @@ export default class Meeting extends React.Component {
   	var type = "%0A" +this.state.type;
   	var date = "%0A" +this.state.date;
   	var location = "%0A" +this.state.location + "%0A";
-  	var groups = "%0AGroups:%0A"
-  	var chair= "%0AChair: " +this.state.chair;
   	var members= "%0AMembers:%0A";
   	var minutes= "%0AMinutes:%0A";
   	var actions= "%0AActions:%0A";
