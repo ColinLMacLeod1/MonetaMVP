@@ -1,9 +1,9 @@
-import React from 'react';
-import Link from 'react-router';
-import Card from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import React from 'react'
+import Link from 'react-router'
+import Card from 'material-ui/Card'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
 
 
 const LoginForm = ({onSubmit, onChange, errors, user, toSignUp, handleOpen}) => (

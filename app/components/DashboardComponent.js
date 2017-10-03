@@ -1,13 +1,13 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import TextField from 'material-ui/TextField';
-import {Card, CardTitle} from 'material-ui/Card';
-import {List, ListItem} from 'material-ui/List';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import React from 'react'
+import {Link} from 'react-router-dom'
+import TextField from 'material-ui/TextField'
+import {Card, CardTitle} from 'material-ui/Card'
+import {List, ListItem} from 'material-ui/List'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
-import Dialog from 'material-ui/Dialog';
+import Dialog from 'material-ui/Dialog'
 
 const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpen, helpClose, changeText, enterText, changePane, buttonPress, errors, data, transcript, isRecording, help, text}) => (
 		<Card className="dictation">

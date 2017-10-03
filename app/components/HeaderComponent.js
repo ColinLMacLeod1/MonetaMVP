@@ -1,10 +1,11 @@
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
-import nameLogo from '../assets/images/nameLogo.png'
 import Dialog from 'material-ui/Dialog'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
+
+import nameLogo from '../assets/images/nameLogo.png'
 import Login from '../containers/Login'
 import Signup from '../containers/Signup'
 

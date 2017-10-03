@@ -1,7 +1,7 @@
-import React from 'react';
-import {Card, CardTitle} from 'material-ui/Card';
-import {List, ListItem} from 'material-ui/List';
-import FlatButton from 'material-ui/FlatButton';
+import React from 'react'
+import {Card, CardTitle} from 'material-ui/Card'
+import {List, ListItem} from 'material-ui/List'
+import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 
 const FileDisplay = ({data,toDictation,save,toEmail,toPDF,deleteMeeting}) => (

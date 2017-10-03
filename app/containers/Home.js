@@ -1,4 +1,5 @@
 import React from 'react'
+
 import HomeComponent from '../components/HomeComponent.js'
 
 export default class Home extends React.Component {

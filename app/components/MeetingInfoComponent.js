@@ -1,10 +1,10 @@
-import React from 'react';
-import Link from 'react-router';
-import {Card, CardTitle} from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import TimePicker from 'material-ui/TimePicker';
-import Divider from 'material-ui/Divider';
+import React from 'react'
+import Link from 'react-router'
+import {Card, CardTitle} from 'material-ui/Card'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+import TimePicker from 'material-ui/TimePicker'
+import Divider from 'material-ui/Divider'
 import Chip from 'material-ui/Chip'
 import ChipInput from 'material-ui-chip-input'
 

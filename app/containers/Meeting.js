@@ -1,11 +1,12 @@
-import React from 'react';
-import axios from 'axios';
+import React from 'react'
+import axios from 'axios'
 import WatsonSpeech from 'watson-speech'
+import Snackbar from 'material-ui/Snackbar'
+
 import MeetingInfoComponent from '../components/MeetingInfoComponent.js'
 import DashboardComponent from '../components/DashboardComponent.js'
 import FileReviewComponent from '../components/FileReviewComponent.js'
 import PrintingComponent from '../components/PrintingComponent.js'
-import Snackbar from 'material-ui/Snackbar'
 
 export default class Meeting extends React.Component {
   constructor(props) {

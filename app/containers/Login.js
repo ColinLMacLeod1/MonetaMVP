@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
-import LoginComponent from '../components/LoginComponent.js';
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
-import Dialog from 'material-ui/Dialog';
+import React, { PropTypes } from 'react'
+import axios from 'axios'
+import { withRouter } from 'react-router-dom'
+import Dialog from 'material-ui/Dialog'
 
+import LoginComponent from '../components/LoginComponent.js'
 
 export default class Login extends React.Component {
 

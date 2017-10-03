@@ -1,6 +1,6 @@
 import React from 'react'
 import {Card, CardHeader, CardText} from 'material-ui/Card'
-import FlatButton from 'material-ui/FlatButton';
+import FlatButton from 'material-ui/FlatButton'
 
 const FeedbackComponent = ({getFeedback, userCount, feedback}) => (
   <div>

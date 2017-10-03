@@ -1,8 +1,9 @@
-import React from 'react';
-import logo from '../assets/images/logo2.png';
+import React from 'react'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+
+import logo from '../assets/images/logo2.png'
 import logo2 from '../assets/images/MonettaLogo.png'
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 
 
 

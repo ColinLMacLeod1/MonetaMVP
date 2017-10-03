@@ -1,8 +1,8 @@
-import React from 'react';
-import {Card, CardTitle} from 'material-ui/Card';
-import {List, ListItem} from 'material-ui/List';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import React from 'react'
+import {Card, CardTitle} from 'material-ui/Card'
+import {List, ListItem} from 'material-ui/List'
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const FileReview = ({data,changePane,save,toEmail,toPDF,handleRequestClose,newMeeting}) => (
   <Card className="dictation">

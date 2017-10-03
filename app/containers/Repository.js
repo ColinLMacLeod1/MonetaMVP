@@ -1,9 +1,8 @@
-import React from 'react';
-import _, { clone,merge } from 'lodash';
-import axios from 'axios';
-import {List, ListItem} from 'material-ui/List';
+import React from 'react'
+import _, { clone,merge } from 'lodash'
+import axios from 'axios'
+import {List, ListItem} from 'material-ui/List'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
-import FileDisplayComponent from '../components/FileDisplayComponent.js'
 import Snackbar from 'material-ui/Snackbar'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import TextField from 'material-ui/TextField'
@@ -11,8 +10,10 @@ import RaisedButton from 'material-ui/RaisedButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import DatePicker from 'material-ui/DatePicker'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
-import PrintingComponent from '../components/PrintingComponent.js'
 import FlatButton from 'material-ui/FlatButton'
+
+import FileDisplayComponent from '../components/FileDisplayComponent.js'
+import PrintingComponent from '../components/PrintingComponent.js'
 
 export default class Repository extends React.Component {
   constructor(props) {

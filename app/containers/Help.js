@@ -1,13 +1,14 @@
-import React from 'react';
+import React from 'react'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
-import {List, ListItem} from 'material-ui/List';
-import {Step, Stepper, StepButton} from 'material-ui/Stepper';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Help1 from '../components/Help/Help1';
-import Help2 from '../components/Help/Help2';
-import Help3 from '../components/Help/Help3';
-import Help4 from '../components/Help/Help4';
+import {List, ListItem} from 'material-ui/List'
+import {Step, Stepper, StepButton} from 'material-ui/Stepper'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+
+import Help1 from '../components/Help/Help1.js'
+import Help2 from '../components/Help/Help2.js'
+import Help3 from '../components/Help/Help3.js'
+import Help4 from '../components/Help/Help4.js'
 
 export default class Help extends React.Component {
   constructor(props) {

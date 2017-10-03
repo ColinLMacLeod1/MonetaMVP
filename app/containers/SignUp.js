@@ -1,7 +1,8 @@
-import React, { PropTypes } from 'react';
-import SignUpComponent from '../components/SignUpComponent.js';
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
+import React, { PropTypes } from 'react'
+import axios from 'axios'
+import { withRouter } from 'react-router-dom'
+
+import SignUpComponent from '../components/SignUpComponent.js'
 
 
 export default class SignUp extends React.Component {
