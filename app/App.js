@@ -83,8 +83,6 @@ export default class App extends React.Component {
       )
     }
 
-
-
     switch (this.state.page) {
       case 'Home':
         return(
