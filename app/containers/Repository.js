@@ -125,7 +125,7 @@ export default class Repository extends React.Component {
     for(var i=0;i<this.state.meetingRes.decisions.length;i++) {
       decisions = decisions + this.state.meetingRes.decisions[i] + "%0A";
     }
-    body = title + type + date + location  + groups + chair + members + minutes + actions + decisions + message;
+    body = '<h1> "Hello" </h1>';
     return  mailURI  + "?body=" + body ;``
   }
   toEmail(){

@@ -6,13 +6,15 @@ import Subheader from 'material-ui/Subheader'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 import Snackbar from 'material-ui/Snackbar'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
+import RaisedButton from 'material-ui/RaisedButton'
 
 import HeaderComponent from '../components/HeaderComponent.js'
 import HeaderInsideComponent from '../components/HeaderInsideComponent.js'
 import Login from './Login.js'
-
-
-
+import MonettaLogo from '../assets/images/MonettaLogo.png'
+import MonettaLogoNotif from '../assets/images/MonettaLogoNotif.png'
 
 
 export default class Header extends React.Component {
@@ -28,7 +30,11 @@ export default class Header extends React.Component {
 			suggestion:'',
 			likes:'',
       openFeedback:false,
-      sent: false
+      sent: false,
+      logoClick: 'Notif',
+      openQuestion: false,
+      questionStr: 'Please rate the quality of the voice recognition:',
+      questionAnswer: 0,
       }
     this.handleHome=this.handleHome.bind(this)
     this.handleActivationLogin=this.handleActivationLogin.bind(this)
@@ -37,36 +43,11 @@ export default class Header extends React.Component {
     this.changeParentState = this.changeParentState.bind(this)
 		this.sendFeedback = this.sendFeedback.bind(this)
     this.feedbackButton = this.feedbackButton.bind(this)
-    this.handlePrivacyTerms = this.handlePrivacyTerms.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
-  }
-
-
-  handleHome () {
-    this.props.handlePageChange('Home');
-  }
-
-  handlePrivacyTerms () {
-    console.log('Coming Soon');
-  }
-
-  handleActivationLogin () {
-    if (!this.state.loginDialog) {
-    this.setState({loginDialog: true});
-    } else {
-    this.setState({loginDialog: false});
-    }
-  }
-  handleActivationSignup () {
-    if (!this.state.signupDialog) {
-    this.setState({signupDialog: true});
-    } else {
-    this.setState({signupDialog: false});
-    }
-  }
-
-  changeParentState (event) {
-    this.setState({[event.target.name]: event.target.value});
+    this.handleNotifSubmit=this.handleNotifSubmit.bind(this)
+    this.handleQuestion=this.handleQuestion.bind(this)
+    this.handleLogoClick=this.handleLogoClick.bind(this)
+    this.handleAnswerChange=this.handleAnswerChange.bind(this)
   }
 
   processLoginRequest () {
@@ -141,6 +122,25 @@ export default class Header extends React.Component {
     this.setState({sent: true})
   }
 
+  handleActivationLogin () {
+    if (!this.state.loginDialog) {
+    this.setState({loginDialog: true});
+    } else {
+    this.setState({loginDialog: false});
+    }
+  }
+  handleActivationSignup () {
+    if (!this.state.signupDialog) {
+    this.setState({signupDialog: true});
+    } else {
+    this.setState({signupDialog: false});
+    }
+  }
+
+  changeParentState (event) {
+    this.setState({[event.target.name]: event.target.value});
+  }
+
   feedbackButton () {
     this.setState({openFeedback: !this.state.openFeedback});
   }
@@ -149,7 +149,77 @@ export default class Header extends React.Component {
     this.setState({sent: false});
   }
 
+  handleHome () {
+    this.props.handlePageChange('Home');
+  }
+
+  handleNotifSubmit() {
+    this.sendFeedback()
+    this.handleQuestion()
+    this.setState({logoClick: 'Home'})
+
+  }
+
+  handleAnswerChange (event, index, value) {
+
+    this.setState({
+      likes: 'NOTIFICATION PROMPT',
+      suggestion: 'QUESTION - ' + this.state.questionStr,
+      issue: 'ANSWER - ' + value,
+      questionAnswer: value
+    })
+  }
+
+  handleLogoClick () {
+    console.log('inside')
+    if (this.state.logoClick == 'Home') {
+      this.handleHome()
+    } else if (this.state.logoClick == 'Notif') {
+      console.log('logoclick')
+      this.setState({openQuestion: true})
+    }
+  }
+
+  handleQuestion () {
+    this.setState({openQuestion: !this.state.openQuestion});
+  }
+
   render () {
+    let logo = {}
+
+    if (this.state.logoClick == 'Home') {
+      logo = MonettaLogo
+    } else if (this.state.logoClick == 'Notif') {
+      logo = MonettaLogoNotif
+    }
+
+    var questionAndAnswer = (
+      <div className='QuestionAndAnswer'>
+        <div>
+          <h1> {this.state.questionStr} </h1>
+          <p> Great quality or no issues = 5 <br/> Low quality or many issues = 1 </p>
+        </div>
+        <div>
+          <SelectField
+            floatingLabelText="Rate out of 5"
+            value={this.state.questionAnswer}
+            onChange={this.handleAnswerChange}
+          >
+            <MenuItem value={1} primaryText="1" />
+            <MenuItem value={2} primaryText="2" />
+            <MenuItem value={3} primaryText="3" />
+            <MenuItem value={4} primaryText="4" />
+            <MenuItem value={5} primaryText="5" />
+          </SelectField>
+        </div>
+        <div>
+          <RaisedButton label='Submit' onClick={this.handleNotifSubmit} />
+        </div>
+      </div>
+    )
+
+
+
     switch (this.props.inside) {
       case true:
       return (
@@ -166,61 +236,16 @@ export default class Header extends React.Component {
             sendFeedback={this.sendFeedback}
             handlePTerms={this.props.handlePTerms}
             handleHome={this.handleHome}
+            changeParentState={this.changeParentState}
+            sendFeedback={this.sendFeedback}
+            sent={this.state.sent}
+            handleRequestClose={this.handleRequestClose}
+            questionAndAnswer={questionAndAnswer}
+            openQuestion={this.state.openQuestion}
+            handleQuestion={this.handleQuestion}
+            handleLogoClick={this.handleLogoClick}
+            logo={logo}
             />
-          <div className='header'>
-            <Drawer
-              open={this.state.openFeedback}
-              docked={false}
-              onRequestChange={this.feedbackButton}
-              width={'20%'}
-              containerClassName="drawer"
-              >
-              <Subheader>Send us your Feedback!</Subheader>
-              <TextField
-                hintText="Issues"
-                multiLine={true}
-                rows={1}
-                rowsMax={10}
-                name='issue'
-                value={this.state.issue}
-                onChange={this.changeParentState}
-                style={{width:'16vw'}}
-              />
-              <TextField
-                hintText="Suggestions"
-                multiLine={true}
-                rows={1}
-                rowsMax={10}
-                name='suggestion'
-                value={this.state.suggestion}
-                onChange={this.changeParentState}
-                style={{width:'16vw'}}
-
-              />
-              <TextField
-                hintText="Likes"
-                multiLine={true}
-                rows={1}
-                rowsMax={10}
-                name='likes'
-                value={this.state.likes}
-                onChange={this.changeParentState}
-                style={{width:'16vw'}}
-
-              />
-              <FlatButton
-                label="Send"
-                primary={true}
-                onClick={this.sendFeedback}
-                fullWidth={true} />
-            </Drawer>
-          </div>
-          <Snackbar
-                open={this.state.sent}
-                message="Thank you for the feedback!"
-                autoHideDuration={4000}
-                onRequestClose={this.handleRequestClose}
-              />
         </div>
       )
 
@@ -228,7 +253,6 @@ export default class Header extends React.Component {
       return (
         <div>
           <HeaderComponent
-            handleHome={this.handleHome}
             handleActivationLogin={this.handleActivationLogin}
             loginDialog={this.state.loginDialog}
             handleActivationSignup={this.handleActivationSignup}
