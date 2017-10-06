@@ -40,15 +40,13 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
 
       <div className='LoginSignup'>
 
-        <Dialog modal={false} open={act} onRequestClose={handleActivation}>
-
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSdSYFNqF6doLkLGBI9rZmaGXo8Jgc08OhA1Np0P_wycMZkQRw/viewform?embedded=true"
-          style={{height:"80vh", width:"100%"}}
-          >
-          Loading...
-        </iframe>
-
+        <Dialog contentStyle={{display: 'flex', justifyContent: 'center', width: '100%', maxWidth: 'none', minWidth: '700px'}} modal={false} open={act} onRequestClose={handleActivation} >
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLSdSYFNqF6doLkLGBI9rZmaGXo8Jgc08OhA1Np0P_wycMZkQRw/viewform?embedded=true"
+              style={{height: '80vh', width: '100%'}}
+              >
+              Loading...
+            </iframe>
         </Dialog>
       </div>
 

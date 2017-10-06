@@ -25,7 +25,7 @@ const HeaderComponent = ({handleHome, handleActivationLogin, loginDialog, handle
       </div>
     </div>
 
-    <Dialog modal={false} open={loginDialog} onRequestClose={handleActivationLogin}>
+    <Dialog style={{width: '100%'}} modal={false} open={loginDialog} onRequestClose={handleActivationLogin}>
         <div className='LoginSignup'>
           <Login login={login} />
         </div>
