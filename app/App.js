@@ -26,7 +26,7 @@ export default class App extends React.Component {
       issues: '',
       suggestions: '',
       likes: '',
-      page:'App',
+      page:'Home',
       tabValue: 'a',
       code: '',
       PTermsAct: false,
