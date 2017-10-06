@@ -1,14 +1,20 @@
 import React from 'react'
+import axios from 'axios'
 import {Tab, Tabs} from 'material-ui/Tabs'
 import Dialog from 'material-ui/Dialog'
+import RaisedButton from 'material-ui/RaisedButton'
+import Card from 'material-ui/Card'
+
 import Header from './containers/Header.js'
 import Home from './containers/Home.js'
 import FooterComponent from './components/FooterComponent.js'
 import PrivacyTermsComponent from './components/PrivacyTermsComponent.js'
-import Meeting from './containers/Meeting'
-import Repository from './containers/Repository'
-import Help from './containers/Help'
-import Feedback from './containers/Feedback'
+import Meeting from './containers/Meeting.js'
+import Repository from './containers/Repository.js'
+import Help from './containers/Help.js'
+import Feedback from './containers/Feedback.js'
+import PromptFbComponent from './components/PromptFbComponent.js'
+
 
 
 export default class App extends React.Component {
@@ -16,10 +22,27 @@ export default class App extends React.Component {
 		super(props);
 		this.state = {
       username: 'none',
-      page:'Home',
+      date: '',
+      issues: '',
+      suggestions: '',
+      likes: '',
+      page:'App',
       tabValue: 'a',
       code: '',
-      PTermsAct: false
+      PTermsAct: false,
+      data: {
+        title: 'Title',
+        type: 'type',
+        date: 'date',
+        location: 'location',
+        members: 'members',
+        minutes: 'minutes',
+        actions: 'actions',
+        decisions: 'decisions'
+      },
+      promptFb: false,
+      openFeedback:false,
+      sent: false
 		}
 
     this.handlePageChange=this.handlePageChange.bind(this)
@@ -27,6 +50,11 @@ export default class App extends React.Component {
     this.sucessfulLogin = this.sucessfulLogin.bind(this)
     this.hasRefresh=this.hasRefresh.bind(this)
     this.handlePTerms=this.handlePTerms.bind(this)
+    this.testEmail=this.testEmail.bind(this)
+    this.handlePromptFb=this.handlePromptFb.bind(this)
+    this.sendFeedback=this.sendFeedback.bind(this)
+    this.changeParentState=this.changeParentState.bind(this)
+
 	}
 
   handlePageChange (pg) {
@@ -59,9 +87,74 @@ export default class App extends React.Component {
     }
   }
 
+  handlePromptFb () {
+    this.setState({promptFb: !this.state.promptFb});
+  }
+
+  testEmail () {
+    const self = this;
+    console.log('testEmail() [App.js]')
+    axios.post('https://monettatech.com/email',
+      {
+        title: 'it worked',
+        date: 'today'
+      }
+    )
+    .then(function(res) {
+      console.log(res)
+    }).catch(function(err) {
+      console.log(err)
+    })
+  }
+
+  sendFeedback () {
+    const self = this;
+    axios.post('https://monettatech.com/feedback', {
+        username: self.props.username,
+        date: (new Date()).toString(),
+        issue: self.state.issues,
+        suggestion: self.state.suggestions,
+        likes: self.state.likes
+        }
+    )
+    .then(function(res) {
+      self.setState({
+        issues:'',
+        suggestions:'',
+        likes:''
+        })
+      console.log('Feedback Sent')
+      }
+    )
+    .catch(function(error) {
+      console.log(error)
+      }
+    )
+    this.handlePromptFb()
+  }
+
+  changeParentState (event) {
+    this.setState({[event.target.name]: event.target.value});
+  }
+
 
   render() {
     let feedbackTab = null;
+
+    let PTerms = null;
+
+    let promptFeedback = (
+      <Dialog modal={false} open={this.state.promptFb} onRequestClose={this.handlePromptFb} autoScrollBodyContent={true}>
+          <PromptFbComponent
+            issues={this.state.issues}
+            suggestions={this.state.suggestions}
+            likes={this.state.likes}
+            changeParentState={this.changeParentState}
+            sendFeedback={this.sendFeedback}
+            />
+      </Dialog>
+    );
+
     if(this.state.username == 'colin' || this.state.username == 'team@monettatech.com'){
       console.log('colin signed in')
       feedbackTab = (
@@ -70,8 +163,6 @@ export default class App extends React.Component {
         </Tab>
       )
     }
-
-    let PTerms = (<div></div>);
 
     if (this.state.PTermsAct) {
       PTerms = (
@@ -115,10 +206,19 @@ export default class App extends React.Component {
 
            <Tabs value={this.state.tabValue} onChange={this.handleTabChange}>
              <Tab label="New Meeting" value='a'>
-               <Meeting username={this.state.username} handleDirectToRepo={this.handleTabChange}/>
+               <Meeting
+                username={this.state.username}
+                handleDirectToRepo={this.handleTabChange}
+                handlePromptFb={this.handlePromptFb}
+                />
              </Tab>
              <Tab label="My Meetings" value='b'>
-               <Repository username={this.state.username} code={this.state.code} handleRefresh={this.hasRefresh}/>
+               <Repository
+                username={this.state.username}
+                code={this.state.code}
+                handleRefresh={this.hasRefresh}
+                />
+               {promptFeedback}
              </Tab>
              <Tab label="Help" value='c'>
                <Help />
@@ -126,6 +226,14 @@ export default class App extends React.Component {
              {feedbackTab}
            </Tabs>
            {PTerms}
+
+        </div>
+      )
+
+      case 'Sandbox':
+      return(
+        <div>
+          <RaisedButton label='Test Email' onClick={this.testEmail} />
         </div>
       )
     }
