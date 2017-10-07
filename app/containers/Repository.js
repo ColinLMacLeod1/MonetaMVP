@@ -65,7 +65,7 @@ export default class Repository extends React.Component {
     this.minDateChange = this.minDateChange.bind(this)
     this.maxDateChange = this.maxDateChange.bind(this)
     this.deleteMeeting = this.deleteMeeting.bind(this)
-    this.search = this.search.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
     this.updateRefresh = this.updateRefresh.bind(this)
   }
 
@@ -222,19 +222,19 @@ export default class Repository extends React.Component {
         console.log(err)
       })
   }
-  search(searchType) {
+  handleSearch() {
     const self = this;
-      self.setState({
-        progress: 'loading',
-        meetingRes: null,
-        results: []
-      });
+    self.setState({
+      progress: 'loading',
+      meetingRes: null,
+      results: []
+    });
     var minDate = this.state.minDate ? new Date(this.state.minDate).getTime() : 0;
     var maxDate = this.state.maxDate ? new Date(this.state.maxDate).getTime() : 2147483647000;
   		axios.post('https://monettatech.com/search',
   			{
   				search:self.state.search,
-          searchType:searchType,
+          searchType:this.state.searchType,
           username:self.state.username,
           minDate:minDate,
           maxDate:maxDate
@@ -320,9 +320,10 @@ export default class Repository extends React.Component {
     this.updateRefresh();
 
     return(
-      <div>
-        <div className='searchC'>
-          <div className='searchCriteria'>
+      <div className="Repository">
+
+        <div className="SearchBar">
+          <div className="TitleMemberRadio">
             <RadioButtonGroup name="searchType" defaultSelected="title" onChange={this.onTabChange}>
               <RadioButton
                 value="title"
@@ -333,27 +334,11 @@ export default class Repository extends React.Component {
                 label="Member"
               />
             </RadioButtonGroup>
-            <div className="dateDiv">
-              <DatePicker
-                hintText="After this date"
-                value={this.state.minDate}
-                onChange={this.minDateChange}
-              />
-              <p>to</p>
-              <DatePicker
-                hintText="Before this date"
-                value={this.state.maxDate}
-                onChange={this.maxDateChange}
-              />
-            </div>
-            <FlatButton
-              label="Refresh"
-              primary={true}
-              onClick={() => this.loadAll()}
-            />
           </div>
-          <div className="titleSearch">
+
+          <div className="SearchParam">
             <TextField
+              style={{margin: '0px 30px'}}
               floatingLabelText={searchTitle}
               name="titleSearch"
               underlineShow={true}
@@ -362,13 +347,45 @@ export default class Repository extends React.Component {
               onChange = {this.handleChange}
               onKeyPress={(e) => {
                 if(e.key==='Enter'){
-                  this.search(this.state.searchType);
-                }
-              }}
-            />
-          </div>
+                  this.handleSearch(this.state.searchType);
+              }}}/>
+              <div className="SearchDate">
+                <DatePicker
+                  textFieldStyle={{width: '85px', margin: '0px 30px'}}
+                  hintText="After"
+                  value={this.state.minDate}
+                  onChange={this.minDateChange}
+                />
+
+                <p>to</p>
+
+                <DatePicker
+                  textFieldStyle={{width: '85px', margin: '0px 30px'}}
+                  hintText="Before"
+                  value={this.state.maxDate}
+                  onChange={this.maxDateChange}
+                />
+              </div>
+            </div>
+
+            <div className="ActionButtons">
+              <RaisedButton
+                label="Search"
+                primary={true}
+                onClick={this.handleSearch}
+              />
+
+              <RaisedButton
+                label="Refresh"
+                secondary={true}
+                onClick={this.loadAll}
+              />
+
+            </div>
         </div>
-        <div className="repository">
+
+
+        <div className="ContentDisplay">
           {sidebar}
           {container}
         </div>
