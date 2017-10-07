@@ -36,7 +36,8 @@ app.get('/.well-known/acme-challenge/Z0pKihI7Gm3awBh08SD7ayfBToWPnLEjukRzWbHuW-E
 const slack = SlackOAuthClient.connect(
 	'xoxb-248587322181-WkedBxz2LYOblHzscrV8tNj0'
 );
-slack.postMessage('Feedback', 'Deployed');
+
+// slack.postMessage('Feedback', 'Deployed');
 
 //Constants
 const dbConfig = config.get('Customer.dbConfig');
