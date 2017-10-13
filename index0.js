@@ -40,7 +40,7 @@ app.get('/.well-known/acme-challenge/Z0pKihI7Gm3awBh08SD7ayfBToWPnLEjukRzWbHuW-E
 const slack = SlackOAuthClient.connect(
 	'xoxb-248587322181-WkedBxz2LYOblHzscrV8tNj0'
 );
-//slack.postMessage('Feedback', 'Deployed');
+slack.postMessage('Feedback', 'Deployed');
 
 //Constants
 const dbConfig = config.get('Customer.dbConfig');
@@ -274,16 +274,16 @@ app.post('/feedback',function(req,res){
 	res.send(JSON.stringify('Feedback Saved'));
 })
 
-//Getting user answered promp questions Array to ensure user does not answer same prompt question twice
-app.post('/promptqs', function(req, response) {
+//Getting user answered promp questions Array
+app.get('/promptqs', function(req, response) {
 	User.findOne({username:req.body.username}).then(function (result) {
-		response.send(JSON.stringify(result))
-	}).catch(function(err){
-		console.log(err)
-	});
+		if (result.promptQs.length !== 0 ) {
+			res.send(result.promptQs);
+		} else {
+			res.send(false);
+		}
+	})
 })
-
-//
 
 //Get Feedback
 app.get('/feedback',function(req,res){
@@ -291,7 +291,7 @@ app.get('/feedback',function(req,res){
 		res.send(JSON.stringify(result))
 	}).catch(function(err){
 		console.log(err)
-	});
+	})
 })
 
 
@@ -302,7 +302,7 @@ app.get('/usercount', function(req,res){
 		res.send(JSON.stringify(result.length))
 	}).catch(function(err){
 		console.log(err)
-	});
+	})
 })
 
 //Get Speech to text token
@@ -323,12 +323,7 @@ app.get('/token', function(req,res){
 
 
 // Server Port
-//app.listen(process.env.PORT || port,function() {
-//	console.log('App listening on port', port)
-//})
-
-const PORT = '8080';
-app.listen(PORT, () => {
-  console.log('Server started on localhost port: ' + PORT);
+app.listen(process.env.PORT || port,function() {
+	console.log('App listening on port', port)
 })
  module.exports = app;

@@ -369,12 +369,8 @@ export default class Meeting extends React.Component {
       case 'Info':
         return (<div>
   					<MeetingInfoComponent
-              onSubmit={this.onSubmit}
               onChange={this.onChange}
-              onDelete={this.onDelete}
-              memberChange={this.memberChange}
               changePane={this.changePane}
-              errors={this.errors}
               data={data}
   					/><Snackbar
                   open={this.state.saved}

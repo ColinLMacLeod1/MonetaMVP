@@ -10,25 +10,24 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
 
-import {PromptQuestions} from './Data/PromptQuestions.js'
 import HeaderComponent from '../components/HeaderComponent.js'
 import HeaderInsideComponent from '../components/HeaderInsideComponent.js'
-import LoginComponent from '../components/LoginComponent.js'
-import SignupComponent from '../components/SignupComponent.js'
+import Login from './Login.js'
 import MonettaLogo from '../assets/images/MonettaLogo.png'
 import MonettaLogoNotif from '../assets/images/MonettaLogoNotif.png'
+
+const PromptQuestions = require('./Data/PromptQuestions.js')
 
 
 export default class Header extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loginSignupDialog: false,
-      logSig: 'login',
+      loginDialog: false,
+      signupDialog: false,
       errors: {},
-      formUsername: '',
-      formPassword: '',
-      formCode: '',
+      username: '',
+      password: '',
       issue:'',
 			suggestion:'',
 			likes:'',
@@ -36,12 +35,16 @@ export default class Header extends React.Component {
       sent: false,
       logoClick: 'Notif',
       openQuestion: false,
-      questionStr: 'Please rate the quality of the voice recognition:',
+      promptQuestion: '',
       questionAnswer: 0,
-      errors: {}
+      answeredQs: [0],
+      answersLeft: true,
+      qnumber: 0
       }
     this.handleHome=this.handleHome.bind(this)
-    this.handleLoginSubmit=this.handleLoginSubmit.bind(this)
+    this.handleActivationLogin=this.handleActivationLogin.bind(this)
+    this.handleActivationSignup=this.handleActivationSignup.bind(this)
+    this.processLoginRequest=this.processLoginRequest.bind(this)
     this.changeParentState = this.changeParentState.bind(this)
 		this.sendFeedback = this.sendFeedback.bind(this)
     this.feedbackButton = this.feedbackButton.bind(this)
@@ -50,16 +53,27 @@ export default class Header extends React.Component {
     this.handleQuestion=this.handleQuestion.bind(this)
     this.handleLogoClick=this.handleLogoClick.bind(this)
     this.handleAnswerChange=this.handleAnswerChange.bind(this)
-    this.handleLogSigActivate=this.handleLogSigActivate.bind(this)
-    this.handleSignupSubmit=this.handleSignupSubmit.bind(this)
+    this.handleFindQ=this.handleFindQ.bind(this)
+    this.handleCheckQs=this.handleCheckQs.bind(this)
   }
 
-  handleLoginSubmit () {
+  componentWillReceiveProps (nextProps) {
+    this.setState({username: nextProps.username})
+    // every time header component receives props, it checks to see if user is logged in and if so performs initializing requests
+    if (nextProps.loggedin) {
+      this.handleCheckQs()
+    }
+  }
+
+
+
+  processLoginRequest () {
+
     const self = this;
 		axios.post('https://monettatech.com/login',
         {
-				username: self.state.formUsername,
-				password: self.state.formPassword
+				username: self.state.username,
+				password: self.state.password
         }
 			)
 			.then (function(res) {
@@ -76,7 +90,7 @@ export default class Header extends React.Component {
         }
 
 				if(res.data != 'User not found' && res.data != 'User Exists'){
-          self.props.login(self.state.formUsername)
+          self.props.login(self.state.username)
 
           //self.props.history.push('/home')
 				} else if(res.data == 'User not found') {
@@ -96,67 +110,6 @@ export default class Header extends React.Component {
 				console.log(error)
 			  }
       )
-  }
-
-  handleSignupSubmit() {
-    const self = this;
-		axios.post('https://monettatech.com/signup',
-			{
-				username: self.state.formUsername,
-				password: self.state.formPassword,
-        code: self.state.formCode
-			}
-			)
-			.then(function(res) {
-        if(res.data != 'User Exists'){
-          var errors = self.state.errors;
-          errors.email = "";
-          self.setState({
-              errors:errors
-          })
-        }
-        if(res.data != 'Sign Up Unsuccessful'){
-          var errors = self.state.errors;
-          errors.password = "";
-          self.setState({
-              errors:errors
-          })
-        }
-				if(res.data != 'Sign Up Unsuccessful' && res.data != 'User Exists' && res.data !="Code Already Used" && res.data !="Code Doesn't Exist"){
-          self.props.enterLogin(self.state.formUsername)
-          self.setState({formUsername: '', formPassword: '', formCode: ''})
-          //self.props.history.push('/home')
-				} else if(res.data == 'User Exists') {
-          var errors = self.state.errors;
-          errors.email = "User Already Exists";
-          self.setState({
-              errors:errors
-          })
-        } else if(res.data == "Code Already Used"){
-          var errors = self.state.errors;
-          errors.code = "Code Already Used";
-          self.setState({
-              errors:errors
-          })
-        } else if(res.data == "Code Doesn't Exist"){
-          var errors = self.state.errors;
-          errors.code = "Code Doesn't Exist";
-          self.setState({
-              errors:errors
-          })
-        } else {
-            var errors = self.state.errors;
-            errors.password = "Account didn't save properly";
-            self.setState({
-                errors:errors
-            })
-        }
-
-			})
-			.catch(function(error) {
-				console.log(error)
-			})
-
   }
 
   sendFeedback () {
@@ -186,14 +139,19 @@ export default class Header extends React.Component {
     this.setState({sent: true})
   }
 
-  handleLogSigActivate (val) {
-    this.setState({
-      loginSignupDialog: !this.state.loginSignupDialog,
-      logSig: val,
-      formUsername: '',
-      formPassword: '',
-      formCode: ''
-    })
+  handleActivationLogin () {
+    if (!this.state.loginDialog) {
+    this.setState({loginDialog: true});
+    } else {
+    this.setState({loginDialog: false});
+    }
+  }
+  handleActivationSignup () {
+    if (!this.state.signupDialog) {
+    this.setState({signupDialog: true});
+    } else {
+    this.setState({signupDialog: false});
+    }
   }
 
   changeParentState (event) {
@@ -223,7 +181,7 @@ export default class Header extends React.Component {
 
     this.setState({
       likes: 'NOTIFICATION PROMPT',
-      suggestion: 'QUESTION - ' + this.state.questionStr,
+      suggestion: 'QUESTION - ' + this.state.promptQuestion,
       issue: 'ANSWER - ' + value,
       questionAnswer: value
     })
@@ -243,6 +201,51 @@ export default class Header extends React.Component {
     this.setState({openQuestion: !this.state.openQuestion});
   }
 
+  ///////////////////////////////////////////////////////////
+
+
+
+
+
+
+  handleFindQ () {
+
+    console.log('handleFindQ()')
+    var answeredQs = this.state.answeredQs
+    // this function will go one by one to find the next question that the user has not answered
+    // this function relies heavily on the structure of the array of questions, it must be in order and it must be starting from 0
+    if (answeredQs === [0]) {
+      this.setState({qnumber: 0})
+    }
+    if (answeredQs.length !== PromptQuestions.length) {
+      this.setState({qnumber: answeredQs.length, question: PromptQuestions[answeredQs.length]})
+    } else {
+      this.setState({answersLeft: false})
+    }
+  }
+
+
+  handleCheckQs () {
+    console.log('handleCheckQs()')
+    // Why is this taking so long
+    axios.post('http://localhost:8080/promptqs',{
+      username: this.state.username
+    })
+    .then(function(result){
+      console.log(result);
+      this.setState({answeredQs: result.data.promptqs})
+      console.log('answeredQs updated')
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+  }
+
+
+
+
+  /////////////////////////////////////////////////////////
+
   render () {
     let logo = {}
 
@@ -255,7 +258,7 @@ export default class Header extends React.Component {
     var questionAndAnswer = (
       <div className='QuestionAndAnswer'>
         <div>
-          <h1> {this.state.questionStr} </h1>
+          <h1> {this.state.promptQuestion} </h1>
           <p> Great quality or no issues = 5 <br/> Low quality or many issues = 1 </p>
         </div>
         <div>
@@ -270,36 +273,13 @@ export default class Header extends React.Component {
             <MenuItem value={4} primaryText="4" />
             <MenuItem value={5} primaryText="5" />
           </SelectField>
+
         </div>
         <div>
           <RaisedButton label='Submit' onClick={this.handleNotifSubmit} />
         </div>
       </div>
     )
-
-    if (this.state.logSig === 'login') {
-      var LogSig = (
-        <LoginComponent
-          handleLoginSubmit = {this.handleLoginSubmit}
-          onChange = {this.changeParentState}
-          username = {this.state.formUsername}
-          password = {this.state.formPassword}
-          errors = {this.state.errors}
-        />
-      )
-    } else {
-      var LogSig = (
-        <SignupComponent
-          handleSignupSubmit = {this.handleSignupSubmit}
-          handleLogSigActivate = {this.handleLogSigActivate}
-          onChange = {this.changeParentState}
-          username = {this.state.formUsername}
-          password = {this.state.formPassword}
-          code = {this.state.formCode}
-          errors = {this.state.errors}
-        />
-      )
-    }
 
 
 
@@ -308,7 +288,7 @@ export default class Header extends React.Component {
       return (
         <div>
           <HeaderInsideComponent
-            username={this.props.username}
+            username={this.state.username}
             page={this.state.page}
             feedbackButton={this.feedbackButton}
             openFeedback={this.state.openFeedback}
@@ -336,13 +316,17 @@ export default class Header extends React.Component {
       return (
         <div>
           <HeaderComponent
-            handleLogSigActivate={this.handleLogSigActivate}
+            handleActivationLogin={this.handleActivationLogin}
+            loginDialog={this.state.loginDialog}
+            handleActivationSignup={this.handleActivationSignup}
+            signupDialog={this.state.signupDialog}
+            errors={this.state.errors}
+            onChange={this.changeUser}
+            username={this.state.username}
+            password={this.state.password}
+            onClick={this.processLoginRequest}
+            login={this.props.login}
             />
-          <Dialog style={{width: '100%'}} modal={false} open={this.state.loginSignupDialog} onRequestClose={this.handleLogSigActivate}>
-              <div className='LogSig'>
-                {LogSig}
-              </div>
-          </Dialog>
         </div>
       )
     }
