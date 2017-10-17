@@ -71,7 +71,7 @@ export default class Header extends React.Component {
   loadQs (loggedUser) {
     // this function updates the question string in the state depending on the state of the user's schema
     const self = this;
-    axios.post('http://localhost:8080/loadqs',{
+    axios.post('https://monettatech.com/loadqs',{
       username: loggedUser
     }).then(function(result){
       if (result.data.promptqs.length === PromptQuestions.length) {
@@ -87,7 +87,7 @@ export default class Header extends React.Component {
   handleLoginSubmit () {
     // this function submits the login request and proceeds if sucessful by updating App.js and receiving new props as a result
     const self = this;
-		axios.post('http://localhost:8080/login',
+		axios.post('https://monettatech.com/login',
         {
 				username: self.state.formUsername,
 				password: self.state.formPassword
@@ -130,7 +130,7 @@ export default class Header extends React.Component {
   handleSignupSubmit() {
     // this function handles sign up which updates App.js and receives new props as a result
     const self = this;
-		axios.post('http://localhost:8080/signup',
+		axios.post('https://monettatech.com/signup',
 			{
 				username: self.state.formUsername,
 				password: self.state.formPassword,
@@ -192,7 +192,7 @@ export default class Header extends React.Component {
   sendFeedback () {
     // this function sends feedback to DB and Slack and activates a snackbar if sucessful
   	const self = this;
-  	axios.post('http://localhost:8080/feedback', {
+  	axios.post('https://monettatech.com/feedback', {
   			username: self.props.username,
   			date: (new Date()).toString(),
         issue: self.state.issue,
