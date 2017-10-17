@@ -3,8 +3,8 @@ import Card from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 
-const PromptFbComponent = ({likes, issues, suggestions, changeParentState, sendFeedback}) => (
-  <div className='PromptFbComponent'>
+const PromptQComponent = ({likes, issues, suggestions, changeParentState, sendFeedback}) => (
+  <div className='PromptQComponent'>
     <div className='PromptWrapper'>
       <h1> Any feedback for us? </h1>
       <Card className='PromptCard'>
@@ -49,4 +49,4 @@ const PromptFbComponent = ({likes, issues, suggestions, changeParentState, sendF
   </div>
 )
 
-export default PromptFbComponent;
+export default PromptQComponent;

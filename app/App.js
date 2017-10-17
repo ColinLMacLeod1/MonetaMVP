@@ -6,14 +6,14 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Card from 'material-ui/Card'
 
 import Header from './containers/Header.js'
-import Home from './containers/Home.js'
 import FooterComponent from './components/FooterComponent.js'
 import PrivacyTermsComponent from './components/PrivacyTermsComponent.js'
 import Meeting from './containers/Meeting.js'
 import Repository from './containers/Repository.js'
 import Help from './containers/Help.js'
 import Feedback from './containers/Feedback.js'
-import PromptFbComponent from './components/PromptFbComponent.js'
+import PromptQComponent from './components/PromptQComponent.js'
+import HomeComponent from './components/HomeComponent'
 
 
 
@@ -26,7 +26,7 @@ export default class App extends React.Component {
       issues: '',
       suggestions: '',
       likes: '',
-      page:'Home',
+      page: 'Home',
       tabValue: 'a',
       code: '',
       PTermsAct: false,
@@ -42,18 +42,20 @@ export default class App extends React.Component {
       },
       promptFb: false,
       openFeedback:false,
-      sent: false
+      sent: false,
+      loggedin: false,
+      alphaActivation: false
 		}
 
     this.handlePageChange=this.handlePageChange.bind(this)
     this.handleTabChange=this.handleTabChange.bind(this)
-    this.sucessfulLogin = this.sucessfulLogin.bind(this)
+    this.enterLogin = this.enterLogin.bind(this)
     this.hasRefresh=this.hasRefresh.bind(this)
     this.handlePTerms=this.handlePTerms.bind(this)
-    this.testEmail=this.testEmail.bind(this)
     this.handlePromptFb=this.handlePromptFb.bind(this)
     this.sendFeedback=this.sendFeedback.bind(this)
     this.changeParentState=this.changeParentState.bind(this)
+    this.handleAlphaActivation=this.handleAlphaActivation.bind(this)
 
 	}
 
@@ -73,44 +75,32 @@ export default class App extends React.Component {
       this.setState({code: ''})
   }
 
-  sucessfulLogin (user) {
-    this.setState({page: 'App', username: user});
-    console.log('you have logged in: ' + this.state.username);
+  enterLogin (user) {
+    this.setState({page: 'App', username: user, loggedin: true});
   }
 
 
   handlePTerms () {
-    if (!this.state.PTermsAct) {
-    this.setState({PTermsAct: true});
-    } else {
-    this.setState({PTermsAct: false});
-    }
+    this.setState({PTermsAct: !this.state.PTermsAct})
+  }
+
+  handleAlphaActivation () {
+    this.setState({alphaActivation: !this.state.alphaActivation})
   }
 
   handlePromptFb () {
     this.setState({promptFb: !this.state.promptFb});
   }
 
-  testEmail () {
-    const self = this;
-    console.log('testEmail() [App.js]')
-    axios.post('https://monettatech.com/email',
-      {
-        title: 'it worked',
-        date: 'today'
-      }
-    )
-    .then(function(res) {
-      console.log(res)
-    }).catch(function(err) {
-      console.log(err)
-    })
+  changeParentState (event) {
+    this.setState({[event.target.name]: event.target.value});
   }
+
 
   sendFeedback () {
     const self = this;
-    axios.post('https://monettatech.com/feedback', {
-        username: self.props.username,
+    axios.post('http://localhost:8080/feedback', {
+        username: self.state.username,
         date: (new Date()).toString(),
         issue: self.state.issues,
         suggestion: self.state.suggestions,
@@ -123,20 +113,13 @@ export default class App extends React.Component {
         suggestions:'',
         likes:''
         })
-      console.log('Feedback Sent')
       }
     )
     .catch(function(error) {
-      console.log(error)
       }
     )
     this.handlePromptFb()
   }
-
-  changeParentState (event) {
-    this.setState({[event.target.name]: event.target.value});
-  }
-
 
   render() {
     let feedbackTab = null;
@@ -145,7 +128,7 @@ export default class App extends React.Component {
 
     let promptFeedback = (
       <Dialog modal={false} open={this.state.promptFb} onRequestClose={this.handlePromptFb} autoScrollBodyContent={true}>
-          <PromptFbComponent
+          <PromptQComponent
             issues={this.state.issues}
             suggestions={this.state.suggestions}
             likes={this.state.likes}
@@ -156,7 +139,6 @@ export default class App extends React.Component {
     );
 
     if(this.state.username == 'colin' || this.state.username == 'team@monettatech.com'){
-      console.log('colin signed in')
       feedbackTab = (
         <Tab label='Feedback' value='d'>
           <Feedback />
@@ -180,13 +162,18 @@ export default class App extends React.Component {
         <div>
 
           <Header
+            loggedin={this.state.loggedin}
+            username={this.state.username}
             handlePageChange={this.handlePageChange}
             inside={false}
-            login={this.sucessfulLogin}
+            enterLogin={this.enterLogin}
             handlePTerms={this.handlePTerms}
             />
 
-          <Home />
+          <HomeComponent
+            handleAlphaActivation = {this.handleAlphaActivation}
+            alphaActivation = {this.state.alphaActivation}
+            />
           <FooterComponent handlePTerms={this.handlePTerms}/>
           {PTerms}
         </div>
@@ -197,12 +184,14 @@ export default class App extends React.Component {
         <div>
 
            <Header
-            username={this.state.username}
-            inside={true}
-            page={this.state.page}
-            handlePageChange={this.handlePageChange}
-            handlePTerms={this.handlePTerms}
-            />
+              loggedin={this.state.loggedin}
+              username={this.state.username}
+              inside={true}
+              page={this.state.page}
+              enterLogin={this.enterLogin}
+              handlePageChange={this.handlePageChange}
+              handlePTerms={this.handlePTerms}
+              />
 
            <Tabs value={this.state.tabValue} onChange={this.handleTabChange}>
              <Tab label="New Meeting" value='a'>

@@ -2,7 +2,7 @@
   "name": "monetta-mvp",
   "version": "0.0.1",
   "description": "Moneta MVP",
-  "main": "webpack.config.js",
+  "main": "index.js",
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
     "axios": "^0.16.2",
@@ -47,7 +47,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "build": "webpack --config ./webpack.deployment.config.js --progress --color",
+    "build": "webpack --watch --config ./webpack.deployment.config.js --progress --color",
     "dev-start": "webpack-dev-server"
   },
   "repository": {

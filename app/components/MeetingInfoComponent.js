@@ -9,7 +9,7 @@ import Chip from 'material-ui/Chip'
 import ChipInput from 'material-ui-chip-input'
 
 
-const MeetingForm = ({ onChange, data, changePane, errors}) => (
+const MeetingForm = ({ onChange, data, changePane}) => (
   <Card className="meeting">
     <h1> Create a new meeting: </h1>
       <TextField

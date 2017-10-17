@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
 
-const LoginForm = ({onSubmit, onChange, errors, user, toSignUp, handleOpen}) => (
+const LoginComponent = ({handleLoginSubmit, onChange, errors, formUsername, formPassword}) => (
   <div className="loginForm">
       <h2 className="card-heading">Login</h2>
 
@@ -15,10 +15,10 @@ const LoginForm = ({onSubmit, onChange, errors, user, toSignUp, handleOpen}) => 
       <div className="field-line">
         <TextField
           floatingLabelText="Email"
-          name="email"
-          errorText={errors.email}
+          name="formUsername"
+          errorText={errors.username}
           onChange={onChange}
-          value={user.email}
+          value={formUsername}
         />
       </div>
 
@@ -26,24 +26,23 @@ const LoginForm = ({onSubmit, onChange, errors, user, toSignUp, handleOpen}) => 
         <TextField
           floatingLabelText="Password"
           type="password"
-          name="password"
+          name="formPassword"
           onChange={onChange}
           errorText={errors.password}
-          value={user.password}
+          value={formPassword}
           onKeyPress= {(ev) => {
             if (ev.key == 'Enter') {
               ev.preventDefault();
-              onSubmit();
+              handleLoginSubmit();
             }
           }}
         />
       </div>
 
       <div className="button-line">
-        <RaisedButton onClick={()=>onSubmit()} label="Log in" primary />
-        <FlatButton label="Sign Up" onClick={handleOpen} primary={true} />
+        <RaisedButton onClick={()=>handleLoginSubmit()} label="Log in" primary />
       </div>
   </div>
 );
 
-export default LoginForm;
+export default LoginComponent;

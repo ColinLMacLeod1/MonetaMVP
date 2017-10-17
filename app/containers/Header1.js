@@ -10,14 +10,13 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
 
-
+import {PromptQuestions} from './Data/PromptQuestions.js'
 import HeaderComponent from '../components/HeaderComponent.js'
 import HeaderInsideComponent from '../components/HeaderInsideComponent.js'
 import LoginComponent from '../components/LoginComponent.js'
 import SignupComponent from '../components/SignupComponent.js'
 import MonettaLogo from '../assets/images/MonettaLogo.png'
 import MonettaLogoNotif from '../assets/images/MonettaLogoNotif.png'
-const PromptQuestions = require('./Data/PromptQuestions.js')
 
 
 export default class Header extends React.Component {
@@ -37,12 +36,8 @@ export default class Header extends React.Component {
       sent: false,
       logoClick: 'Notif',
       openQuestion: false,
-      questionStr: '',
-      questionAnswerScore: 0,
-      questionAnswerText: '',
-      answeredQs: [],
-      answersLeft: true,
-      answeredPrompt: false,
+      questionStr: 'Please rate the quality of the voice recognition:',
+      questionAnswer: 0,
       errors: {}
       }
     this.handleHome=this.handleHome.bind(this)
@@ -54,40 +49,36 @@ export default class Header extends React.Component {
     this.handleNotifSubmit=this.handleNotifSubmit.bind(this)
     this.handleQuestion=this.handleQuestion.bind(this)
     this.handleLogoClick=this.handleLogoClick.bind(this)
-    this.handleAnswerScoreChange=this.handleAnswerScoreChange.bind(this)
-    this.handleAnswerTextChange=this.handleAnswerTextChange.bind(this)
+    this.handleAnswerChange=this.handleAnswerChange.bind(this)
     this.handleLogSigActivate=this.handleLogSigActivate.bind(this)
     this.handleSignupSubmit=this.handleSignupSubmit.bind(this)
     this.cleanUpForms=this.cleanUpForms.bind(this)
-    this.loadQs=this.loadQs.bind(this)
+    this.handleUpdateQs=this.handleUpdateQs.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.loggedin && !this.state.answeredPrompt ) {
-      this.loadQs(nextProps.username)
+    if (nextProps.loggedin) {
+      this.handleUpdateQs(nextProps.username)
     }
   }
 
-  loadQs (loggedUser) {
-    // this function updates the question string in the state depending on the state of the user's schema
+  handleUpdateQs (loggedUser) {
+    console.log('in handleUpdateQs()')
     const self = this;
-    axios.post('http://localhost:8080/loadqs',{
-      username: loggedUser
+    axios.get('https://localhost:8080/updateqs', {
+      username: 'test@thiago.com'
     }).then(function(result){
-      if (result.data.promptqs.length === PromptQuestions.length) {
-        self.setState({answersLeft: false, logoClick: 'Home'})
-      } else {
-        self.setState({ questionStr: PromptQuestions[result.data.promptqs.length][1], answeredQs: result.data.promptqs})
-      }
+      console.log('in result of handleUpdateQs()')
+      console.log(result)
     }).catch(function(error){
+      console.log('in error of handleUpdateQs()')
       console.log(error)
     })
   }
 
   handleLoginSubmit () {
-    // this function submits the login request and proceeds if sucessful by updating App.js and receiving new props as a result
     const self = this;
-		axios.post('http://localhost:8080/login',
+		axios.post('https://monettatech.com/login',
         {
 				username: self.state.formUsername,
 				password: self.state.formPassword
@@ -128,9 +119,8 @@ export default class Header extends React.Component {
   }
 
   handleSignupSubmit() {
-    // this function handles sign up which updates App.js and receives new props as a result
     const self = this;
-		axios.post('http://localhost:8080/signup',
+		axios.post('https://monettatech.com/signup',
 			{
 				username: self.state.formUsername,
 				password: self.state.formPassword,
@@ -190,9 +180,8 @@ export default class Header extends React.Component {
   }
 
   sendFeedback () {
-    // this function sends feedback to DB and Slack and activates a snackbar if sucessful
   	const self = this;
-  	axios.post('http://localhost:8080/feedback', {
+  	axios.post('https://monettatech.com/feedback', {
   			username: self.props.username,
   			date: (new Date()).toString(),
         issue: self.state.issue,
@@ -246,50 +235,34 @@ export default class Header extends React.Component {
   }
 
   handleNotifSubmit() {
-    // this function sends the new question number to update the database, notifies the app that the user has answered the prompt question
-    // closes the prompt dialog and switches the logo notification to route to home after the user has answered
-    // it also sends feedback in a premade format shown below for each question
-    const self = this;
-    let newNumber = self.state.answeredQs.length
-    let oldArray = self.state.answeredQs
-    let answeredQsNew = [oldArray.concat(newNumber)]
+    this.sendFeedback()
+    this.handleQuestion()
+    this.setState({logoClick: 'Home'})
+
+  }
+
+  handleAnswerChange (event, index, value) {
+
     this.setState({
       likes: 'NOTIFICATION PROMPT',
-      suggestion: 'QUESTION - ' + self.state.questionStr,
-      issue: 'ANSWER (Score: ' + self.state.questionAnswerScore + ') - ' + self.state.questionAnswerText,
-      logoClick: 'Home',
-      answeredPrompt: true,
-      answeredQs: answeredQsNew
+      suggestion: 'QUESTION - ' + this.state.questionStr,
+      issue: 'ANSWER - ' + value,
+      questionAnswer: value
     })
-    axios.post('/updateqs', {
-      username: self.props.username,
-      newNumber: newNumber
-    }).then(function(result){
-      //console.log(result)
-    }).catch(function(err){
-      console.log(err)
-    })
-    self.handleQuestion()
-    self.sendFeedback()
   }
 
   handleLogoClick () {
+    console.log('inside')
     if (this.state.logoClick == 'Home') {
       this.handleHome()
     } else if (this.state.logoClick == 'Notif') {
+      console.log('logoclick')
       this.setState({openQuestion: true})
     }
   }
 
   handleQuestion () {
     this.setState({openQuestion: !this.state.openQuestion});
-  }
-
-  handleAnswerScoreChange (event, index, value) {
-    this.setState({questionAnswerScore: value})
-  }
-  handleAnswerTextChange (event, index, value) {
-    this.setState({questionAnswerText: value})
   }
 
   render () {
@@ -310,8 +283,8 @@ export default class Header extends React.Component {
         <div>
           <SelectField
             floatingLabelText="Rate out of 5"
-            value={this.state.questionAnswerScore}
-            onChange={this.handleAnswerScoreChange}
+            value={this.state.questionAnswer}
+            onChange={this.handleAnswerChange}
           >
             <MenuItem value={1} primaryText="1" />
             <MenuItem value={2} primaryText="2" />
@@ -321,18 +294,7 @@ export default class Header extends React.Component {
           </SelectField>
         </div>
         <div>
-          <TextField
-            hintText='Additional Comments'
-            fullwidth={true}
-            rows={2}
-            rowsMax={4}
-            multiLine={true}
-            value={this.state.questionAnswerText}
-            onChange={this.handleAnswerTextChange}
-            />
-        </div>
-        <div>
-          <RaisedButton label='Submit' onClick={this.handleNotifSubmit} primary={true}/>
+          <RaisedButton label='Submit' onClick={this.handleNotifSubmit} />
         </div>
       </div>
     )
