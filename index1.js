@@ -49,9 +49,6 @@ const codes = config.get('Presets.codes');
 const initalUsers = config.get('Presets.users');
 const port = config.get('Presets.port')
 console.log('Config:'+dbConfig.uri)
-//console.log(codes)
-//console.log(initalUsers)
-
 
 // MongoDB Connection
 mongoose.Promise = global.Promise;
@@ -61,22 +58,11 @@ mongoose.connect(dbConfig.uri,{
 	console.log(err)
 });
 
-/*
-//Thiago testing
-mongoose.connect('mongodb://localhost/mercurysquare', {
-  UseMongoClient: true
-}).catch(function(err){
-  console.log(err)
-});
-*/
-
 mongoose.connection.once('open',function(){
 	console.log('Connection made');
 }).on('error',function(error){
 	console.log('Connection error',error);
 });
-
-
 
 //Clearing DB on start up
 /*
@@ -89,13 +75,14 @@ mongoose.connection.collections.meetings.drop(function(){
 mongoose.connection.collections.codes.drop(function(){
   console.log('codes droppped');
 });
+*/
+/*
 mongoose.connection.collections.feedbacks.drop(function(){
   console.log('feedbacks droppped');
 });
 */
-
-//Adding Sign Up Codes
 /*
+//Adding Sign Up Codes
 codes.map((code) => {
 	var newCode = new Code({
 		code: code,
@@ -136,7 +123,6 @@ bcrypt.hash(initalUsers.testpassword, saltRounds).then(function(hash){
 	});
 })
 */
-
 //Save meeting
 app.post('/save', function(req,res) {
 	var meeting = new Meeting({
@@ -289,26 +275,19 @@ app.post('/feedback',function(req,res){
 })
 
 //Getting user answered promp questions Array to ensure user does not answer same prompt question twice
-app.post('/loadqs', function(req, response) {
-	User.findOne({username: req.body.username}).then(function(result){
-		if (result === null || result === undefined) {
-			response.send('no user found')
-		} else {
-		response.send(result)
-		}
-  }).catch(function(err){
-    console.log(err)
-  })
+app.get('/updateqs', function(req, response) {
+	User.findOne({username:req.body.username}).then(function (result) {
+		response.send(JSON.stringify(result))
+		console.log(result)
+		console.log('we good')
+	}).catch(function(err){
+		response.send(JSON.stringify(err))
+		console.log(err)
+		console.log('we not good')
+	});
 })
 
-//Updating the user's prompt question list since they just answered a new question on the client side
-app.post('/updateqs', function(req, response) {
-	User.findOneAndUpdate({username: req.body.username}, {$push: {promptqs: req.body.newNumber}}, function(err, raw){
-		if (err) return handleError(err);
-		console.log('The raw response from Mongo was ', raw);
-	})
-})
-
+//
 
 //Get Feedback
 app.get('/feedback',function(req,res){
@@ -348,15 +327,12 @@ app.get('/token', function(req,res){
 
 
 // Server Port
-app.listen(process.env.PORT || port,function() {
-	console.log('App listening on port', port)
-})
+//app.listen(process.env.PORT || port,function() {
+//	console.log('App listening on port', port)
+//})
 
-/*
-//Thiago test
 const PORT = '8080';
 app.listen(PORT, () => {
   console.log('Server started on localhost port: ' + PORT);
 })
  module.exports = app;
- */

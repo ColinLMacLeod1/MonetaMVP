@@ -21,12 +21,12 @@ export default class App extends React.Component {
   constructor(props) {
 		super(props);
 		this.state = {
-      username: 'colin',
+      username: 'none',
       date: '',
       issues: '',
       suggestions: '',
       likes: '',
-      page: 'App',
+      page: 'Home',
       tabValue: 'a',
       code: '',
       PTermsAct: false,
@@ -77,7 +77,6 @@ export default class App extends React.Component {
 
   enterLogin (user) {
     this.setState({page: 'App', username: user, loggedin: true});
-    console.log('you have logged in: ' + this.state.username);
   }
 
 
@@ -100,7 +99,7 @@ export default class App extends React.Component {
 
   sendFeedback () {
     const self = this;
-    axios.post('https://monettatech.com/feedback', {
+    axios.post('http://localhost:8080/feedback', {
         username: self.state.username,
         date: (new Date()).toString(),
         issue: self.state.issues,
@@ -114,11 +113,9 @@ export default class App extends React.Component {
         suggestions:'',
         likes:''
         })
-      console.log('Feedback Sent')
       }
     )
     .catch(function(error) {
-      console.log(error)
       }
     )
     this.handlePromptFb()
@@ -142,7 +139,6 @@ export default class App extends React.Component {
     );
 
     if(this.state.username == 'colin' || this.state.username == 'team@monettatech.com'){
-      console.log('colin signed in')
       feedbackTab = (
         <Tab label='Feedback' value='d'>
           <Feedback />
@@ -192,6 +188,7 @@ export default class App extends React.Component {
               username={this.state.username}
               inside={true}
               page={this.state.page}
+              enterLogin={this.enterLogin}
               handlePageChange={this.handlePageChange}
               handlePTerms={this.handlePTerms}
               />
