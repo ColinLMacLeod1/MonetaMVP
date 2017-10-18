@@ -6,11 +6,11 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
 
-const SignupComponent = ({handleLogSigActivate, handleSignupSubmit, onChange, errors, formUsername, formPassword, formCode}) => (
-  <div className="loginForm" >
-      <h2 className="card-heading">Create Account</h2>
+const SignupComponent = ({handleLogSigActivate, handleSignupSubmit, handleLogButton, onChange, errors, formUsername, formPassword, formCode}) => (
+  <div className="LogSig" >
+      <h2>Create Account</h2>
 
-      <div className="field-line">
+      <div>
         <TextField
           floatingLabelText="Email"
           name="formUsername"
@@ -20,7 +20,7 @@ const SignupComponent = ({handleLogSigActivate, handleSignupSubmit, onChange, er
         />
       </div>
 
-      <div className="field-line">
+      <div>
         <TextField
           floatingLabelText="Password"
           type="password"
@@ -31,7 +31,7 @@ const SignupComponent = ({handleLogSigActivate, handleSignupSubmit, onChange, er
         />
       </div>
 
-      <div className="field-line">
+      <div>
         <TextField
           floatingLabelText="Sign Up Code"
           name="formCode"
@@ -41,8 +41,11 @@ const SignupComponent = ({handleLogSigActivate, handleSignupSubmit, onChange, er
         />
       </div>
 
-      <div className="button-line">
-        <RaisedButton onClick={()=>handleSignupSubmit()} label="Sign Up" secondary={true} />
+      <div>
+        <RaisedButton onClick={()=>handleSignupSubmit()} label="Sign Up" secondary={true} style={{marginTop: '20px'}} />
+      </div>
+      <div>
+        <FlatButton onClick={()=>handleLogButton()} label="already have an account?" style={{marginTop: '20px'}}/>
       </div>
   </div>
 );

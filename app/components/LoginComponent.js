@@ -6,13 +6,13 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
 
-const LoginComponent = ({handleLoginSubmit, onChange, errors, formUsername, formPassword}) => (
-  <div className="loginForm">
-      <h2 className="card-heading">Login</h2>
+const LoginComponent = ({handleLoginSubmit, handleSigButton, onChange, errors, formUsername, formPassword}) => (
+  <div className='LogSig'>
+      <h2>Login</h2>
 
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
+      {errors.summary && <p>{errors.summary}</p>}
 
-      <div className="field-line">
+      <div>
         <TextField
           floatingLabelText="Email"
           name="formUsername"
@@ -22,7 +22,7 @@ const LoginComponent = ({handleLoginSubmit, onChange, errors, formUsername, form
         />
       </div>
 
-      <div className="field-line">
+      <div>
         <TextField
           floatingLabelText="Password"
           type="password"
@@ -41,6 +41,7 @@ const LoginComponent = ({handleLoginSubmit, onChange, errors, formUsername, form
 
       <div className="button-line">
         <RaisedButton onClick={()=>handleLoginSubmit()} label="Log in" primary />
+        <RaisedButton onClick={()=>handleSigButton()} label="Sign up" />
       </div>
   </div>
 );
