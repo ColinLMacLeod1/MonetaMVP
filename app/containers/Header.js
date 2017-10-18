@@ -58,8 +58,10 @@ export default class Header extends React.Component {
     this.handleAnswerTextChange=this.handleAnswerTextChange.bind(this)
     this.handleLogSigActivate=this.handleLogSigActivate.bind(this)
     this.handleSignupSubmit=this.handleSignupSubmit.bind(this)
+    this.handleSigButton=this.handleSigButton.bind(this)
     this.cleanUpForms=this.cleanUpForms.bind(this)
     this.loadQs=this.loadQs.bind(this)
+    this.handleLogButton=this.handleLogButton.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -225,6 +227,14 @@ export default class Header extends React.Component {
     this.cleanUpForms()
   }
 
+  handleSigButton () {
+    this.setState({logSig: 'signup'})
+  }
+
+  handleLogButton () {
+    this.setState({logSig: 'login'})
+  }
+
   cleanUpForms () {
     this.setState({formUsername: '', formPassword: '', formCode: ''})
   }
@@ -345,6 +355,7 @@ export default class Header extends React.Component {
           username = {this.state.formUsername}
           password = {this.state.formPassword}
           errors = {this.state.errors}
+          handleSigButton = {this.handleSigButton}
         />
       )
     } else {
@@ -357,6 +368,7 @@ export default class Header extends React.Component {
           password = {this.state.formPassword}
           code = {this.state.formCode}
           errors = {this.state.errors}
+          handleLogButton = {this.handleLogButton}
         />
       )
     }
@@ -399,9 +411,7 @@ export default class Header extends React.Component {
             handleLogSigActivate={this.handleLogSigActivate}
             />
           <Dialog style={{width: '100%'}} modal={false} open={this.state.loginSignupDialog} onRequestClose={this.handleLogSigActivate}>
-              <div className='LogSig'>
                 {LogSig}
-              </div>
           </Dialog>
         </div>
       )
