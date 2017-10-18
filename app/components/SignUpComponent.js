@@ -6,48 +6,48 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
 
-const SignUpForm = ({onSubmit, onChange, errors, user, toLogin}) => (
-  <div className="loginForm" >
-      <h2 className="card-heading">Create Account</h2>
+const SignupComponent = ({handleLogSigActivate, handleSignupSubmit, handleLogButton, onChange, errors, formUsername, formPassword, formCode}) => (
+  <div className="LogSig" >
+      <h2>Create Account</h2>
 
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
-
-      <div className="field-line">
+      <div>
         <TextField
           floatingLabelText="Email"
-          name="email"
+          name="formUsername"
           errorText={errors.email}
           onChange={onChange}
-          value={user.email}
+          value={formUsername}
         />
       </div>
 
-      <div className="field-line">
+      <div>
         <TextField
           floatingLabelText="Password"
           type="password"
-          name="password"
+          name="formPassword"
           onChange={onChange}
           errorText={errors.password}
-          value={user.password}
+          value={formPassword}
         />
       </div>
 
-      <div className="field-line">
+      <div>
         <TextField
           floatingLabelText="Sign Up Code"
-          name="code"
+          name="formCode"
           onChange={onChange}
           errorText={errors.code}
-          value={user.code}
+          value={formCode}
         />
       </div>
 
-      <div className="button-line">
-        <RaisedButton onClick={()=>onSubmit()} label="Sign Up" primary />
-        <FlatButton label="I Have an Account" onClick={toLogin} primary={true} />
+      <div>
+        <RaisedButton onClick={()=>handleSignupSubmit()} label="Sign Up" secondary={true} style={{marginTop: '20px'}} />
+      </div>
+      <div>
+        <FlatButton onClick={()=>handleLogButton()} label="already have an account?" style={{marginTop: '20px'}}/>
       </div>
   </div>
 );
 
-export default SignUpForm;
+export default SignupComponent;

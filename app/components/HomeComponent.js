@@ -13,7 +13,7 @@ import Illustration from '../assets/images/WhyAreYouLookingHere.jpg'
 
 
 
-const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, signupPassword, signupUsername, signupCompany, errors}) => (
+const HomeComponent = ({handleAlphaActivation, alphaActivation}) => (
   <div>
 
     <div className='HomeTop'>
@@ -30,7 +30,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
             label='Join our Alpha'
             labelPosition='after'
             labelColor='rgb(255,172,77)'
-            onClick={handleActivation}
+            onClick={handleAlphaActivation}
             />
           <img className='Illustration' src={Illustration} />
         </div>
@@ -40,15 +40,13 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
 
       <div className='LoginSignup'>
 
-        <Dialog modal={false} open={act} onRequestClose={handleActivation}>
-
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSdSYFNqF6doLkLGBI9rZmaGXo8Jgc08OhA1Np0P_wycMZkQRw/viewform?embedded=true"
-          style={{height:"80vh", width:"100%"}}
-          >
-          Loading...
-        </iframe>
-
+        <Dialog contentStyle={{width: '100%', maxWidth: 'none'}} modal={false} open={alphaActivation} onRequestClose={handleAlphaActivation} >
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLSdSYFNqF6doLkLGBI9rZmaGXo8Jgc08OhA1Np0P_wycMZkQRw/viewform?embedded=true"
+              style={{height: '80vh', width: '100%'}}
+              >
+              Loading...
+            </iframe>
         </Dialog>
       </div>
 
@@ -137,7 +135,7 @@ const HomeComponent = ({onClick, onChange, handleActivation, act, signupEmail, s
         <p> Join the many innovative companies that are helping us design our software and get in your say as well. </p>
       </div>
 
-      <RaisedButton className='BecomeAlpha' label='Become an Alpha User' labelColor='rgb(255,172,77)' onClick={handleActivation}/>
+      <RaisedButton className='BecomeAlpha' label='Become an Alpha User' labelColor='rgb(255,172,77)' onClick={handleAlphaActivation}/>
 
     </div>
 

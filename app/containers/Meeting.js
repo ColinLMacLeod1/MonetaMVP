@@ -90,14 +90,14 @@ export default class Meeting extends React.Component {
 	    window.removeEventListener("keyup", this.handleKeyUp);
 	}
   handleKeyDown(event){
-    if(event.key === 'Alt' && !this.state.isRecording){
+    if(event.key === 'Alt' && !this.state.isRecording && this.state.pane == 'Dashboard'){
       event.preventDefault();
       this.stream()
       this.setState({isRecording: true});
     }
   }
   handleKeyUp(event){
-    if(event.key == 'Alt' && this.state.isRecording){
+    if(event.key == 'Alt' && this.state.isRecording && this.state.pane == 'Dashboard'){
       event.preventDefault();
       this.setState({isRecording: false});
     }
@@ -154,6 +154,7 @@ export default class Meeting extends React.Component {
 
       this.newMeeting()
       this.props.handleDirectToRepo('b', true)
+      this.props.handlePromptFb()
 
   }
   createEmail() {
@@ -368,12 +369,8 @@ export default class Meeting extends React.Component {
       case 'Info':
         return (<div>
   					<MeetingInfoComponent
-              onSubmit={this.onSubmit}
               onChange={this.onChange}
-              onDelete={this.onDelete}
-              memberChange={this.memberChange}
               changePane={this.changePane}
-              errors={this.errors}
               data={data}
   					/><Snackbar
                   open={this.state.saved}

@@ -9,7 +9,22 @@ import CircularProgress from 'material-ui/CircularProgress'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 import Dialog from 'material-ui/Dialog'
 
-const Dictation = ({onSubmit, onChange, itemAdd, itemChange, itemDelete, helpOpen, helpClose, changeText, enterText, changePane, buttonPress, errors, data, transcript, isRecording, help, text}) => (
+const Dictation = ({
+	itemAdd,
+	itemChange,
+	itemDelete,
+	helpOpen,
+	helpClose,
+	help,
+	changeText,
+	enterText,
+	text, 
+	changePane,
+	data,
+	transcript,
+	isRecording
+	}) => (
+
 		<Card className="dictation">
 
 			<div className="head">

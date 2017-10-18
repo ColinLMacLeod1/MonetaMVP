@@ -4,7 +4,7 @@ import {List, ListItem} from 'material-ui/List'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 
-const FileDisplay = ({data,toDictation,save,toEmail,toPDF,deleteMeeting}) => (
+const FileDisplay = ({data, toEmail, toPDF, deleteMeeting}) => (
   <Card className="dictation">
     <div className="head">
       <div style={{marginRight:'50px'}}>

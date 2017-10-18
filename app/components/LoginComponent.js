@@ -6,44 +6,44 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
 
-const LoginForm = ({onSubmit, onChange, errors, user, toSignUp, handleOpen}) => (
-  <div className="loginForm">
-      <h2 className="card-heading">Login</h2>
+const LoginComponent = ({handleLoginSubmit, handleSigButton, onChange, errors, formUsername, formPassword}) => (
+  <div className='LogSig'>
+      <h2>Login</h2>
 
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
+      {errors.summary && <p>{errors.summary}</p>}
 
-      <div className="field-line">
+      <div>
         <TextField
           floatingLabelText="Email"
-          name="email"
-          errorText={errors.email}
+          name="formUsername"
+          errorText={errors.username}
           onChange={onChange}
-          value={user.email}
+          value={formUsername}
         />
       </div>
 
-      <div className="field-line">
+      <div>
         <TextField
           floatingLabelText="Password"
           type="password"
-          name="password"
+          name="formPassword"
           onChange={onChange}
           errorText={errors.password}
-          value={user.password}
+          value={formPassword}
           onKeyPress= {(ev) => {
             if (ev.key == 'Enter') {
               ev.preventDefault();
-              onSubmit();
+              handleLoginSubmit();
             }
           }}
         />
       </div>
 
       <div className="button-line">
-        <RaisedButton onClick={()=>onSubmit()} label="Log in" primary />
-        <FlatButton label="Sign Up" onClick={handleOpen} primary={true} />
+        <RaisedButton onClick={()=>handleLoginSubmit()} label="Log in" primary />
+        <RaisedButton onClick={()=>handleSigButton()} label="Sign up" />
       </div>
   </div>
 );
 
-export default LoginForm;
+export default LoginComponent;
