@@ -41,7 +41,7 @@ const slack = SlackOAuthClient.connect(
 	'xoxb-248587322181-WkedBxz2LYOblHzscrV8tNj0'
 );
 
-slack.postMessage('Feedback', 'Deployed');
+if(process.env.NODE_ENV=='production') slack.postMessage('Feedback', 'Deployed');
 
 
 //Constants
