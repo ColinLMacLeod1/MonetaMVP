@@ -26,8 +26,8 @@ export default class App extends React.Component {
       issues: '',
       suggestions: '',
       likes: '',
-      page: 'App',
-      tabValue: 'b',
+      page: 'Home',
+      tabValue: 'a',
       code: '',
       PTermsAct: false,
       data: {
@@ -99,7 +99,7 @@ export default class App extends React.Component {
 
   sendFeedback () {
     const self = this;
-    axios.post('http://localhost:8080/feedback', {
+    axios.post('https://monettatech.com/feedback', {
         username: self.state.username,
         date: (new Date()).toString(),
         issue: self.state.issues,
