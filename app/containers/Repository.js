@@ -11,6 +11,9 @@ import CircularProgress from 'material-ui/CircularProgress'
 import DatePicker from 'material-ui/DatePicker'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
 import FlatButton from 'material-ui/FlatButton'
+import Dialog from 'material-ui/Dialog'
+import Divider from 'material-ui/Divider'
+import Paper from 'material-ui/Paper'
 
 import FileDisplayComponent from '../components/FileDisplayComponent.js'
 import PrintingComponent from '../components/PrintingComponent.js'
@@ -52,9 +55,12 @@ export default class Repository extends React.Component {
 			actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
 			decisions: ["Decision Test"],
       email:false,
-      codeRepo: 1
+      codeRepo: 1,
+      recipients: [],
+      recipientsOpen: false,
+      snackOpen: false
 		}
-    this.createEmail = this.createEmail.bind(this)
+
     this.toEmail = this.toEmail.bind(this)
     this.toPDF = this.toPDF.bind(this)
     this.loadAll = this.loadAll.bind(this)
@@ -67,6 +73,13 @@ export default class Repository extends React.Component {
     this.deleteMeeting = this.deleteMeeting.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.updateRefresh = this.updateRefresh.bind(this)
+    this.handleRecipientsAct = this.handleRecipientsAct.bind(this)
+    this.changeText = this.changeText.bind(this)
+    this.itemAdd = this.itemAdd.bind(this)
+    this.itemChange = this.itemChange.bind(this)
+    this.itemDelete = this.itemDelete.bind(this)
+
+
   }
 
   updateRefresh() {
@@ -91,50 +104,30 @@ export default class Repository extends React.Component {
     query.addListener(queryListener);
   }
 
-
-
-
-  createEmail() {
-    // Making all of the values variables
-    var mailURI = "mailto:";
-    var title = "%0A" +  this.state.meetingRes.title;
-    var type = "%0A" +this.state.meetingRes.type;
-    var date = "%0A" +(new Date(this.state.meetingRes.date)).toDateString();
-    var location = "%0A" +this.state.meetingRes.location + "%0A";
-    var groups = "%0AGroups:%0A"
-    var chair= "%0AChair: " +this.state.meetingRes.chair;
-    var members= "%0AMembers:%0A";
-    var minutes= "%0AMinutes:%0A";
-    var actions= "%0AActions:%0A";
-    var decisions= "%0ADecisions:%0A";
-    var message = "%0A%0A%0AThis message was sent to you by Monetta, meeting minutes for the 21st century";
-    var body = "";
-    // Making arrays into legit strings
-    for(var i=0;i<this.state.meetingRes.groups.length;i++) {
-      groups = groups + this.state.meetingRes.groups[i] + "%0A";
-    }
-    for(var i=0;i<this.state.meetingRes.members.length;i++) {
-      members = members + this.state.meetingRes.members[i] + "%0A";
-    }
-    for(var i=0;i<this.state.meetingRes.minutes.length;i++) {
-      minutes = minutes + this.state.meetingRes.minutes[i] + "%0A";
-    }
-    for(var i=0;i<this.state.meetingRes.actions.length;i++) {
-      actions = actions + this.state.meetingRes.actions[i].phrase + " Assigned to: " + this.state.meetingRes.actions[i].assigned.toString() + " Due " + this.state.meetingRes.actions[i].date + "%0A";
-    }
-    for(var i=0;i<this.state.meetingRes.decisions.length;i++) {
-      decisions = decisions + this.state.meetingRes.decisions[i] + "%0A";
-    }
-    body = '<h1> "Hello" </h1>';
-    return  mailURI  + "?body=" + body ;``
-  }
-  toEmail(){
-    this.setState({
-      email:true
+  toEmail() {
+    const self = this
+    var data = self.state.meetingRes
+    console.log(self.state.meetingRes)
+    axios.post('/emailMonettaMinutes',{
+      title: data.title,
+  		type: data.type,
+  		location: data.location,
+  		date: data.date,
+  		members: data.members,
+  		decisions: data.decisions,
+  		actions: data.actions,
+  		minutes: data.minutes,
+      recipients: self.state.recipients
+    }).then(function(result){
+      console.log(result)
+      self.setState({recipientsTemp: '', recipients: [], snackOpen: true})
+      self.handleRecipientsAct()
+    }).catch(function(err){
+      console.log(err)
     })
-    var test = this.createEmail();
-    location.href = test;
   }
+
+
   toPDF(){
     var content = document.getElementById("printable");
     var pri = document.getElementById("ifmcontentstoprint").contentWindow;
@@ -257,6 +250,34 @@ export default class Repository extends React.Component {
   				console.log(error)
   			})
   }
+
+  handleRecipientsAct () {
+    this.setState({recipientsOpen: !this.state.recipientsOpen})
+  }
+
+  itemAdd(){
+    var newArray = this.state.recipients
+    newArray.unshift(this.state.recipientsTemp)
+    this.setState({recipients: newArray, recipientsTemp: ''})
+  }
+
+  itemChange(item, index){
+    var newArray = this.state.recipients
+    newArray[index] = item
+    this.setState({recipients: newArray})
+  }
+
+  itemDelete(index){
+    var newArray = this.state.recipients
+    newArray.splice(index,1)
+		this.setState({recipients: newArray});
+	}
+
+  changeText (e) {
+    this.setState({recipientsTemp: e.target.value});
+    console.log(this.state.recipientsTemp)
+  }
+
   render(){
     var data={
       title: this.state.title,
@@ -268,6 +289,10 @@ export default class Repository extends React.Component {
       actions: this.state.actions,
       decisions: this.state.decisions
     }
+
+
+
+
 
     let sidebar = null;
     let container = null;
@@ -302,7 +327,7 @@ export default class Repository extends React.Component {
         <div className="displayContainer">
           <FileDisplayComponent
           data={this.state.meetingRes}
-          toEmail={this.toEmail}
+          toEmail={this.handleRecipientsAct}
           toPDF={this.toPDF}
           deleteMeeting={this.deleteMeeting}
           />
@@ -389,6 +414,50 @@ export default class Repository extends React.Component {
           {sidebar}
           {container}
         </div>
+
+        <div className='EmailDialog'>
+          <Dialog modal={false} open={this.state.recipientsOpen} onRequestClose={this.handleRecipientsAct}>
+            <h1> Please enter recipient emails</h1>
+            <div className='inputField'>
+  						<TextField
+  							floatingLabelText='Emails (hit "Enter" to add an email)'
+  							name='recipientsTemp'
+  							multiLine={true}
+  							value={this.state.recipientsTemp}
+  							style={{width: '100%'}}
+  							onChange={this.changeText}
+  							onKeyPress={(ev) => {
+  								if (ev.key === 'Enter') {
+  									ev.preventDefault();
+  									this.itemAdd();
+  								}}}
+  						/>
+  					</div>
+            <List>
+              {this.state.recipients.map((item, index) =>
+                <div key={index} className='recipientEmail' style={{display: 'flex', flexDirection: 'row', cursor: 'pointer'}}>
+                  <TextField
+                    name='recipients'
+                    value={item}
+                    onChange={(event,newValue) => this.itemChange(newValue, index)}
+                    style={{width: '60%'}}
+                    />
+                  <p onClick={(e) => this.itemDelete(index)}>x</p>
+                </div>
+              )}
+            </List>
+            <div>
+              <RaisedButton label='Send Email' onClick={this.toEmail} primary={true}/>
+            </div>
+          </Dialog>
+        </div>
+        <Snackbar
+          open={this.state.snackOpen}
+          message={'Email Sent!'}
+          autoHideDuration={4000}
+          onRequestClose={()=> this.setState({snackOpen: false})}
+          contentStyle={{display: 'flex', justifyContent: 'center'}}
+          />
 
 
       </div>

@@ -21,13 +21,13 @@ export default class App extends React.Component {
   constructor(props) {
 		super(props);
 		this.state = {
-      username: 'none',
+      username: 'colin',
       date: '',
       issues: '',
       suggestions: '',
       likes: '',
-      page: 'Home',
-      tabValue: 'a',
+      page: 'App',
+      tabValue: 'b',
       code: '',
       PTermsAct: false,
       data: {
@@ -99,7 +99,7 @@ export default class App extends React.Component {
 
   sendFeedback () {
     const self = this;
-    axios.post('https://monettatech.com/feedback', {
+    axios.post('http://localhost:8080/feedback', {
         username: self.state.username,
         date: (new Date()).toString(),
         issue: self.state.issues,
