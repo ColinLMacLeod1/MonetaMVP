@@ -40,7 +40,19 @@ export default class Feedback extends React.Component {
 				console.log(error)
 			})
 	}
-	getUsers()
+	getUsers() {
+		const self = this;
+		axios.get('https://monettatech.com/users')
+			.then(function(res) {
+				self.setState({
+          feedback:res.data
+        })
+				console.log('Got Feedback')
+			})
+			.catch(function(error) {
+				console.log(error)
+			})
+	}
 
   render() {
   		return (
