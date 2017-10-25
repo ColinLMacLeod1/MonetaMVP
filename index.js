@@ -21,7 +21,8 @@ app.use(cors())
 app.use(bodyParser.json())
 
 //Redirecting to https
-app.use(yes());
+if(process.env.NODE_ENV=='production') app.use(yes());;
+
 
 //Serving files
 const indexPath = path.join(__dirname, './dist/index.html');
@@ -41,7 +42,7 @@ const slack = SlackOAuthClient.connect(
 	'xoxb-248587322181-WkedBxz2LYOblHzscrV8tNj0'
 );
 
-//if(process.env.NODE_ENV=='production') slack.postMessage('Feedback', 'Deployed');
+if(process.env.NODE_ENV=='production') slack.postMessage('Feedback', 'Deployed');
 
 
 //Constants
@@ -321,7 +322,29 @@ app.get('/feedback',function(req,res){
 	});
 })
 
-
+//Get users
+app.get('/users', function(req,res){
+	let users = []
+	User.find({}).then(function(userResults){
+		Meeting.find({}).then(function(meetingResults){
+			for(let i=0;i<userResults.length;i++){
+				let meetingCount = 0
+				for(let j=0;j<meetingResults.length;j++){
+					if(meetingResults[j].username==userResults[i].username){
+						meetingCount++
+					}
+				}
+				users.push({username:userResults[i].username,meetingCount:meetingCount})
+			}
+			console.log(users)
+			res.send(JSON.stringify(users))
+		}).catch(function(err){
+			console.log(err)
+		})
+	}).catch(function(err){
+		console.log(err)
+	})
+})
 
 //Count users
 app.get('/usercount', function(req,res){

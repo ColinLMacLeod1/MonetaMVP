@@ -10,9 +10,11 @@ export default class Feedback extends React.Component {
 		super(props);
 		this.state = {
 			feedback:[],
-			users:[]
+			users:[],
+			userCount:0
 		}
 		this.getFeedback = this.getFeedback.bind(this)
+		this.getUsers = this.getUsers.bind(this)
 	}
 	componentDidMount(){
 		const self = this;
@@ -42,12 +44,13 @@ export default class Feedback extends React.Component {
 	}
 	getUsers() {
 		const self = this;
-		axios.get('https://monettatech.com/users')
+		console.log('Get Users')
+		axios.get('http://localhost:8080/users')
 			.then(function(res) {
 				self.setState({
-          feedback:res.data
+          users:res.data
         })
-				console.log('Got Feedback')
+				console.log('Got Users')
 			})
 			.catch(function(error) {
 				console.log(error)
@@ -59,8 +62,8 @@ export default class Feedback extends React.Component {
   				<div>
 						<FeedbackComponent
 							getFeedback={this.getFeedback}
-							getUsers={this.state.getUsers}
-							userCount={this.state.users.length()}
+							getUsers={this.getUsers}
+							userCount={this.state.userCount}
 							feedback={this.state.feedback}
 							users={this.state.users}
 						/>

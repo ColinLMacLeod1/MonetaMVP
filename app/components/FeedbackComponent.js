@@ -8,11 +8,12 @@ const FeedbackComponent = ({getFeedback, userCount, feedback, getUsers, users}) 
     <Tab label="Users">
       <FlatButton label="Get Users" fullWidth={true} onClick={getUsers} />
       {userCount}
-      {user.map((user, index)=>
+      {users.map((user, index)=>
         <Card key={index}>
           <CardHeader
             title={user.username}
             subtitle={'Meetings: ' + user.meetingCount + ', Minutes: Coming Soon'}
+          />
         </Card>
       ).reverse()}
     </Tab>
