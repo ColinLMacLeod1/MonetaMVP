@@ -1,9 +1,10 @@
 import React from 'react'
 import {Card, CardHeader, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
+import {Tab, Tabs} from 'material-ui/Tabs'
 
-const FeedbackComponent = ({getFeedback, userCount, feedback}) => (
-  <div>
+const FeedbackComponent = ({getFeedback, userCount, feedback, getUsers, users}) => (
+  <Tabs>
     <FlatButton label="Get Feedback" fullWidth={true} onClick={getFeedback} />
     {userCount}
     {feedback.map((feedback,index)=>
@@ -23,7 +24,7 @@ const FeedbackComponent = ({getFeedback, userCount, feedback}) => (
         </CardText>
       </Card>
     ).reverse()}
-  </div>
+  </Tabs>
 )
 
 export default FeedbackComponent;

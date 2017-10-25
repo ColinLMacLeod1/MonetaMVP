@@ -10,7 +10,7 @@ export default class Feedback extends React.Component {
 		super(props);
 		this.state = {
 			feedback:[],
-			userCount:0
+			users:[]
 		}
 		this.getFeedback = this.getFeedback.bind(this)
 	}
@@ -40,14 +40,17 @@ export default class Feedback extends React.Component {
 				console.log(error)
 			})
 	}
+	getUsers()
 
   render() {
   		return (
   				<div>
 						<FeedbackComponent
 							getFeedback={this.getFeedback}
-							userCount={this.state.userCount}
+							getUsers={this.state.getUsers}
+							userCount={this.state.users.length()}
 							feedback={this.state.feedback}
+							users={this.state.users}
 						/>
   				</div>
   			)
