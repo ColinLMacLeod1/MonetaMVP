@@ -45,7 +45,7 @@ export default class Feedback extends React.Component {
 	getUsers() {
 		const self = this;
 		console.log('Get Users')
-		axios.get('http://localhost:8080/users')
+		axios.get('https://monettatech.com/users')
 			.then(function(res) {
 				self.setState({
           users:res.data
