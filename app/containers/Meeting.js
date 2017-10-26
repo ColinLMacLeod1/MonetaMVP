@@ -50,6 +50,7 @@ export default class Meeting extends React.Component {
         actions: '',
         minutes: ''
       },
+      startTime:0
 		}
 
     this.changePane = this.changePane.bind(this)
@@ -286,6 +287,9 @@ export default class Meeting extends React.Component {
   stream(){
     const self=this;
 
+    self.setState({
+      startTime: (new Date()).getTime()
+    })
 		var stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
       token: this.state.token,
       objectMode: true, // send objects instead of text
@@ -320,7 +324,11 @@ export default class Meeting extends React.Component {
         console.log(err);
     });
 		window.addEventListener("keyup", stream.stop.bind(stream));
-    //document.querySelector('#stop').onclick = stream.stop.bind(stream);
+    window.addEventListener("keyup", ()=>{
+
+      console.log((new Date()).getTime() - this.state.startTime)
+    });
+
 
 	}
 
