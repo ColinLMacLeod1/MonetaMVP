@@ -89,7 +89,7 @@ export default class Header extends React.Component {
   handleLoginSubmit () {
     // this function submits the login request and proceeds if sucessful by updating App.js and receiving new props as a result
     const self = this;
-		axios.post('https://monettatech.com/login',
+		axios.post('http://localhost:3000/login',
         {
 				username: self.state.formUsername,
 				password: self.state.formPassword

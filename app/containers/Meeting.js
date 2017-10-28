@@ -286,10 +286,7 @@ export default class Meeting extends React.Component {
    }
   stream(){
     const self=this;
-
-    self.setState({
-      startTime: (new Date()).getTime()
-    })
+    let startTime = (new Date()).getTime()
 		var stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
       token: this.state.token,
       objectMode: true, // send objects instead of text
@@ -324,9 +321,15 @@ export default class Meeting extends React.Component {
         console.log(err);
     });
 		window.addEventListener("keyup", stream.stop.bind(stream));
-    window.addEventListener("keyup", ()=>{
-
-      console.log((new Date()).getTime() - this.state.startTime)
+    window.addEventListener("keyup", function dictationTiming(){
+      console.log(startTime)
+      console.log((new Date()).getTime() - startTime)
+      axios.post('http://localhost:3000/timesave',{username:self.state.username, time:(new Date()).getTime() - startTime}).then(function(res){
+        console.log('res')
+      }).catch(function(err){
+        console.log(err)
+      })
+      window.removeEventListener("keyup",  dictationTiming)
     });
 
 

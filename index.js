@@ -111,11 +111,12 @@ codes.map((code) => {
 		};
 	});
 });
-
+*/
+/*
 // Adding test users
-bcrypt.hash(initalUsers.teampassword, saltRounds).then(function(hash){
+bcrypt.hash('1234', saltRounds).then(function(hash){
 	var user1 = new User({
-		username: initalUsers.teamuser,
+		username: 'colin',
 		password: hash
 	});
 	console.log(user1)
@@ -197,7 +198,8 @@ app.post('/signup',function(req,res){
 							const hashPass = hash;
 							var user = new User({
 								username: req.body.username,
-								password: hash
+								password: hash,
+								time:0
 							});
 							user.save().then(function(){
 								if(user.isNew === false){
@@ -262,7 +264,6 @@ app.post('/delete',function(req,res){
 				res.send('Delete Unsuccessful')
 			}
 		})
-
 	});
 })
 
@@ -320,6 +321,21 @@ app.get('/feedback',function(req,res){
 	}).catch(function(err){
 		console.log(err)
 	});
+})
+
+//Dictation Time Save
+app.post('/timesave', function(req,res){
+	console.log('Called')
+	User.findOne({username: req.body.username}).then(function(user){
+		console.log(req.body.time)
+		let newTime = 0;
+		newTime = user.time + req.body.time;
+		console.log(newTime)
+		User.update({username: req.body.username}, {time: newTime}, {upsert: true}).then(function(err){
+			res.send('Updated Time')
+			console.log(err)
+		})
+	})
 })
 
 //Get users
