@@ -327,10 +327,8 @@ app.get('/feedback',function(req,res){
 app.post('/timesave', function(req,res){
 	console.log('Called')
 	User.findOne({username: req.body.username}).then(function(user){
-		console.log(req.body.time)
 		let newTime = 0;
 		newTime = user.time + req.body.time;
-		console.log(newTime)
 		User.update({username: req.body.username}, {time: newTime}, {upsert: true}).then(function(err){
 			res.send('Updated Time')
 			console.log(err)
@@ -350,7 +348,7 @@ app.get('/users', function(req,res){
 						meetingCount++
 					}
 				}
-				users.push({username:userResults[i].username,meetingCount:meetingCount})
+				users.push({username:userResults[i].username,meetingCount:meetingCount,time:userResults[i].time})
 			}
 			console.log(users)
 			res.send(JSON.stringify(users))

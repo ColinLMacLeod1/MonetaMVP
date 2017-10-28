@@ -12,7 +12,7 @@ const FeedbackComponent = ({getFeedback, userCount, feedback, getUsers, users}) 
         <Card key={index}>
           <CardHeader
             title={user.username}
-            subtitle={'Meetings: ' + user.meetingCount + ', Minutes: Coming Soon'}
+            subtitle={'Meetings: ' + user.meetingCount + ', Minutes: '+user.time}
           />
         </Card>
       ).reverse()}
