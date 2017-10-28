@@ -322,10 +322,7 @@ export default class Meeting extends React.Component {
     });
 		window.addEventListener("keyup", stream.stop.bind(stream));
     window.addEventListener("keyup", function dictationTiming(){
-      console.log(startTime)
-      console.log((new Date()).getTime() - startTime)
       axios.post('https://monettatech.com/timesave',{username:self.state.username, time:(new Date()).getTime() - startTime}).then(function(res){
-        console.log('res')
       }).catch(function(err){
         console.log(err)
       })
