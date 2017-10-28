@@ -324,7 +324,7 @@ export default class Meeting extends React.Component {
     window.addEventListener("keyup", function dictationTiming(){
       console.log(startTime)
       console.log((new Date()).getTime() - startTime)
-      axios.post('http://localhost:3000/timesave',{username:self.state.username, time:(new Date()).getTime() - startTime}).then(function(res){
+      axios.post('https://monettatech.com/timesave',{username:self.state.username, time:(new Date()).getTime() - startTime}).then(function(res){
         console.log('res')
       }).catch(function(err){
         console.log(err)
