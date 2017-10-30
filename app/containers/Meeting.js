@@ -292,7 +292,7 @@ export default class Meeting extends React.Component {
       objectMode: true, // send objects instead of text
       format: true, // optional - performs basic formatting on the results such as capitals an periods
 			keywords: ['Action','Decision','Matt'],
-			keywords_threshold: 0.
+			keywords_threshold: 0.5
 
     });
 
