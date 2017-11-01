@@ -99,7 +99,7 @@ export default class App extends React.Component {
 
   sendFeedback () {
     const self = this;
-    axios.post('https://monettatech.com/feedback', {
+    axios.post('http://localhost:3000/feedback', {
         username: self.state.username,
         date: (new Date()).toString(),
         issue: self.state.issues,

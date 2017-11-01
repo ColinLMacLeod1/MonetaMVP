@@ -76,7 +76,7 @@ export default class Meeting extends React.Component {
     	window.addEventListener("keydown", this.handleKeyDown);
     	window.addEventListener("keyup", this.handleKeyUp);
       const self = this;
-      axios.get('https://monettatech.com/token')
+      axios.get('http://localhost:3000/token')
   		.then(function (token) {
         self.setState({
           token:token.data
@@ -129,7 +129,7 @@ export default class Meeting extends React.Component {
 
   save(){
     const self = this;
-		axios.post('https://monettatech.com/save',
+		axios.post('http://localhost:3000/save',
 			{
 				title: self.state.title,
 				type: self.state.type,

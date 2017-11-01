@@ -66,27 +66,27 @@ console.log('Config:'+dbConfig.uri)
 
 // MongoDB Connection
 mongoose.Promise = global.Promise;
+/*
 mongoose.connect(dbConfig.uri,{
 	useMongoClient: true
 }).catch(function(err){
 	console.log(err)
 });
-
+*/
 //Thiago testing
-/*
+
 mongoose.connect('mongodb://localhost/mercurysquare', {
   UseMongoClient: true
 }).catch(function(err){
   console.log(err)
 });
-*/
+
 
 mongoose.connection.once('open',function(){
 	console.log('Connection made');
 }).on('error',function(error){
 	console.log('Connection error',error);
 });
-
 
 
 //Clearing DB on start up

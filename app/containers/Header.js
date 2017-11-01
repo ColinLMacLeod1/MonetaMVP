@@ -73,11 +73,14 @@ export default class Header extends React.Component {
   loadQs (loggedUser) {
     // this function updates the question string in the state depending on the state of the user's schema
     const self = this;
-    axios.post('https://monettatech.com/loadqs',{
+    axios.post('http://localhost:3000/loadqs',{
       username: loggedUser
     }).then(function(result){
-      if (result.data.promptqs.length === PromptQuestions.length) {
+      console.log(result.data)
+      if (result.data.promptqs.length >= PromptQuestions.length) {
         self.setState({answersLeft: false, logoClick: 'Home'})
+      } else if (result.data === 'no user found') {
+        console.log('user error')
       } else {
         self.setState({ questionStr: PromptQuestions[result.data.promptqs.length][1], answeredQs: result.data.promptqs})
       }
@@ -132,7 +135,7 @@ export default class Header extends React.Component {
   handleSignupSubmit() {
     // this function handles sign up which updates App.js and receives new props as a result
     const self = this;
-		axios.post('https://monettatech.com/signup',
+		axios.post('http://localhost:3000/signup',
 			{
 				username: self.state.formUsername,
 				password: self.state.formPassword,
@@ -194,20 +197,17 @@ export default class Header extends React.Component {
   sendFeedback () {
     // this function sends feedback to DB and Slack and activates a snackbar if sucessful
   	const self = this;
-  	axios.post('https://monettatech.com/feedback', {
+    console.log(self.state)
+  	axios.post('http://localhost:3000/feedback', {
   			username: self.props.username,
   			date: (new Date()).toString(),
-        issue: self.state.issue,
-  			suggestion: self.state.suggestion,
-  			likes: self.state.likes
+        likes: 'NOTIFICATION PROMPT',
+        suggestion: 'QUESTION - ' + self.state.questionStr,
+        issue: 'ANSWER (Score: ' + self.state.questionAnswerScore + ') - ' + self.state.questionAnswerText,
   		  }
     )
   	.then(function(res) {
-      self.setState({
-        issue:'',
-  			suggestion:'',
-  			likes:''
-        })
+      self.cleanUpQuestions()
   		console.log('Feedback Sent')
   	  }
     )
@@ -233,6 +233,11 @@ export default class Header extends React.Component {
 
   handleLogButton () {
     this.setState({logSig: 'login'})
+  }
+
+  cleanUpQuestions () {
+    console.log('cleanupquestions')
+    this.setState({questionAnswerText: '', questionAnswerScore: 0})
   }
 
   cleanUpForms () {
@@ -263,10 +268,7 @@ export default class Header extends React.Component {
     let newNumber = self.state.answeredQs.length
     let oldArray = self.state.answeredQs
     let answeredQsNew = [oldArray.concat(newNumber)]
-    this.setState({
-      likes: 'NOTIFICATION PROMPT',
-      suggestion: 'QUESTION - ' + self.state.questionStr,
-      issue: 'ANSWER (Score: ' + self.state.questionAnswerScore + ') - ' + self.state.questionAnswerText,
+    self.setState({
       logoClick: 'Home',
       answeredPrompt: true,
       answeredQs: answeredQsNew
@@ -275,7 +277,7 @@ export default class Header extends React.Component {
       username: self.props.username,
       newNumber: newNumber
     }).then(function(result){
-      //console.log(result)
+      // console.log(result)
     }).catch(function(err){
       console.log(err)
     })
@@ -299,7 +301,7 @@ export default class Header extends React.Component {
     this.setState({questionAnswerScore: value})
   }
   handleAnswerTextChange (event, index, value) {
-    this.setState({questionAnswerText: value})
+    this.setState({questionAnswerText: event.target.value})
   }
 
   render () {
