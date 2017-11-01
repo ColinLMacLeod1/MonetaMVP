@@ -140,7 +140,7 @@ export default class App extends React.Component {
 
     if(this.state.username == 'colin' || this.state.username == 'team@monettatech.com'){
       feedbackTab = (
-        <Tab label='Feedback' value='d'>
+        <Tab label='Admin' value='d'>
           <Feedback />
         </Tab>
       )

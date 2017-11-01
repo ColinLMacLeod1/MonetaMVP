@@ -27,7 +27,8 @@ app.use(cors())
 app.use(bodyParser.json())
 
 //Redirecting to https
-app.use(yes());
+if(process.env.NODE_ENV=='production') app.use(yes());;
+
 
 //Serving files
 const indexPath = path.join(__dirname, './dist/index.html');
@@ -47,7 +48,9 @@ const slack = SlackOAuthClient.connect(
 	'xoxb-248587322181-WkedBxz2LYOblHzscrV8tNj0'
 );
 
-slack.postMessage('Feedback', 'Deployed');
+
+if(process.env.NODE_ENV=='production') slack.postMessage('Feedback', 'Deployed');
+
 
 
 //Constants
@@ -116,11 +119,12 @@ codes.map((code) => {
 		};
 	});
 });
-
+*/
+/*
 // Adding test users
-bcrypt.hash(initalUsers.teampassword, saltRounds).then(function(hash){
+bcrypt.hash('1234', saltRounds).then(function(hash){
 	var user1 = new User({
-		username: initalUsers.teamuser,
+		username: 'colin',
 		password: hash
 	});
 	console.log(user1)
@@ -202,7 +206,8 @@ app.post('/signup',function(req,res){
 							const hashPass = hash;
 							var user = new User({
 								username: req.body.username,
-								password: hash
+								password: hash,
+								time:0
 							});
 							user.save().then(function(){
 								if(user.isNew === false){
@@ -267,7 +272,6 @@ app.post('/delete',function(req,res){
 				res.send('Delete Unsuccessful')
 			}
 		})
-
 	});
 })
 
@@ -385,7 +389,42 @@ app.get('/feedback',function(req,res){
 	});
 })
 
+//Dictation Time Save
+app.post('/timesave', function(req,res){
+	console.log('Called')
+	User.findOne({username: req.body.username}).then(function(user){
+		let newTime = 0;
+		newTime = user.time + req.body.time;
+		User.update({username: req.body.username}, {time: newTime}, {upsert: true}).then(function(err){
+			res.send('Updated Time')
+			console.log(err)
+		})
+	})
+})
 
+//Get users
+app.get('/users', function(req,res){
+	let users = []
+	User.find({}).then(function(userResults){
+		Meeting.find({}).then(function(meetingResults){
+			for(let i=0;i<userResults.length;i++){
+				let meetingCount = 0
+				for(let j=0;j<meetingResults.length;j++){
+					if(meetingResults[j].username==userResults[i].username){
+						meetingCount++
+					}
+				}
+				users.push({username:userResults[i].username,meetingCount:meetingCount,time:userResults[i].time})
+			}
+			console.log(users)
+			res.send(JSON.stringify(users))
+		}).catch(function(err){
+			console.log(err)
+		})
+	}).catch(function(err){
+		console.log(err)
+	})
+})
 
 //Count users
 app.get('/usercount', function(req,res){
