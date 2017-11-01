@@ -16,6 +16,12 @@ const config = require('config')
 const yes = require('yes-https')
 const { SlackOAuthClient } = require('messaging-api-slack')
 
+
+
+// Setting up snedgrid connection to send out email
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey('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')
+
 //Middleware
 app.use(cors())
 app.use(bodyParser.json())
@@ -42,7 +48,9 @@ const slack = SlackOAuthClient.connect(
 	'xoxb-248587322181-WkedBxz2LYOblHzscrV8tNj0'
 );
 
+
 if(process.env.NODE_ENV=='production') slack.postMessage('Feedback', 'Deployed');
+
 
 
 //Constants
@@ -64,8 +72,8 @@ mongoose.connect(dbConfig.uri,{
 	console.log(err)
 });
 
-/*
 //Thiago testing
+/*
 mongoose.connect('mongodb://localhost/mercurysquare', {
   UseMongoClient: true
 }).catch(function(err){
@@ -312,6 +320,64 @@ app.post('/updateqs', function(req, response) {
 		console.log('The raw response from Mongo was ', raw);
 	})
 })
+
+//Create and send email with sendgrid
+/*
+app.post('/toemail', function(req, response){
+	var data = {
+		title: req.body.title,
+		type: req.body.type,
+		location: req.body.location,
+		date: req.body.date,
+		members: req.body.members,
+		decisions: req.body.decisions,
+		actions: req.body.actions,
+		minutes: req.body.minutes
+	}
+
+	var msg = {
+		to: 'tdeoliveira05@gmail.com',
+		from: 'test@test.com',
+		subject: 'testing subject',
+		html: '<h1> is it working </h1><h2> think so</h2>'
+	}
+
+	sgMail.send(msg)
+
+	response.send()
+
+})
+*/
+
+// Creates and sends a templated email
+// This is hack af we need a better way
+app.post('/emailMonettaMinutes', function(req,response){
+	var data = {
+		title: req.body.title,
+		type: req.body.type,
+		location: req.body.location,
+		date: new Date(req.body.date).toDateString(),
+		members: req.body.members,
+		decisions: req.body.decisions,
+		actions: req.body.actions,
+		minutes: req.body.minutes,
+		recipients: req.body.recipients
+	}
+
+	var readyEmail = createMinutesEmail(data)
+
+	const msg = {
+	  to: data.recipients,
+	  from: 'minutes@monettatech.com',
+	  subject: 'Moneta Minutes from ' + data.date,
+	  html: readyEmail
+	};
+
+	sgMail.send(msg)
+
+	response.send(JSON.stringify(readyEmail))
+})
+
 
 
 //Get Feedback

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const MeetingSchema = new Schema({
+  username: String,
   title: String,
   type: String,
   date: Number,
@@ -12,8 +13,7 @@ const MeetingSchema = new Schema({
   members: Array,
   minutes: Array,
   actions: Array,
-  decisions:Array,
-  username: String
+  decisions:Array
 });
 
 const Meeting = mongoose.model('meeting', MeetingSchema);
