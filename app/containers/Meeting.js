@@ -40,7 +40,6 @@ export default class Meeting extends React.Component {
       pane: 'Info',
       username: this.props.username,
       saved:false,
-      email:false,
       transcript:'',
       isRecording:false,
       token:'',
@@ -56,9 +55,7 @@ export default class Meeting extends React.Component {
     this.changePane = this.changePane.bind(this)
     this.onChange = this.onChange.bind(this)
     this.save = this.save.bind(this)
-    this.toEmail = this.toEmail.bind(this)
     this.toPDF = this.toPDF.bind(this)
-    this.createEmail = this.createEmail.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
     this.newMeeting = this.newMeeting.bind(this)
     this.itemAdd = this.itemAdd.bind(this)
@@ -158,46 +155,7 @@ export default class Meeting extends React.Component {
       this.props.handlePromptFb()
 
   }
-  createEmail() {
-  	// Making all of the values variables
-  	var mailURI = "mailto:";
-  	var title = "%0A" +  this.state.title;
-  	var type = "%0A" +this.state.type;
-  	var date = "%0A" +this.state.date;
-  	var location = "%0A" +this.state.location + "%0A";
-  	var members= "%0AMembers:%0A";
-  	var minutes= "%0AMinutes:%0A";
-  	var actions= "%0AActions:%0A";
-  	var decisions= "%0ADecisions:%0A";
-  	var message = "%0A%0A%0AThis message was sent to you by Monetta, meeting minutes for the 21st century";
-  	var body = "";
-  	// Making arrays into legit strings
-  	for(var i=0;i<this.state.groups.length;i++) {
-  		groups = groups + this.state.groups[i] + "%0A";
-  	}
-  	for(var i=0;i<this.state.members.length;i++) {
-  		members = members + this.state.members[i] + "%0A";
-  	}
-  	for(var i=0;i<this.state.minutes.length;i++) {
-  		minutes = minutes + this.state.minutes[i] + "%0A";
-  	}
-  	for(var i=0;i<this.state.actions.length;i++) {
-  		actions = actions + this.state.actions[i].phrase + " Assigned to: " + this.state.actions[i].assigned.toString() + " Due " + this.state.actions[i].date + "%0A";
-  	}
-  	for(var i=0;i<this.state.decisions.length;i++) {
-  		decisions = decisions + this.state.decisions[i] + "%0A";
-  	}
 
-  	body = title + type + date + location  + groups + chair + members + minutes + actions + decisions + message;
-  	return  mailURI  + "?body=" + body ;
-	}
-  toEmail(){
-    this.setState({
-      email:true
-    })
-    var test = this.createEmail();
-		location.href = test;
-  }
   toPDF(){
     var content = document.getElementById("printable");
     var pri = document.getElementById("ifmcontentstoprint").contentWindow;
@@ -209,8 +167,7 @@ export default class Meeting extends React.Component {
   }
   handleRequestClose(){
     this.setState({
-      saved: false,
-      email:false
+      saved: false
     });
   }
   newMeeting(){
@@ -412,13 +369,14 @@ export default class Meeting extends React.Component {
                   onRequestClose={this.handleRequestClose}
                 /></div>);
       case 'Review':
-        return (<div>
+        return (
+          <div>
             <FileReviewComponent
               data={data}
               changePane={this.changePane}
               save={this.save}
               toPDF={this.toPDF}
-              toEmail={this.toEmail}
+              toEmail={() => this.props.prepareEmail(data)}
               handleRequestClose={this.handleRequestClose}
               newMeeting={this.newMeeting}
             />
@@ -429,12 +387,7 @@ export default class Meeting extends React.Component {
                   autoHideDuration={4000}
                   onRequestClose={this.handleRequestClose}
                 />
-              <Snackbar
-                    open={this.state.email}
-                    message="Preparing Your Email!"
-                    autoHideDuration={2000}
-                    onRequestClose={this.handleRequestClose}
-                  /></div>);
+          </div>);
 
   	}
   }
