@@ -16,7 +16,7 @@ const config = require('config')
 const yes = require('yes-https')
 const { SlackOAuthClient } = require('messaging-api-slack')
 
-
+const createMinutesEmail = require('./app/containers/Email/MonettaMinutes/templates.js')
 
 // Setting up snedgrid connection to send out email
 const sgMail = require('@sendgrid/mail')
@@ -320,34 +320,6 @@ app.post('/updateqs', function(req, response) {
 		console.log('The raw response from Mongo was ', raw);
 	})
 })
-
-//Create and send email with sendgrid
-/*
-app.post('/toemail', function(req, response){
-	var data = {
-		title: req.body.title,
-		type: req.body.type,
-		location: req.body.location,
-		date: req.body.date,
-		members: req.body.members,
-		decisions: req.body.decisions,
-		actions: req.body.actions,
-		minutes: req.body.minutes
-	}
-
-	var msg = {
-		to: 'tdeoliveira05@gmail.com',
-		from: 'test@test.com',
-		subject: 'testing subject',
-		html: '<h1> is it working </h1><h2> think so</h2>'
-	}
-
-	sgMail.send(msg)
-
-	response.send()
-
-})
-*/
 
 // Creates and sends a templated email
 // This is hack af we need a better way

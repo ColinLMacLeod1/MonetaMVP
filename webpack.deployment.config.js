@@ -16,7 +16,8 @@ const config = {
 			{test: /\.jsx?$/, use: {loader:'babel-loader', options:{presets: ["react","es2015"], plugins: ["transform-es2015-arrow-functions"]}}, exclude: [/node_modules/,/dist/,/test/]},
 			{test: /\.css$/, use:['style-loader','css-loader']},
 			{test: /\.(scss|sass)$/, use: ['style-loader', 'css-loader','sass-loader']},
-			{test: /\.(woff2?|jpe?g|png|gif|ico)$/, use: 'file-loader?name=./assets/images/[name].[ext]' }
+			{test: /\.(woff2?|jpe?g|png|gif|ico)$/, use: 'file-loader?name=./assets/images/[name].[ext]' },
+			{test: /\.(eot|svg|ttf|woff|woff2)$/, use: 'file-loader?name=./assets/fonts/[name].[ext]' }
 		]
 	},
 	plugins: [

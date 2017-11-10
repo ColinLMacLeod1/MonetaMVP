@@ -2,6 +2,8 @@
 @import _placeholders.sass
 @import _variables.sass
 
+@import HomeComponent.sass
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Quicksand|Roboto|Material+Icons')
 
 
@@ -12,25 +14,22 @@ html, body, iframe
   padding: 0
   border: none
   font-family: "Roboto"
-  min-width: 1024px
 
 
 .Header
   width: 100%
   height: $headerHeight
   background-color: white
-  border-bottom: 2px solid $blueMid1
   display: flex
   justify-content: center
+  background-color: $grayTop
   .HeaderBlock
     width: $headerBlockWidth
     height: inherit
     display: flex
     justify-content: space-between
     align-items: center
-    .HeaderHome
-      width: 30vw
-      min-width: 200px
+    margin-top: 20px
     .HeaderButtons
       width: 30vw
       min-width: 200px
@@ -39,7 +38,7 @@ html, body, iframe
     .HeaderLogo
       display: flex
       align-items: center
-      justify-content: center
+      justify-content: space-between
       width: 50vw
       min-height: 50px
       img
@@ -56,48 +55,7 @@ html, body, iframe
   color: $gold
 
 
-.HomeTop
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-  text-align: center
-  margin-top: 20px
-  color: $blueDark
-  width: 100%
-  .HomeTopWrapper
-    display: flex
-    flex-direction: center
-    align-items: center
-    justify-content: center
-    .Top
-      display: flex
-      flex-direction: column
-      justify-content: center
-      align-items: center
-      text-align: center
-      color: $blueDark
-      text-align: center
-      margin: 20px
-      .Heading
-        display: flex
-        font-size: 36px
-        margin: 20px 0
-      .Snippet
-        margin: 10px
-        font-weight: bold
-        color: $blueMid1
-      .SignupButton
-        margin-top: 1vh
-        margin-bottom: 60px
-      .Illustration
-        margin-left: 3vw
-        margin-right: 3vw
-        margin-bottom: 4vh
-        width: 34vw
-        min-width: 300px
-        position: relative
-        top: 2vh
+
 
 
 .LogSig
@@ -116,78 +74,6 @@ html, body, iframe
     align-items: center
     justify-content: space-around
     margin: 10px
-
-
-
-.HomeMid
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-  width: 100%
-  .Wrapper
-    background-color: $blueDark
-    height: auto
-    width: 100%
-    padding-top: 20px
-    padding-bottom: 20px
-    .WrapperText
-      width: $headerBlockWidth
-      height: auto
-      margin-left: auto
-      margin-right: auto
-      margin-top: 1em
-      color: white
-      display: flex
-      flex-direction: row
-      text-align: left
-      align-items: center
-      .Dict
-        width: 25vw
-        margin-left: 2.5vw
-        margin-top: 2vw
-        margin-bottom: 2vw
-        min-width: 300px
-      .Repo
-        width: 15vw
-        margin-left: 3.5vw
-        margin-right: 4.5vw
-        margin-top: 2vw
-        min-width: 250px
-      .Data
-        width: 15vw
-        margin-left: 4.5vw
-        margin-right: 3.5vw
-        min-width: 250px
-    .WrapperSum
-      width: 100%
-      text-align: center
-      align-items: center
-      display: flex
-      flex-direction: column
-      margin-bottom: 1vw
-      margin-top: 1vw
-      .WrapperSumBlock
-        width: $headerBlockWidth
-        color: white
-
-.HomeBot
-    width: 100%
-    display: flex
-    flex-direction: column
-    text-align: center
-    align-items: center
-    color: $gold
-    margin-top: 3em
-    margin-bottom: 3em
-    .Wrapper1
-      width: $headerBlockWidth/1.5
-      min-width: 450px
-      max-width: 600px
-    .BecomeAlpha
-      width: 280px
-      margin: 20px
-      font-weight: bold
 
 
 .Footer
