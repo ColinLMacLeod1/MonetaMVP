@@ -28,13 +28,13 @@ app.use(bodyParser.json())
 const indexPath = path.join(__dirname, './dist/index.html');
 const publicPath = express.static(path.join(__dirname, './dist'));
 
-const sslPath = path.join(__dirname, './dist/well-known/acme-challenge/w0IKxBWe8LdIlwxfRVXy0lXJoa65fs31u8TeaRzhOTE');
+const sslPath = path.join(__dirname, './dist/well-known/acme-challenge/3SNd5FhnrRecPBCZY8gQwxCJNA72wgRLDClWPNMFIQo');
 
 app.use('/', publicPath);
 
 app.get('/', function(_,res){ res.sendFile(indexPath) });
 
-app.get('/.well-known/acme-challenge/w0IKxBWe8LdIlwxfRVXy0lXJoa65fs31u8TeaRzhOTE', function(_,res){ res.sendFile(sslPath) });
+app.get('/.well-known/acme-challenge/3SNd5FhnrRecPBCZY8gQwxCJNA72wgRLDClWPNMFIQo', function(_,res){ res.sendFile(sslPath) });
 
 //OAuth
 const slack = SlackOAuthClient.connect(
