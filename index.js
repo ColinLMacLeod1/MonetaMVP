@@ -21,7 +21,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 //Redirecting to https
-if(process.env.NODE_ENV=='production') app.use(yes());;
+//if(process.env.NODE_ENV=='production') app.use(yes());;
 
 
 //Serving files
@@ -31,7 +31,7 @@ const publicPath = express.static(path.join(__dirname, './dist'));
 const sslPath = path.join(__dirname, './dist/well-known/acme-challenge/RFPs8WP09KT0cJbTNCJgs2V42_7lKd_2UfJLdK3RBc8');
 const sslPath1 = path.join(__dirname, './dist/well-known/acme-challenge/Z0pKihI7Gm3awBh08SD7ayfBToWPnLEjukRzWbHuW-E');
 
-app.use('/dist', publicPath);
+app.use('/', publicPath);
 
 app.get('/', function(_,res){ res.sendFile(indexPath) });
 
