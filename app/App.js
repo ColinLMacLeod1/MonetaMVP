@@ -14,6 +14,9 @@ import Help from './containers/Help.js'
 import Feedback from './containers/Feedback.js'
 import PromptQComponent from './components/PromptQComponent.js'
 import HomeComponent from './components/HomeComponent'
+import LoginComponent from './components/LoginComponent.js'
+import SignupComponent from './components/SignupComponent.js'
+import AlphaUserComponent from './components/AlphaUserComponent.js'
 
 
 
@@ -44,7 +47,22 @@ export default class App extends React.Component {
       openFeedback:false,
       sent: false,
       loggedin: false,
-      alphaActivation: false
+      alphaActivation: false,
+      tempEmail: '',
+      tempEmailVal: '',
+      logSig: '',
+      loginSignupDialog: false,
+      formUsername: '',
+      formPassword: '',
+      formCode: '',
+      errors: {},
+      tempUsername: '',
+      alphaFirstName: '',
+      alphaLastName: '',
+      alphaEmail: '',
+      alphaPosition: '',
+      alphaCompany: '',
+      alphaReferencer: ''
 		}
 
     this.handlePageChange=this.handlePageChange.bind(this)
@@ -56,8 +74,155 @@ export default class App extends React.Component {
     this.sendFeedback=this.sendFeedback.bind(this)
     this.changeParentState=this.changeParentState.bind(this)
     this.handleAlphaActivation=this.handleAlphaActivation.bind(this)
-
+    this.changeTempEmail=this.changeTempEmail.bind(this)
+    this.submitTempEmail=this.submitTempEmail.bind(this)
+    this.handleLogSigActivate=this.handleLogSigActivate.bind(this)
+    this.cleanUpForms=this.cleanUpForms.bind(this)
+    this.handleLoginSubmit=this.handleLoginSubmit.bind(this)
+    this.handleSignupSubmit=this.handleSignupSubmit.bind(this)
+    this.handleSigButton=this.handleSigButton.bind(this)
+    this.handleLogButton=this.handleLogButton.bind(this)
+    this.changeTempUsername=this.changeTempUsername.bind(this)
+    this.sendAlphaEmail=this.sendAlphaEmail.bind(this)
 	}
+
+  handleLoginSubmit () {
+    // this function submits the login request and proceeds if sucessful by updating App.js and receiving new props as a result
+    const self = this;
+		axios.post('http://localhost:3000/login',
+        {
+				username: self.state.formUsername,
+				password: self.state.formPassword
+        }
+			)
+			.then (function(res) {
+        if(res.data != 'User not found'){
+          var errors = self.state.errors;
+          errors.username = "";
+          self.setState( {errors:errors} )
+        }
+
+        if (res.data != 'User Exists') {
+          var errors = self.state.errors;
+          errors.password = "";
+          self.setState( {errors:errors} )
+        }
+
+				if(res.data != 'User not found' && res.data != 'User Exists'){
+          self.enterLogin(self.state.formUsername)
+          self.cleanUpForms()
+          //self.props.history.push('/home')
+				} else if(res.data == 'User not found') {
+          var errors = self.state.errors;
+          errors.username = "User not found";
+          self.setState( {errors:errors} )
+
+        } else if(res.data == 'User Exists'){
+            var errors = self.state.errors;
+            errors.password = "Password does not match";
+            self.setState( {errors:errors} )
+        }
+
+			})
+			.catch(function(error) {
+				console.log(error)
+		  })
+  }
+
+  handleSignupSubmit() {
+    // this function handles sign up which updates App.js and receives new props as a result
+    const self = this;
+		axios.post('http://localhost:3000/signup',
+			{
+				username: self.state.formUsername,
+				password: self.state.formPassword,
+        code: self.state.formCode
+			}
+			)
+			.then(function(res) {
+        if(res.data != 'User Exists'){
+          var errors = self.state.errors;
+          errors.email = "";
+          self.setState({
+              errors:errors
+          })
+        }
+        if(res.data != 'Sign Up Unsuccessful'){
+          var errors = self.state.errors;
+          errors.password = "";
+          self.setState({
+              errors:errors
+          })
+        }
+				if(res.data != 'Sign Up Unsuccessful' && res.data != 'User Exists' && res.data !="Code Already Used" && res.data !="Code Doesn't Exist"){
+          self.enterLogin(self.state.formUsername)
+          self.cleanUpForms()
+          //self.props.history.push('/home')
+				} else if(res.data == 'User Exists') {
+          var errors = self.state.errors;
+          errors.email = "User Already Exists";
+          self.setState({
+              errors:errors
+          })
+        } else if(res.data == "Code Already Used"){
+          var errors = self.state.errors;
+          errors.code = "Code Already Used";
+          self.setState({
+              errors:errors
+          })
+        } else if(res.data == "Code Doesn't Exist"){
+          var errors = self.state.errors;
+          errors.code = "Code Doesn't Exist";
+          self.setState({
+              errors:errors
+          })
+        } else {
+            var errors = self.state.errors;
+            errors.password = "Account didn't save properly";
+            self.setState({
+                errors:errors
+            })
+        }
+
+			})
+			.catch(function(error) {
+				console.log(error)
+			})
+
+  }
+
+  sendAlphaEmail () {
+    const self = this
+    axios.post('http://localhost:3000/emailNewAlphaUser', {
+      firstName: self.state.alphaFirstName,
+      lastName: self.state.alphaLastName,
+      email: self.state.alphaEmail,
+      position: self.state.alphaPosition,
+      company: self.state.alphaCompany,
+      reference: self.state.alphaReference
+    }).then (function(res) {
+      console.log(res)
+    }).catch (function (err) {
+      console.log(err)
+    })
+  }
+
+  handleSigButton () {
+    this.setState({logSig: 'signup'})
+  }
+
+  handleLogButton () {
+    this.setState({logSig: 'login'})
+  }
+
+  submitTempEmail () {
+    this.setState({tempEmailVal: this.state.tempEmail})
+  }
+
+  changeTempEmail (event) {
+    this.setState({tempEmail: event.target.value})
+    console.log('tempEmailVal: ' + this.state.tempEmailVal)
+  }
 
   handlePageChange (pg) {
     this.setState({page:pg});
@@ -73,6 +238,10 @@ export default class App extends React.Component {
 
   hasRefresh () {
       this.setState({code: ''})
+  }
+
+  cleanUpForms () {
+
   }
 
   enterLogin (user) {
@@ -94,6 +263,20 @@ export default class App extends React.Component {
 
   changeParentState (event) {
     this.setState({[event.target.name]: event.target.value});
+    console.log('name is: '+ event.target.name)
+    console.log('value is: '+ event.target.value)
+  }
+
+  changeTempUsername (event) {
+    this.setState({tempUsername: event.target.value, alphaEmail: event.target.value})
+  }
+
+  handleLogSigActivate (val) {
+    this.setState({
+      loginSignupDialog: !this.state.loginSignupDialog,
+      logSig: val
+    })
+    console.log(this.state.tempUsername)
   }
 
 
@@ -156,6 +339,57 @@ export default class App extends React.Component {
       )
     }
 
+    if (this.state.logSig === 'login') {
+      var LogSigComponent = (
+
+        <Dialog style={{width: '100%'}} autoScrollBodyContent={true} modal={false} open={this.state.loginSignupDialog} onRequestClose={() => this.handleLogSigActivate('login')}>
+          <LoginComponent
+            handleLoginSubmit = {this.handleLoginSubmit}
+            onChange = {this.changeParentState}
+            username = {this.state.formUsername}
+            password = {this.state.formPassword}
+            errors = {this.state.errors}
+            handleSigButton = {this.handleSigButton}
+          />
+        </Dialog>
+
+      )
+    } else if (this.state.logSig === 'signup'){
+      var LogSigComponent = (
+
+        <Dialog style={{width: '100%'}} autoScrollBodyContent={true} modal={false} open={this.state.loginSignupDialog} onRequestClose={() => this.handleLogSigActivate('login')}>
+          <SignupComponent
+            handleSignupSubmit={this.handleSignupSubmit}
+            handleLogSigActivate={this.handleLogSigActivate}
+            onChange={this.changeParentState}
+            username={this.state.formUsername}
+            password={this.state.formPassword}
+            code={this.state.formCode}
+            errors={this.state.errors}
+            handleLogButton={this.handleLogButton}
+            tempUsername={this.state.tempUsername}
+          />
+        </Dialog>
+      )
+    } else {
+      var LogSigComponent = (
+        <Dialog style={{width: '100%'}} autoScrollBodyContent={true} modal={false} open={this.state.loginSignupDialog} onRequestClose={() => this.handleLogSigActivate('login')}>
+          <AlphaUserComponent
+          onChange={this.changeParentState}
+          firstName={this.state.alphaFirstName}
+          lastName={this.state.alphaLastName}
+          email={this.state.alphaEmail}
+          position={this.state.alphaPosition}
+          company={this.state.alphaCompany}
+          reference={this.state.alphaReference}
+          tempUsername={this.state.tempUsername}
+          sendAlphaEmail={this.sendAlphaEmail}
+          />
+        </Dialog>
+      )
+    }
+
+    //**   RETURN STATEMENT   **//
     switch (this.state.page) {
       case 'Home':
         return(
@@ -168,14 +402,21 @@ export default class App extends React.Component {
             inside={false}
             enterLogin={this.enterLogin}
             handlePTerms={this.handlePTerms}
+            handleLogSigActivate={this.handleLogSigActivate}
             />
 
           <HomeComponent
             handleAlphaActivation = {this.handleAlphaActivation}
             alphaActivation = {this.state.alphaActivation}
+            formUsername = {this.state.formUsername}
+            handleLogSigActivate = {this.handleLogSigActivate}
+            tempUsername = {this.state.tempUsername}
+            changeTempUsername = {this.changeTempUsername}
+
             />
           <FooterComponent handlePTerms={this.handlePTerms}/>
           {PTerms}
+          {LogSigComponent}
         </div>
       )
 

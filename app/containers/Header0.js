@@ -13,6 +13,8 @@ import RaisedButton from 'material-ui/RaisedButton'
 
 import HeaderComponent from '../components/HeaderComponent.js'
 import HeaderInsideComponent from '../components/HeaderInsideComponent.js'
+import LoginComponent from '../components/LoginComponent.js'
+import SignupComponent from '../components/SignupComponent.js'
 import MonettaLogo from '../assets/images/MonettaLogo.png'
 import MonettaLogoNotif from '../assets/images/MonettaLogoNotif.png'
 const PromptQuestions = require('./Data/PromptQuestions.js')
@@ -25,6 +27,9 @@ export default class Header extends React.Component {
       loginSignupDialog: false,
       logSig: 'login',
       errors: {},
+      formUsername: '',
+      formPassword: '',
+      formCode: '',
       issue:'',
 			suggestion:'',
 			likes:'',
@@ -39,9 +44,11 @@ export default class Header extends React.Component {
       answersLeft: true,
       answeredPrompt: false,
       errors: {},
+      tempEmail: '',
       defaultEmailAct: false
       }
     this.handleHome=this.handleHome.bind(this)
+    this.handleLoginSubmit=this.handleLoginSubmit.bind(this)
     this.changeParentState = this.changeParentState.bind(this)
 		this.sendFeedback = this.sendFeedback.bind(this)
     this.feedbackButton = this.feedbackButton.bind(this)
@@ -51,13 +58,32 @@ export default class Header extends React.Component {
     this.handleLogoClick=this.handleLogoClick.bind(this)
     this.handleAnswerScoreChange=this.handleAnswerScoreChange.bind(this)
     this.handleAnswerTextChange=this.handleAnswerTextChange.bind(this)
+    this.handleLogSigActivate=this.handleLogSigActivate.bind(this)
+    this.handleSignupSubmit=this.handleSignupSubmit.bind(this)
+    this.handleSigButton=this.handleSigButton.bind(this)
+    this.cleanUpForms=this.cleanUpForms.bind(this)
     this.loadQs=this.loadQs.bind(this)
+    this.handleLogButton=this.handleLogButton.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.loggedin && !this.state.answeredPrompt ) {
       this.loadQs(nextProps.username)
     }
+
+
+    console.log('------------------------')
+    console.log('old tempEmailVal: ' + this.props.tempEmailVal)
+    console.log('new tempEmailVal: ' + nextProps.tempEmailVal)
+    console.log('------------------------')
+    // this checks whether the value inside the text field is the same as the previously submitted value
+    // if it is, it updates the old value of formUsername to the text inside the text field ("tempEmailVal")
+    // this ensures that the email is put into the username field of the signup dialog when the "get started for free" button is clicked
+    if (nextProps.tempEmailVal !== this.props.tempEmailVal) {
+      this.handleLogSigActivate('signup', true)
+      console.log('entered loop')
+    }
+
   }
 
   loadQs (loggedUser) {
@@ -79,7 +105,110 @@ export default class Header extends React.Component {
     })
   }
 
+  handleLoginSubmit () {
+    // this function submits the login request and proceeds if sucessful by updating App.js and receiving new props as a result
+    const self = this;
+		axios.post('http://localhost:3000/login',
+        {
+				username: self.state.formUsername,
+				password: self.state.formPassword
+        }
+			)
+			.then (function(res) {
+        if(res.data != 'User not found'){
+          var errors = self.state.errors;
+          errors.username = "";
+          self.setState( {errors:errors} )
+        }
 
+        if (res.data != 'User Exists') {
+          var errors = self.state.errors;
+          errors.password = "";
+          self.setState( {errors:errors} )
+        }
+
+				if(res.data != 'User not found' && res.data != 'User Exists'){
+          self.props.enterLogin(self.state.formUsername)
+          self.cleanUpForms()
+          //self.props.history.push('/home')
+				} else if(res.data == 'User not found') {
+          var errors = self.state.errors;
+          errors.username = "User not found";
+          self.setState( {errors:errors} )
+
+        } else if(res.data == 'User Exists'){
+            var errors = self.state.errors;
+            errors.password = "Password does not match";
+            self.setState( {errors:errors} )
+        }
+
+			})
+			.catch(function(error) {
+				console.log(error)
+		  })
+  }
+
+  handleSignupSubmit() {
+    // this function handles sign up which updates App.js and receives new props as a result
+    const self = this;
+		axios.post('http://localhost:3000/signup',
+			{
+				username: self.state.formUsername,
+				password: self.state.formPassword,
+        code: self.state.formCode
+			}
+			)
+			.then(function(res) {
+        if(res.data != 'User Exists'){
+          var errors = self.state.errors;
+          errors.email = "";
+          self.setState({
+              errors:errors
+          })
+        }
+        if(res.data != 'Sign Up Unsuccessful'){
+          var errors = self.state.errors;
+          errors.password = "";
+          self.setState({
+              errors:errors
+          })
+        }
+				if(res.data != 'Sign Up Unsuccessful' && res.data != 'User Exists' && res.data !="Code Already Used" && res.data !="Code Doesn't Exist"){
+          self.props.enterLogin(self.state.formUsername)
+          self.cleanUpForms()
+          //self.props.history.push('/home')
+				} else if(res.data == 'User Exists') {
+          var errors = self.state.errors;
+          errors.email = "User Already Exists";
+          self.setState({
+              errors:errors
+          })
+        } else if(res.data == "Code Already Used"){
+          var errors = self.state.errors;
+          errors.code = "Code Already Used";
+          self.setState({
+              errors:errors
+          })
+        } else if(res.data == "Code Doesn't Exist"){
+          var errors = self.state.errors;
+          errors.code = "Code Doesn't Exist";
+          self.setState({
+              errors:errors
+          })
+        } else {
+            var errors = self.state.errors;
+            errors.password = "Account didn't save properly";
+            self.setState({
+                errors:errors
+            })
+        }
+
+			})
+			.catch(function(error) {
+				console.log(error)
+			})
+
+  }
 
   sendFeedback () {
     // this function sends feedback to DB and Slack and activates a snackbar if sucessful
@@ -105,9 +234,44 @@ export default class Header extends React.Component {
   	this.setState({openFeedback: false})
     this.setState({sent: true})
   }
+
+  handleLogSigActivate (val, bool) {
+
+    if (bool) {
+      console.log('bool is true')
+      this.setState({
+        loginSignupDialog: !this.state.loginSignupDialog,
+        logSig: val,
+        formUsername: this.props.tempEmailVal
+      })
+    } else {
+      console.log('bool not true')
+      this.setState({
+        loginSignupDialog: !this.state.loginSignupDialog,
+        logSig: val
+      })
+
+      this.cleanUpForms()
+    }
+
+
+  }
+
+  handleSigButton () {
+    this.setState({logSig: 'signup'})
+  }
+
+  handleLogButton () {
+    this.setState({logSig: 'login'})
+  }
+
   cleanUpQuestions () {
     console.log('cleanupquestions')
     this.setState({questionAnswerText: '', questionAnswerScore: 0})
+  }
+
+  cleanUpForms () {
+    this.setState({formUsername: '', formPassword: '', formCode: ''})
   }
 
   changeParentState (event) {
@@ -215,6 +379,33 @@ export default class Header extends React.Component {
       </div>
     )
 
+    if (this.state.logSig === 'login') {
+      var LogSig = (
+        <LoginComponent
+          handleLoginSubmit = {this.handleLoginSubmit}
+          onChange = {this.changeParentState}
+          username = {this.state.formUsername}
+          password = {this.state.formPassword}
+          errors = {this.state.errors}
+          handleSigButton = {this.handleSigButton}
+        />
+      )
+    } else {
+      var LogSig = (
+        <SignupComponent
+          handleSignupSubmit = {this.handleSignupSubmit}
+          handleLogSigActivate = {this.handleLogSigActivate}
+          onChange = {this.changeParentState}
+          username = {this.state.formUsername}
+          password = {this.state.formPassword}
+          code = {this.state.formCode}
+          errors = {this.state.errors}
+          handleLogButton = {this.handleLogButton}
+          tempEmail = {this.state.tempEmail}
+        />
+      )
+    }
+
 
 
     switch (this.props.inside) {
@@ -250,8 +441,11 @@ export default class Header extends React.Component {
       return (
         <div>
           <HeaderComponent
-            handleLogSigActivate={this.props.handleLogSigActivate}
+            handleLogSigActivate={this.handleLogSigActivate}
             />
+          <Dialog style={{width: '100%'}} modal={false} open={this.state.loginSignupDialog} onRequestClose={() => this.handleLogSigActivate('login', false)}>
+                {LogSig}
+          </Dialog>
         </div>
       )
     }

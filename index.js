@@ -350,6 +350,40 @@ app.post('/emailMonettaMinutes', function(req,response){
 	response.send(JSON.stringify(readyEmail))
 })
 
+app.post('/emailNewAlphaUser', function(req, response) {
+	console.log(req.body)
+
+	var data = {
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		email: req.body.email,
+		position: req.body.position,
+		company: req.body.company,
+		reference: req.body.reference
+	}
+
+	console.log(data)
+
+	var name= 'NAME: ' + data.firstName + ' ' + data.lastName
+ 	var email = 'EMAIL: ' + data.email
+	var job = 'JOB POSITION: ' + data.position
+	var company = 'COMPANY: ' + data.company
+	var reference = 'REFERENCE: ' + data.reference
+
+	var readyMail =  '</p>' + name + ' ' + email + ' ' + job + ' ' + company + ' ' + reference + ' ' +'</p>'
+
+	const msg = {
+		to: 'team@monettatech.com',
+		from: 'newalphatesters@monettatech.com',
+		subject: 'NEW ALPHA TESTER REQUEST: ' + data.firstName + data.lastName,
+		html: readyMail
+	}
+
+	sgMail.send(msg)
+
+	response.send(JSON.stringify(readyMail))
+})
+
 
 
 //Get Feedback

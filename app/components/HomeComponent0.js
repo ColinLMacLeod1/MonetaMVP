@@ -144,12 +144,3 @@ const HomeComponent = ({handleAlphaActivation, alphaActivation}) => (
 )
 
 export default HomeComponent;
-
-/*
-<div style={{display: 'flex', justifyContent: 'center'}}>
-  <Paper rounded={true} style={{width: '225px', padding: '5px 10px', borderRadius: '5px', height: '45px', margin: '10px'}}>
-    <TextField hintText='Enter your email here' style={{width: '200px'}}/>
-  </Paper>
-  <RaisedButton label='Get started for free' style={{height: '45px', borderRadius: '5px'}}/>
-</div>
-*/

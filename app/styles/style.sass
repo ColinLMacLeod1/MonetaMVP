@@ -5,6 +5,7 @@
 @import HomeComponent.sass
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Quicksand|Roboto|Material+Icons')
+@import url('http://fonts.googleapis.com/css?family=Lato')
 
 
 
@@ -13,37 +14,39 @@ html, body, iframe
   margin: 0
   padding: 0
   border: none
-  font-family: "Roboto"
+  font-family: "Lato"
+  font-size: 18px
+  min-width: 320px
+  @include desktopSmall {font-size: 14px}
+  @include mobileMedia {font-size: 10px}
 
 
 .Header
   width: 100%
   height: $headerHeight
-  background-color: white
   display: flex
   justify-content: center
   background-color: $grayTop
   .HeaderBlock
     width: $headerBlockWidth
-    height: inherit
+    @include mobileMedia {width: 300px}
+    margin-top: 80px
+    @include mobileMedia {margin-top: 10px}
     display: flex
     justify-content: space-between
+    @include mobileMedia {justify-content: center}
     align-items: center
-    margin-top: 20px
+    img
+      width: 30%
     .HeaderButtons
       width: 30vw
-      min-width: 200px
+      @include mobileMedia {width: 20%}
+      min-width: 180px
+      height: 35px
+      font-size: 1em
       display: flex
       justify-content: flex-end
-    .HeaderLogo
-      display: flex
       align-items: center
-      justify-content: space-between
-      width: 50vw
-      min-height: 50px
-      img
-        min-width: 150px
-        margin: 0 5px
 
 
 .DialogLogin
@@ -65,6 +68,7 @@ html, body, iframe
   align-items: center
   text-align: center
   margin-bottom: 3vh
+  @include mobileMedia {width: 320px}
   h2
     color: $gold
   .button-line
@@ -74,18 +78,26 @@ html, body, iframe
     align-items: center
     justify-content: space-around
     margin: 10px
+  TextField
+    @include mobileMedia {width: 80px}
+
 
 
 .Footer
   display: inline-flex
   justify-content: center
-  border-top: 2px solid $blueMid1
   width: 100%
+  background-color: $grayTop
   .FooterBlock
     display: inline-flex
+    @include mobileMedia {display: flex}
+    @include mobileMedia {flex-direction: column}
     align-items: center
     justify-content: space-between
+    @include mobileMedia {justify-content: space-around}
+    @include mobileMedia {height: 300px}
     width: $headerBlockWidth
+    border-top: 2px solid $blueMid1
     .Logo
       width: 150px
       order: 1
@@ -93,12 +105,13 @@ html, body, iframe
       width: 150px
       order: 2
       text-align: center
-      font-size: 12px
+      font-size: 0.66em
       color: $blueDark
     .Button
       padding: 0
       width: 150px
       order: 3
+
 
 .PrivacyTermsWrapper
   width: 100%
@@ -122,7 +135,7 @@ html, body, iframe
       text-align: left
       width: inherit
       p
-        font-size: 14px
+        font-size: 0.75em
         color: $blueMid1
 
 .PromptQComponent
@@ -195,7 +208,7 @@ html, body, iframe
       font-family: 'Roboto'
       font-weight: lighter
       color: grey
-      font-size: 20pt
+      font-size: 1em
       padding: 10px
 
 .printing
@@ -216,7 +229,7 @@ html, body, iframe
     overflow: hidden
   h2
     font-family: "Roboto"
-    font-size: 14pt
+    font-size: 0.75em
     font-weight: lighter
     color: grey
     overflow: hidden
@@ -258,7 +271,7 @@ html, body, iframe
       width: 33%
       padding: 10px
       .field-line
-        font-size: 8pt
+        font-size: 0.5em
   .navButtons
     display: flex
     flex-direction: row

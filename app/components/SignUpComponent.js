@@ -1,12 +1,10 @@
 import React from 'react'
-import Link from 'react-router'
-import Card from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
 
-const SignupComponent = ({handleLogSigActivate, handleSignupSubmit, handleLogButton, onChange, errors, formUsername, formPassword, formCode}) => (
+const SignupComponent = ({handleLogSigActivate, handleSignupSubmit, handleLogButton, tempUsername, onChange, errors, formUsername, formPassword, formCode}) => (
   <div className="LogSig" >
       <h2>Create Account</h2>
 
@@ -17,6 +15,7 @@ const SignupComponent = ({handleLogSigActivate, handleSignupSubmit, handleLogBut
           errorText={errors.email}
           onChange={onChange}
           value={formUsername}
+          defaultValue={tempUsername}
         />
       </div>
 
