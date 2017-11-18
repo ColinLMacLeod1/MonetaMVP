@@ -17,7 +17,7 @@ import block2contentimage2 from '../assets/images/AIexample.png'
 import AlphaUsers1 from '../assets/images/alphausers1.png'
 import AlphaUsers2 from '../assets/images/alphausers2.png'
 import AlphaUsers3 from '../assets/images/alphausers3.png'
-import AlphaUsers4 from '../assets/images/alphausers4.png'
+import AlphaUsers4 from '../assets/images/alphausers4.png' 
 
 
 

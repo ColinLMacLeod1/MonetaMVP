@@ -17,8 +17,6 @@ const yes = require('yes-https')
 const { SlackOAuthClient } = require('messaging-api-slack')
 const createMinutesEmail = require('./app/containers/Email/MonettaMinutes/templates.js')
 
-const createMinutesEmail = require('./app/containers/Email/MonettaMinutes/templates.js')
-
 // Setting up snedgrid connection to send out email
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey('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')
