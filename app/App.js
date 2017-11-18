@@ -4,6 +4,9 @@ import {Tab, Tabs} from 'material-ui/Tabs'
 import Dialog from 'material-ui/Dialog'
 import RaisedButton from 'material-ui/RaisedButton'
 import Card from 'material-ui/Card'
+import TextField from 'material-ui/TextField'
+import List from 'material-ui/List'
+import Snackbar from 'material-ui/Snackbar'
 
 import Header from './containers/Header.js'
 import FooterComponent from './components/FooterComponent.js'
@@ -62,7 +65,11 @@ export default class App extends React.Component {
       alphaEmail: '',
       alphaPosition: '',
       alphaCompany: '',
-      alphaReferencer: ''
+      alphaReferencer: '',
+      recipientsOpen: false,
+      recipientsTemp: '',
+      recipients: [],
+      snackOpen: false,
 		}
 
     this.handlePageChange=this.handlePageChange.bind(this)
@@ -84,6 +91,13 @@ export default class App extends React.Component {
     this.handleLogButton=this.handleLogButton.bind(this)
     this.changeTempUsername=this.changeTempUsername.bind(this)
     this.sendAlphaEmail=this.sendAlphaEmail.bind(this)
+
+    this.prepareEmail=this.prepareEmail.bind(this)
+    this.itemAdd=this.itemAdd.bind(this)
+    this.itemChange=this.itemChange.bind(this)
+    this.itemDelete=this.itemDelete.bind(this)
+    this.changeText=this.changeText.bind(this)
+    this.toEmail=this.toEmail.bind(this)
 	}
 
   handleLoginSubmit () {
@@ -201,11 +215,63 @@ export default class App extends React.Component {
       company: self.state.alphaCompany,
       reference: self.state.alphaReference
     }).then (function(res) {
-      console.log(res)
+      console.log('done')
     }).catch (function (err) {
       console.log(err)
     })
   }
+
+  toEmail(data) {
+    const self = this
+    axios.post('http://localhost:3000/emailMonettaMinutes',{
+      title: self.state.data.title,
+      type: self.state.data.type,
+      location: self.state.data.location,
+      date: self.state.data.date,
+      members: self.state.data.members,
+      decisions: self.state.data.decisions,
+      actions: self.state.data.actions,
+      minutes: self.state.data.minutes,
+      recipients: self.state.recipients
+    }).then(function(result){
+      self.setState({recipientsTemp: '', recipients: [], snackOpen: true})
+      self.prepareEmail()
+      console.log('sent email')
+    }).catch(function(err){
+      console.log(err)
+    })
+  }
+
+  itemAdd(){
+    var newArray = this.state.recipients
+    newArray.unshift(this.state.recipientsTemp)
+    this.setState({recipients: newArray, recipientsTemp: ''})
+  }
+
+  itemChange(item, index){
+    var newArray = this.state.recipients
+    newArray[index] = item
+    this.setState({recipients: newArray})
+  }
+
+  itemDelete(index){
+    var newArray = this.state.recipients
+    newArray.splice(index,1)
+    this.setState({recipients: newArray});
+  }
+
+  changeText (e) {
+    this.setState({recipientsTemp: e.target.value});
+  }
+
+  prepareEmail (dataVal) {
+    if (this.state.recipientsOpen === false){
+      this.setState({recipientsOpen: true, data: dataVal})
+    } else {
+      this.setState({recipientsOpen: false, data: {} })
+    }
+  }
+
 
   handleSigButton () {
     this.setState({logSig: 'signup'})
@@ -263,8 +329,6 @@ export default class App extends React.Component {
 
   changeParentState (event) {
     this.setState({[event.target.name]: event.target.value});
-    console.log('name is: '+ event.target.name)
-    console.log('value is: '+ event.target.value)
   }
 
   changeTempUsername (event) {
@@ -308,6 +372,54 @@ export default class App extends React.Component {
     let feedbackTab = null;
 
     let PTerms = null;
+
+    let EmailDiag = (
+     <div>
+       <div className='EmailDialog'>
+         <Dialog modal={false} open={this.state.recipientsOpen} onRequestClose={this.prepareEmail}>
+           <h1> Please enter recipient emails</h1>
+           <div className='inputField'>
+             <TextField
+               floatingLabelText='Emails (hit "Enter" to add an email)'
+               name='recipientsTemp'
+               multiLine={true}
+               value={this.state.recipientsTemp}
+               style={{width: '100%'}}
+               onChange={this.changeText}
+               onKeyPress={(ev) => {
+                 if (ev.key === 'Enter') {
+                   ev.preventDefault();
+                   this.itemAdd();
+                 }}}
+             />
+           </div>
+           <List>
+             {this.state.recipients.map((item, index) =>
+               <div key={index} className='recipientEmail' style={{display: 'flex', flexDirection: 'row', cursor: 'pointer'}}>
+                 <TextField
+                   name='recipients'
+                   value={item}
+                   onChange={(event,newValue) => this.itemChange(newValue, index)}
+                   style={{width: '60%'}}
+                   />
+                 <p onClick={(e) => this.itemDelete(index)}>x</p>
+               </div>
+             )}
+           </List>
+           <div>
+             <RaisedButton label='Send Email' onClick={this.toEmail} primary={true}/>
+           </div>
+         </Dialog>
+       </div>
+       <Snackbar
+         open={this.state.snackOpen}
+         message={'Email Sent!'}
+         autoHideDuration={4000}
+         onRequestClose={()=> this.setState({snackOpen: false})}
+         contentStyle={{display: 'flex', justifyContent: 'center'}}
+         />
+       </div>
+     );
 
     let promptFeedback = (
       <Dialog modal={false} open={this.state.promptFb} onRequestClose={this.handlePromptFb} autoScrollBodyContent={true}>
@@ -440,6 +552,7 @@ export default class App extends React.Component {
                 username={this.state.username}
                 handleDirectToRepo={this.handleTabChange}
                 handlePromptFb={this.handlePromptFb}
+                prepareEmail={this.prepareEmail}
                 />
              </Tab>
              <Tab label="My Meetings" value='b'>
@@ -447,6 +560,7 @@ export default class App extends React.Component {
                 username={this.state.username}
                 code={this.state.code}
                 handleRefresh={this.hasRefresh}
+                prepareEmail={this.prepareEmail}
                 />
                {promptFeedback}
              </Tab>
@@ -456,7 +570,7 @@ export default class App extends React.Component {
              {feedbackTab}
            </Tabs>
            {PTerms}
-
+           {EmailDiag}
         </div>
       )
 

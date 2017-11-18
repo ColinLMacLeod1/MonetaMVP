@@ -418,7 +418,7 @@ export default class Meeting extends React.Component {
               changePane={this.changePane}
               save={this.save}
               toPDF={this.toPDF}
-              toEmail={this.toEmail}
+              toEmail={() => this.props.prepareEmail(data)}
               handleRequestClose={this.handleRequestClose}
               newMeeting={this.newMeeting}
             />

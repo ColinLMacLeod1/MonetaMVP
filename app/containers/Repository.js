@@ -107,7 +107,6 @@ export default class Repository extends React.Component {
   toEmail() {
     const self = this
     var data = self.state.meetingRes
-    console.log(self.state.meetingRes)
     axios.post('/emailMonettaMinutes',{
       title: data.title,
   		type: data.type,
@@ -119,7 +118,6 @@ export default class Repository extends React.Component {
   		minutes: data.minutes,
       recipients: self.state.recipients
     }).then(function(result){
-      console.log(result)
       self.setState({recipientsTemp: '', recipients: [], snackOpen: true})
       self.handleRecipientsAct()
     }).catch(function(err){
@@ -275,7 +273,6 @@ export default class Repository extends React.Component {
 
   changeText (e) {
     this.setState({recipientsTemp: e.target.value});
-    console.log(this.state.recipientsTemp)
   }
 
   render(){
@@ -327,7 +324,7 @@ export default class Repository extends React.Component {
         <div className="displayContainer">
           <FileDisplayComponent
           data={this.state.meetingRes}
-          toEmail={this.handleRecipientsAct}
+          toEmail={() => this.props.prepareEmail(this.state.meetingRes)}
           toPDF={this.toPDF}
           deleteMeeting={this.deleteMeeting}
           />
