@@ -61,6 +61,29 @@ export default class Repository extends React.Component {
   }
 
 
+  toEmail() {
+    const self = this
+    var data = self.state.meetingRes
+    axios.post('/emailMonettaMinutes',{
+      title: data.title,
+  		type: data.type,
+  		location: data.location,
+  		date: data.date,
+  		members: data.members,
+  		decisions: data.decisions,
+  		actions: data.actions,
+  		minutes: data.minutes,
+      recipients: self.state.recipients
+    }).then(function(result){
+      self.setState({recipientsTemp: '', recipients: [], snackOpen: true})
+      self.handleRecipientsAct()
+    }).catch(function(err){
+      console.log(err)
+    })
+  }
+
+
+
   toPDF(){
     var content = document.getElementById("printable");
     var pri = document.getElementById("ifmcontentstoprint").contentWindow;
@@ -182,6 +205,32 @@ export default class Repository extends React.Component {
   			.catch(function(error) {
   				console.log(error)
   			})
+  }
+
+  handleRecipientsAct () {
+    this.setState({recipientsOpen: !this.state.recipientsOpen})
+  }
+
+  itemAdd(){
+    var newArray = this.state.recipients
+    newArray.unshift(this.state.recipientsTemp)
+    this.setState({recipients: newArray, recipientsTemp: ''})
+  }
+
+  itemChange(item, index){
+    var newArray = this.state.recipients
+    newArray[index] = item
+    this.setState({recipients: newArray})
+  }
+
+  itemDelete(index){
+    var newArray = this.state.recipients
+    newArray.splice(index,1)
+		this.setState({recipients: newArray});
+	}
+
+  changeText (e) {
+    this.setState({recipientsTemp: e.target.value});
   }
 
   render(){
