@@ -66,7 +66,6 @@ export default class Header extends React.Component {
     axios.post('http://localhost:3000/loadqs',{
       username: loggedUser
     }).then(function(result){
-      console.log(result.data)
       if (result.data.promptqs.length >= PromptQuestions.length) {
         self.setState({answersLeft: false, logoClick: 'Home'})
       } else if (result.data === 'no user found') {

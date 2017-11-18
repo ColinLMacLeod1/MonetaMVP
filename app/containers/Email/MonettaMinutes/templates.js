@@ -76,4 +76,4 @@ function createMinutesEmail (data) {
   return readyEmail
 }
 
-module.exports = createMinutesEmail
+module.exports = createMinutesEmail;
