@@ -366,54 +366,6 @@ export default class App extends React.Component {
 
     let PTerms = null;
 
-    let EmailDiag = (
-     <div>
-       <div className='EmailDialog'>
-         <Dialog modal={false} open={this.state.recipientsOpen} onRequestClose={this.prepareEmail}>
-           <h1> Please enter recipient emails</h1>
-           <div className='inputField'>
-             <TextField
-               floatingLabelText='Emails (hit "Enter" to add an email)'
-               name='recipientsTemp'
-               multiLine={true}
-               value={this.state.recipientsTemp}
-               style={{width: '100%'}}
-               onChange={this.changeText}
-               onKeyPress={(ev) => {
-                 if (ev.key === 'Enter') {
-                   ev.preventDefault();
-                   this.itemAdd();
-                 }}}
-             />
-           </div>
-           <List>
-             {this.state.recipients.map((item, index) =>
-               <div key={index} className='recipientEmail' style={{display: 'flex', flexDirection: 'row', cursor: 'pointer'}}>
-                 <TextField
-                   name='recipients'
-                   value={item}
-                   onChange={(event,newValue) => this.itemChange(newValue, index)}
-                   style={{width: '60%'}}
-                   />
-                 <p onClick={(e) => this.itemDelete(index)}>x</p>
-               </div>
-             )}
-           </List>
-           <div>
-             <RaisedButton label='Send Email' onClick={this.toEmail} primary={true}/>
-           </div>
-         </Dialog>
-       </div>
-       <Snackbar
-         open={this.state.snackOpen}
-         message={'Email Sent!'}
-         autoHideDuration={4000}
-         onRequestClose={()=> this.setState({snackOpen: false})}
-         contentStyle={{display: 'flex', justifyContent: 'center'}}
-         />
-       </div>
-     );
-
     let promptFeedback = (
       <Dialog modal={false} open={this.state.promptFb} onRequestClose={this.handlePromptFb} autoScrollBodyContent={true}>
           <PromptQComponent
