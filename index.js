@@ -15,6 +15,7 @@ const watson = require('watson-developer-cloud')
 const config = require('config')
 const yes = require('yes-https')
 const { SlackOAuthClient } = require('messaging-api-slack')
+const createMinutesEmail = require('./app/containers/Email/MonettaMinutes/templates.js')
 
 const createMinutesEmail = require('./app/containers/Email/MonettaMinutes/templates.js')
 
