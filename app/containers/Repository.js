@@ -2,18 +2,10 @@ import React from 'react'
 import _, { clone,merge } from 'lodash'
 import axios from 'axios'
 import {List, ListItem} from 'material-ui/List'
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
-import Snackbar from 'material-ui/Snackbar'
-import {Tabs, Tab} from 'material-ui/Tabs'
-import TextField from 'material-ui/TextField'
-import RaisedButton from 'material-ui/RaisedButton'
-import CircularProgress from 'material-ui/CircularProgress'
-import DatePicker from 'material-ui/DatePicker'
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
-import FlatButton from 'material-ui/FlatButton'
 
 import FileDisplayComponent from '../components/FileDisplayComponent.js'
 import PrintingComponent from '../components/PrintingComponent.js'
+import RepositoryComponent from '../components/RepositoryComponent.js'
 
 export default class Repository extends React.Component {
   constructor(props) {
@@ -28,34 +20,9 @@ export default class Repository extends React.Component {
       minDate: null,
       maxDate: null,
       start: false,
-			stop: false,
-			text: [],
-			tasks:[],
-			tInput: "",
-			value:'lkjhkljh',
-			title: "Finalize Sgt.Peppers Lyrics",
-			type: "Songwriting Meeting",
-			date: new Date(),
-			location:"Abbey Road",
-			groups: ["tech", "Sales"],
-			chair: "Litt",
-			members: [
-				  "Paul",
-			    "John",
-			    "George",
-			    "Ringo"
-				],
-			minutes: [
-				"Minute test",
-				"Also a test"
-			],
-			actions: [{phrase: "Action Test", assigned:["Litt"], date:"ASAP"}],
-			decisions: ["Decision Test"],
-      email:false,
-      codeRepo: 1
+			stop: false
 		}
-    this.createEmail = this.createEmail.bind(this)
-    this.toEmail = this.toEmail.bind(this)
+
     this.toPDF = this.toPDF.bind(this)
     this.loadAll = this.loadAll.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -67,6 +34,8 @@ export default class Repository extends React.Component {
     this.deleteMeeting = this.deleteMeeting.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.updateRefresh = this.updateRefresh.bind(this)
+
+
   }
 
   updateRefresh() {
@@ -92,49 +61,29 @@ export default class Repository extends React.Component {
   }
 
 
-
-
-  createEmail() {
-    // Making all of the values variables
-    var mailURI = "mailto:";
-    var title = "%0A" +  this.state.meetingRes.title;
-    var type = "%0A" +this.state.meetingRes.type;
-    var date = "%0A" +(new Date(this.state.meetingRes.date)).toDateString();
-    var location = "%0A" +this.state.meetingRes.location + "%0A";
-    var groups = "%0AGroups:%0A"
-    var chair= "%0AChair: " +this.state.meetingRes.chair;
-    var members= "%0AMembers:%0A";
-    var minutes= "%0AMinutes:%0A";
-    var actions= "%0AActions:%0A";
-    var decisions= "%0ADecisions:%0A";
-    var message = "%0A%0A%0AThis message was sent to you by Monetta, meeting minutes for the 21st century";
-    var body = "";
-    // Making arrays into legit strings
-    for(var i=0;i<this.state.meetingRes.groups.length;i++) {
-      groups = groups + this.state.meetingRes.groups[i] + "%0A";
-    }
-    for(var i=0;i<this.state.meetingRes.members.length;i++) {
-      members = members + this.state.meetingRes.members[i] + "%0A";
-    }
-    for(var i=0;i<this.state.meetingRes.minutes.length;i++) {
-      minutes = minutes + this.state.meetingRes.minutes[i] + "%0A";
-    }
-    for(var i=0;i<this.state.meetingRes.actions.length;i++) {
-      actions = actions + this.state.meetingRes.actions[i].phrase + " Assigned to: " + this.state.meetingRes.actions[i].assigned.toString() + " Due " + this.state.meetingRes.actions[i].date + "%0A";
-    }
-    for(var i=0;i<this.state.meetingRes.decisions.length;i++) {
-      decisions = decisions + this.state.meetingRes.decisions[i] + "%0A";
-    }
-    body = '<h1> "Hello" </h1>';
-    return  mailURI  + "?body=" + body ;``
-  }
-  toEmail(){
-    this.setState({
-      email:true
+  toEmail() {
+    const self = this
+    var data = self.state.meetingRes
+    axios.post('/emailMonettaMinutes',{
+      title: data.title,
+  		type: data.type,
+  		location: data.location,
+  		date: data.date,
+  		members: data.members,
+  		decisions: data.decisions,
+  		actions: data.actions,
+  		minutes: data.minutes,
+      recipients: self.state.recipients
+    }).then(function(result){
+      self.setState({recipientsTemp: '', recipients: [], snackOpen: true})
+      self.handleRecipientsAct()
+    }).catch(function(err){
+      console.log(err)
     })
-    var test = this.createEmail();
-    location.href = test;
   }
+
+
+
   toPDF(){
     var content = document.getElementById("printable");
     var pri = document.getElementById("ifmcontentstoprint").contentWindow;
@@ -257,18 +206,34 @@ export default class Repository extends React.Component {
   				console.log(error)
   			})
   }
-  render(){
-    var data={
-      title: this.state.title,
-      type: this.state.type,
-      date: this.state.date,
-      location: this.state.location,
-      members: this.state.members,
-      minutes: this.state.minutes,
-      actions: this.state.actions,
-      decisions: this.state.decisions
-    }
 
+  handleRecipientsAct () {
+    this.setState({recipientsOpen: !this.state.recipientsOpen})
+  }
+
+  itemAdd(){
+    var newArray = this.state.recipients
+    newArray.unshift(this.state.recipientsTemp)
+    this.setState({recipients: newArray, recipientsTemp: ''})
+  }
+
+  itemChange(item, index){
+    var newArray = this.state.recipients
+    newArray[index] = item
+    this.setState({recipients: newArray})
+  }
+
+  itemDelete(index){
+    var newArray = this.state.recipients
+    newArray.splice(index,1)
+		this.setState({recipients: newArray});
+	}
+
+  changeText (e) {
+    this.setState({recipientsTemp: e.target.value});
+  }
+
+  render(){
     let sidebar = null;
     let container = null;
     let searchTitle = null;
@@ -302,7 +267,7 @@ export default class Repository extends React.Component {
         <div className="displayContainer">
           <FileDisplayComponent
           data={this.state.meetingRes}
-          toEmail={this.toEmail}
+          toEmail={() => this.props.prepareEmail(this.state.meetingRes)}
           toPDF={this.toPDF}
           deleteMeeting={this.deleteMeeting}
           />
@@ -320,77 +285,21 @@ export default class Repository extends React.Component {
     this.updateRefresh();
 
     return(
-      <div className="Repository">
-
-        <div className="SearchBar">
-          <div className="TitleMemberRadio">
-            <RadioButtonGroup name="searchType" defaultSelected="title" onChange={this.onTabChange}>
-              <RadioButton
-                value="title"
-                label="Title"
-              />
-              <RadioButton
-                value="member"
-                label="Member"
-              />
-            </RadioButtonGroup>
-          </div>
-
-          <div className="SearchParam">
-            <TextField
-              style={{margin: '0px 30px'}}
-              floatingLabelText={searchTitle}
-              name="titleSearch"
-              underlineShow={true}
-              fullWidth={true}
-              value = {this.state.search}
-              onChange = {this.handleChange}
-              onKeyPress={(e) => {
-                if(e.key==='Enter'){
-                  this.handleSearch(this.state.searchType);
-              }}}/>
-              <div className="SearchDate">
-                <DatePicker
-                  textFieldStyle={{width: '85px', margin: '0px 30px'}}
-                  hintText="After"
-                  value={this.state.minDate}
-                  onChange={this.minDateChange}
-                />
-
-                <p>to</p>
-
-                <DatePicker
-                  textFieldStyle={{width: '85px', margin: '0px 30px'}}
-                  hintText="Before"
-                  value={this.state.maxDate}
-                  onChange={this.maxDateChange}
-                />
-              </div>
-            </div>
-
-            <div className="ActionButtons">
-              <RaisedButton
-                label="Search"
-                primary={true}
-                onClick={this.handleSearch}
-              />
-
-              <RaisedButton
-                label="Refresh"
-                secondary={true}
-                onClick={this.loadAll}
-              />
-
-            </div>
-        </div>
-
-
-        <div className="ContentDisplay">
-          {sidebar}
-          {container}
-        </div>
-
-
+      <div>
+        <RepositoryComponent
+          onTabChange = {this.onTabChange}
+          search = {this.state.search}
+          searchTitle = {searchTitle}
+          handleChange = {this.handleChange}
+          handleSearch = {() => this.handleSearch(this.state.searchType)}
+          minDate = {this.state.minDate}
+          minDateChange = {this.minDateChange}
+          maxDate = {this.state.maxDate}
+          maxDateChange = {this.maxDateChange}
+          loadAll = {this.loadAll}
+          sidebar = {sidebar}
+          container = {container}
+          />
       </div>
     )
   }

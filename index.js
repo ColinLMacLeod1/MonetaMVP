@@ -15,6 +15,11 @@ const watson = require('watson-developer-cloud')
 const config = require('config')
 const yes = require('yes-https')
 const { SlackOAuthClient } = require('messaging-api-slack')
+const createMinutesEmail = require('./app/containers/Email/MonettaMinutes/templates.js')
+
+// Setting up snedgrid connection to send out email
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey('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')
 
 //Middleware
 app.use(cors())
@@ -28,20 +33,23 @@ if(process.env.NODE_ENV=='production') app.use(yes());;
 const indexPath = path.join(__dirname, './dist/index.html');
 const publicPath = express.static(path.join(__dirname, './dist'));
 
-const sslPath = path.join(__dirname, './dist/well-known/acme-challenge/3SNd5FhnrRecPBCZY8gQwxCJNA72wgRLDClWPNMFIQo');
+const sslPath = path.join(__dirname, './dist/well-known/acme-challenge/RFPs8WP09KT0cJbTNCJgs2V42_7lKd_2UfJLdK3RBc8');
+const sslPath1 = path.join(__dirname, './dist/well-known/acme-challenge/Z0pKihI7Gm3awBh08SD7ayfBToWPnLEjukRzWbHuW-E');
 
-app.use('/', publicPath);
+app.use('/dist', publicPath);
 
 app.get('/', function(_,res){ res.sendFile(indexPath) });
 
-app.get('/.well-known/acme-challenge/3SNd5FhnrRecPBCZY8gQwxCJNA72wgRLDClWPNMFIQo', function(_,res){ res.sendFile(sslPath) });
-
+app.get('/.well-known/acme-challenge/RFPs8WP09KT0cJbTNCJgs2V42_7lKd_2UfJLdK3RBc8', function(_,res){ res.sendFile(sslPath) });
+app.get('/.well-known/acme-challenge/Z0pKihI7Gm3awBh08SD7ayfBToWPnLEjukRzWbHuW-E', function(_,res){ res.sendFile(sslPath1) });
 //OAuth
 const slack = SlackOAuthClient.connect(
 	'xoxb-248587322181-WkedBxz2LYOblHzscrV8tNj0'
 );
 
-//if(process.env.NODE_ENV=='production') slack.postMessage('Feedback', 'Deployed');
+
+if(process.env.NODE_ENV=='production') slack.postMessage('Feedback', 'Deployed');
+
 
 
 //Constants
@@ -57,27 +65,27 @@ console.log('Config:'+dbConfig.uri)
 
 // MongoDB Connection
 mongoose.Promise = global.Promise;
+/*
 mongoose.connect(dbConfig.uri,{
 	useMongoClient: true
 }).catch(function(err){
 	console.log(err)
 });
-
-/*
+*/
 //Thiago testing
+
 mongoose.connect('mongodb://localhost/mercurysquare', {
   UseMongoClient: true
 }).catch(function(err){
   console.log(err)
 });
-*/
+
 
 mongoose.connection.once('open',function(){
 	console.log('Connection made');
 }).on('error',function(error){
 	console.log('Connection error',error);
 });
-
 
 
 //Clearing DB on start up
@@ -311,6 +319,70 @@ app.post('/updateqs', function(req, response) {
 		console.log('The raw response from Mongo was ', raw);
 	})
 })
+
+// Creates and sends a templated email
+// This is hack af we need a better way
+app.post('/emailMonettaMinutes', function(req,response){
+	var data = {
+		title: req.body.title,
+		type: req.body.type,
+		location: req.body.location,
+		date: new Date(req.body.date).toDateString(),
+		members: req.body.members,
+		decisions: req.body.decisions,
+		actions: req.body.actions,
+		minutes: req.body.minutes,
+		recipients: req.body.recipients
+	}
+
+	var readyEmail = createMinutesEmail(data)
+
+	const msg = {
+	  to: data.recipients,
+	  from: 'minutes@monettatech.com',
+	  subject: 'Moneta Minutes from ' + data.date,
+	  html: readyEmail
+	};
+
+	sgMail.send(msg)
+
+	response.send(JSON.stringify(readyEmail))
+})
+
+app.post('/emailNewAlphaUser', function(req, response) {
+	console.log(req.body)
+
+	var data = {
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		email: req.body.email,
+		position: req.body.position,
+		company: req.body.company,
+		reference: req.body.reference
+	}
+
+	console.log(data)
+
+	var name= 'NAME: ' + data.firstName + ' ' + data.lastName
+ 	var email = 'EMAIL: ' + data.email
+	var job = 'JOB POSITION: ' + data.position
+	var company = 'COMPANY: ' + data.company
+	var reference = 'REFERENCE: ' + data.reference
+
+	var readyMail =  '</p>' + name + ' ' + email + ' ' + job + ' ' + company + ' ' + reference + ' ' +'</p>'
+
+	const msg = {
+		to: 'team@monettatech.com',
+		from: 'newalphatesters@monettatech.com',
+		subject: 'NEW ALPHA TESTER REQUEST: ' + data.firstName + data.lastName,
+		html: readyMail
+	}
+
+	sgMail.send(msg)
+
+	response.send(JSON.stringify(readyMail))
+})
+
 
 
 //Get Feedback

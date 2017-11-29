@@ -12,12 +12,9 @@ const HeaderComponent = ({handleLogSigActivate}) => (
     <div className='Header'>
       <div className='HeaderBlock'>
 
-        <div className='HeaderHome'>
-          <FlatButton primary={true} label='Home' />
-        </div>
-        <a className='HeaderLogo'><img src={nameLogo} style={{width:'20%'}} /></a>
+        <img src={nameLogo}/>
         <div className='HeaderButtons'>
-          <RaisedButton labelColor='rgb(92, 167, 255)' label='Login' value='login' onClick={() => handleLogSigActivate('login')}/>
+          <FlatButton primary={true} label='Login' value='login' onClick={() => handleLogSigActivate('login')}/>
           <RaisedButton secondary={true} style={{marginLeft:"1vw"}} labelColor='rgb(92, 167, 255)' label='Sign Up' onClick={() => handleLogSigActivate('signup')}/>
         </div>
       </div>

@@ -1,144 +1,136 @@
 import React from 'react'
-import Paper from 'material-ui/Paper'
-import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
-import Dialog from 'material-ui/Dialog'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+import MicrophoneImage from '../assets/images/microphone.png'
+import BottomDivider from '../assets/images/dividerbottom.svg'
+import TopDivider from '../assets/images/dividertop.svg'
+import Paper from 'material-ui/Paper'
 
-import DictationFeature from '../assets/images/DictationFeature.png'
-import RepositoryFeature from '../assets/images/SecureRepoFeature.png'
-import DataFeature from '../assets/images/DataFeature.png'
-import Illustration from '../assets/images/WhyAreYouLookingHere.jpg'
+import RepoFeature from '../assets/images/RepoFeature.png'
+import ReportFeature from '../assets/images/ReportFeature.png'
+import IntegrationsFeature from '../assets/images/IntegrationsFeature.png'
+
+import block2contentimage1 from '../assets/images/AIunderstanding.png'
+import block2contentimage2 from '../assets/images/AIexample.png'
+
+import AlphaUsers1 from '../assets/images/alphausers1.png'
+import AlphaUsers2 from '../assets/images/alphausers2.png'
+import AlphaUsers3 from '../assets/images/alphausers3.png'
+import AlphaUsers4 from '../assets/images/alphausers4.png' 
 
 
 
 
 
-const HomeComponent = ({handleAlphaActivation, alphaActivation}) => (
-  <div>
+const HomeComponent = ({handleAlphaActivation, alphaActivation, changeTempUsername, tempUsername, formUsername, handleLogSigActivate}) => (
+  <div className="LandingPage">
 
-    <div className='HomeTop'>
+    <div className='block1wrapper'>
+      <div className='block1'>
+        <div className='block1content'>
 
-      <div className='HomeTopWrapper'>
+          <div className='block1top'>
+            <h1> Take your team meetings a step further with the power of voice recognition technology. </h1>
+            <p> Monetta helps your team keep track of everything happening in your daily meetings in the easiest way possible, by letting you use your voice to take notes. </p>
+            <div className='block1input'>
+              <input type='text' value={tempUsername} onChange={changeTempUsername} placeholder='Enter your email here' className='block1inputtxt'/>
+              <input type='submit' value='Get started for free' onClick={() => handleLogSigActivate('alphaEmail')} className='block1inputsubmit' />
+            </div>
+          </div>
 
-        <div className='Top'>
-          <h1 className='Heading'> Make your meetings as memorable as they should be </h1>
-          <h3 className='Snippet'> A new way to capture everything that matters </h3>
-          <h5> Ready for something different? Try Monetta for free:</h5>
-          <RaisedButton
-            className='SignupButton'
-            secondary={true}
-            label='Join our Alpha'
-            labelPosition='after'
-            labelColor='rgb(255,172,77)'
-            onClick={handleAlphaActivation}
-            />
-          <img className='Illustration' src={Illustration} />
+          <div className='block1microphone' >
+            <img src={MicrophoneImage}  height='100%' />
+          </div>
+
+
         </div>
-
-      </div>
-
-
-      <div className='LoginSignup'>
-
-        <Dialog contentStyle={{width: '100%', maxWidth: 'none'}} modal={false} open={alphaActivation} onRequestClose={handleAlphaActivation} >
-            <iframe
-              src="https://docs.google.com/forms/d/e/1FAIpQLSdSYFNqF6doLkLGBI9rZmaGXo8Jgc08OhA1Np0P_wycMZkQRw/viewform?embedded=true"
-              style={{height: '80vh', width: '100%'}}
-              >
-              Loading...
-            </iframe>
-        </Dialog>
       </div>
 
     </div>
+    <img src={BottomDivider} style={{width: '100%', display: 'flex'}}/>
 
-
-    <div className='HomeMid'>
-
-      <div className='Wrapper'>
-        <div className='WrapperText'>
-          <div >
-          <h2> 1. Tell Monetta what you want written down. </h2>
-          <p>
-          Our software will understand what you tell it to write down.
-          Saying your notes out loud will ensure everyone in the team knows exactly what they are responsible for.
-          <br></br><br></br>
-          Monetta will understand what is dictated during the meeting and update your other workflow software accordingly to
-          let you get down to business after the meeting.
-          </p>
+    <div className='block2wrapper'>
+      <div className='block2'>
+        <div className='block2content'>
+          <h1>Use Monetta as your team{"\'"}s own assistant. Tell Monetta what information you want recorded and it will do the rest!</h1>
+          <p> Monetta{"\'"}s brain is made up of complex AI algorithms that work together to break down what was said to organize the extracted content </p>
+          <div className='block2contentimage1'>
+            <img src={block2contentimage1} />
           </div>
-          <div>
-          <img className='Dict' src={DictationFeature}/>
+          <div className='block2contentimage2'>
+            <img src={block2contentimage2} />
+            <div className='block2contentimage2txt'>
+              <h1> Monetta automatically creates your meeting minutes so you don{"\'"}t have to! </h1>
+              <p> Using the extracted content of your speech, Monetta can create meeting minutes and automatically send them out by email or store in our Monetta{"\'"} secure document storage. </p>
+            </div>
           </div>
         </div>
-        <div className='WrapperSum'>
-          <div className='WrapperSumBlock'>
-            <h2> That means automatic Trello task updates, Slack notifications, Calendar appointments, and much more - all based on the content of your meeting</h2>
-          </div>
-        </div>
-      </div>
-
-      <div className='Wrapper' style={{backgroundColor: 'rgb(255,255,255)'}}>
-        <div className='WrapperText' style={{color: 'rgb(70,153,255)'}}>
-          <div>
-            <img className='Repo' src={RepositoryFeature} />
-          </div>
-          <div>
-          <h2> 2. Monetta will store your documentation in a secure and searchable repository.</h2>
-          <p>Ever wish you could easily remember the exact outcome of each meeting to make sure you are doing exactly what you are supposed to?
-          <br></br><br></br>
-          Ever wanted to search through the actual content of the documentation rather than just the file name?
-          <br></br><br></br>
-          At Monetta we use state-of-the-art cloud infrastructure to design and optimize a repository that you can access through your smartphone or your computer. We make sure you have quick access to any file you need to find.
-          </p>
-          </div>
-        </div>
-        <div className='WrapperSum' >
-          <div className='WrapperSumBlock' style={{color: 'rgb(70,153,255)'}}>
-            <h2> All your meeting documentation will be in a safe, cloud repository, giving you access to incredible search and storage capabilities so you never have to miss a beat again</h2>
-          </div>
-        </div>
-      </div>
-
-
-      <div className='Wrapper'>
-        <div className='WrapperText'>
-          <div>
-          <h2> 3. Monetta puts productivity data at your fingertips.</h2>
-          <p>Monetta analyzes the meeting patterns to give you and your team deep data insights. If you ever wondered what your meetings would look like to a data scientist, this is it.
-          <br></br><br></br>
-          We let you know the data points that will help you better manage your meetings and make the changes necessary to achieve your team goals:
-          <br></br><br></br>
-          Maybe you want to keep your average meeting time below 30 minutes.
-          <br></br><br></br>
-          Maybe your team wants to make sure everyone is receiving deliverables fairly and no one is being overworked.
-          <br></br><br></br>
-          Or maybe you just want to see some pretty graphs - we dont judge.
-          </p>
-          </div>
-          <div>
-          <img className='Data' src={DataFeature} />
-          </div>
-        </div>
-        <div className='WrapperSum'>
-          <div className='WrapperSumBlock' style={{marginTop: '1em'}}>
-            <h2> Monetta lets you see exactly how your team is performing inside your meetings and gives you the data needed to increase your productivity and get out of your meetings earlier</h2>
-          </div>
-        </div>
-
       </div>
     </div>
+    <img src={TopDivider} style={{width: '100%', display: 'flex'}} />
 
-    <div className='HomeBot'>
-      <h1> Our Alpha Users know that this could change it all </h1>
-      <div className='Wrapper1'>
-        <p> Join the many innovative companies that are helping us design our software and get in your say as well. </p>
+    <div className='block3wrapper'>
+      <div className='block3'>
+        <h1> Monetta also distributes the content to wherever it needs to go </h1>
+        <div className='block3content'>
+
+
+          <Paper zDepth={2} rounded={true} style={{borderRadius: '10px'}} className='block3paper'>
+            <div className='block3paperdiv'>
+              <h2> Searchable Team Storage </h2>
+              <img src={RepoFeature} />
+            </div>
+            <p> Monetta stores all your meeting minutes your team storage, giving you and your team powerful search capabilities to find what you are looking for.</p>
+          </Paper>
+
+          <Paper zDepth={2} style={{borderRadius: '10px'}}  className='block3paper'>
+            <div className='block3paperdiv'>
+              <h2> Automatic Reporting </h2>
+              <img src={ReportFeature} />
+            </div>
+            <p>Monetta can automatically send out monthly or weekly reports to other employees to stay up-to-date without having to attend the meetings themselves.</p>
+            </Paper>
+
+          <Paper zDepth={2} style={{borderRadius: '10px'}}  className='block3paper'>
+            <div className='block3paperdiv'>
+              <h2> Software Integrations </h2>
+              <img src={IntegrationsFeature}/>
+            </div>
+            <p>Monetta updates the other software you use with the action items given to you, schedules events you agreed to and organizes other important content.</p>
+          </Paper>
+
+        </div>
       </div>
-
-      <RaisedButton className='BecomeAlpha' label='Become an Alpha User' labelColor='rgb(255,172,77)' onClick={handleAlphaActivation}/>
-
     </div>
+    <img src={BottomDivider} style={{width: '100%', display: 'flex'}}/>
 
+    <div className='block4wrapper'>
+      <div className='block4'>
+        <div className='block4content'>
+          <h1> Our Alpha Users know that this could change it all </h1>
+          <div className='block4images'>
+            <img src={AlphaUsers1} />
+            <img src={AlphaUsers2} />
+            <img src={AlphaUsers3} />
+            <img src={AlphaUsers4} />
+          </div>
+        </div>
+      </div>
+    </div>
+    <img src={TopDivider} style={{width: '100%', display: 'flex'}}/>
+
+    <div className='block5wrapper'>
+      <div className='block5'>
+        <div className='block5content'>
+
+        <h2> Join the effort and help us design a software perfect for you. </h2>
+        <RaisedButton label='Become an Alpha User' primary={true} onClick={() => handleLogSigActivate('alphaEmail')} style={{width: '200px', margin: '10px'}} />
+
+
+        </div>
+      </div>
+    </div>
 
   </div>
 )
