@@ -74,7 +74,7 @@ mongoose.connect(dbConfig.uri,{
 */
 //Thiago testing
 
-mongoose.connect('mongodb://localhost/mercurysquare', {
+mongoose.connect(dbConfig.uri, {
   UseMongoClient: true
 }).catch(function(err){
   console.log(err)
