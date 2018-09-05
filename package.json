@@ -41,7 +41,7 @@
     "style-loader": "^0.18.2",
     "watson-developer-cloud": "^2.37.0",
     "watson-speech": "^0.33.1",
-    "webpack": "^3.0.0",
+    "webpack": "^4.0.0",
     "webpack-dev-server": "^2.5.0",
     "yes-https": "0.0.4"
   },
