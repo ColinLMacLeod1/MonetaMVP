@@ -43,12 +43,15 @@
     "watson-speech": "^0.33.1",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0",
-    "yes-https": "0.0.4"
+    "yes-https": "0.0.4",
+    "snyk": "^1.316.1"
   },
   "scripts": {
     "start": "node index.js",
     "build": "webpack --watch --config ./webpack.deployment.config.js --progress --color",
-    "dev-start": "webpack-dev-server"
+    "dev-start": "webpack-dev-server",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -63,5 +66,6 @@
   "bugs": {
     "url": "https://github.com/ColinLMacLeod1/MonetaMVP/issues"
   },
-  "homepage": "https://github.com/ColinLMacLeod1/MonetaMVP#readme"
+  "homepage": "https://github.com/ColinLMacLeod1/MonetaMVP#readme",
+  "snyk": true
 }
