@@ -4,7 +4,7 @@
   "description": "Moneta MVP",
   "main": "index.js",
   "dependencies": {
-    "@sendgrid/mail": "^6.1.4",
+    "@sendgrid/mail": "^7.0.0",
     "axios": "^0.16.2",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
